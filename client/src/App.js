@@ -33,8 +33,8 @@ class App extends Component {
     spotifyApi.getMyCurrentPlaybackState()
       .then((response) => {
         this.setState({
-          nowPlaying: { 
-              name: response.item.name, 
+          nowPlaying: {
+              name: response.item.name,
               albumArt: response.item.album.images[0].url
             }
         });

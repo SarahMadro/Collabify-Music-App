@@ -143,6 +143,10 @@ app.get('/refresh_token', function(req, res) {
 });
 
 console.log('Listening on 8080');
+<<<<<<< HEAD
 app.listen(8080, function () {
   console.log("Backend Server is running!")
 });
+=======
+app.listen(8080);
+>>>>>>> 760affd364a836b6bda8d214a2bf1441da037a49
