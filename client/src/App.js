@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-
+import Playlist from '../src/NewPlaylist';
+import User from '../src/User';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
@@ -14,17 +15,28 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'Not Checked', albumArt: '' }
+      nowPlaying: {
+        name: 'Not Checked',
+        albumArt: '' },
+      playList: {
+        name: 'newPlaylist',
+        tracks: []
+      },
+      // user: {
+      //   userID: 'cookie.id'
+      // }
     }
   }
+
+  //taken from spotify API demo
   getHashParams() {
     var hashParams = {};
     var e, r = /([^&;=]+)=?([^&;]*)/g,
         q = window.location.hash.substring(1);
     e = r.exec(q)
     while (e) {
-       hashParams[e[1]] = decodeURIComponent(e[2]);
-       e = r.exec(q);
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+      e = r.exec(q);
     }
     return hashParams;
   }
@@ -40,10 +52,17 @@ class App extends Component {
         });
       })
   }
+
+    // Update playlist name
+  updatePlaylistName(name)
+  {
+    this.setState({playList: {...this.state.playList, name: name}});
+  }
+
   render() {
     return (
       <div className="App">
-        <a href='http://localhost:8080' > Login to Spotify </a>
+        <a href='/' > Login to Spotify </a>
         <div>
           Now Playing: { this.state.nowPlaying.name }
         </div>
@@ -55,6 +74,10 @@ class App extends Component {
             Check Now Playing
           </button>
         }
+          <Playlist
+          token={this.token}
+          onNameChange={this.updatePlaylistName}
+          onSave={this.savePlaylist}/>
       </div>
     );
   }
