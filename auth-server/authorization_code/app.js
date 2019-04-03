@@ -11,9 +11,10 @@ var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+require ('dotenv').config();
 
-var client_id = 'ab3efed3813144cba3ffa461eddaee9f'; // Your client id
-var client_secret = 'a2511b841b14472da5aa82ccce02c84a'; // Your secret
+var client_id = 'CLIENT_ID'; // Your client id
+var client_secret = 'CLIENT_SECRET'; // Your secret
 var redirect_uri = 'http://localhost:8888/callback'; // Or Your redirect uri
 
 /**
