@@ -15,7 +15,7 @@ require ('dotenv').config();
 
 var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
-var redirect_uri = 'http://localhost:8888/callback'; // Or Your redirect uri
+var redirect_uri = 'http://localhost:8080/callback'; // Or Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -142,5 +142,5 @@ app.get('/refresh_token', function(req, res) {
   });
 });
 
-console.log('Listening on 8888');
-app.listen(8888);
+console.log('Listening on 8080');
+app.listen(8080);
