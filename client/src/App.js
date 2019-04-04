@@ -5,7 +5,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
-  constructor(){
+  constructor() {
     super();
     const params = this.getHashParams();
     const token = params.access_token;
@@ -13,48 +13,73 @@ class App extends Component {
       spotifyApi.setAccessToken(token);
     }
     this.state = {
+      userId: '',
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'Not Checked', albumArt: '' }
-    }
+      nowPlaying: { name: 'Not Checked', albumArt: '' },
+      playlistName: ''
+    };
+    this.handleNameChange = this.handleNameChange.bind(this);
   }
+
+  componentDidMount() {
+    spotifyApi.getMe().then(response => {
+      const userId = response.id;
+      this.setState({
+        userId: userId
+      });
+    });
+    const userId = this.state.userId;
+  }
+
   getHashParams() {
     var hashParams = {};
-    var e, r = /([^&;=]+)=?([^&;]*)/g,
-        q = window.location.hash.substring(1);
-    e = r.exec(q)
+    var e,
+      r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+    e = r.exec(q);
     while (e) {
-       hashParams[e[1]] = decodeURIComponent(e[2]);
-       e = r.exec(q);
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+      e = r.exec(q);
     }
     return hashParams;
   }
 
-  getNowPlaying(){
-    spotifyApi.getMyCurrentPlaybackState()
-      .then((response) => {
-        this.setState({
-          nowPlaying: {
-              name: response.item.name,
-              albumArt: response.item.album.images[0].url
-            }
-        });
-      })
+  handleNameChange(event) {
+    let name = event.target.value;
+    this.setState({
+      playlistName: name
+    });
   }
+
+  createPlaylist(userId) {
+    const { playlistName } = this.state;
+    const options = {
+      name: playlistName
+    };
+    spotifyApi.createPlaylist(userId, options).then(response => {
+      console.log(response); // Replace with error handling
+    });
+  }
+
   render() {
     return (
-      <div className="App">
-        <a href='http://localhost:8080' > Login to Spotify </a>
+      <div className='App'>
+        <a href='http://localhost:8080'> Login to Spotify </a>
+        <div>Now Playing: {this.state.nowPlaying.name}</div>
         <div>
-          Now Playing: { this.state.nowPlaying.name }
-        </div>
-        <div>
+<<<<<<< HEAD
           <img alt="album art" src={this.state.nowPlaying.albumArt} style={{ height: 150 }}/>
+=======
+          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
+>>>>>>> 794818fe78920b72ca14f1863402ba9e92e4a9d8
         </div>
-        { this.state.loggedIn &&
-          <button onClick={() => this.getNowPlaying()}>
-            Check Now Playing
-          </button>
-        }
+        {this.state.loggedIn && (
+          <form>
+            <label>Playlist Name</label>
+            <input defaultValue={'New Playlist'} onChange={this.handleNameChange} />
+            <button onClick={() => this.createPlaylist(this.state.userId)}>Check Now Playing</button>
+          </form>
+        )}
       </div>
     );
   }
