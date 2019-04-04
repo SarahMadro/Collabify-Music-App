@@ -10,7 +10,7 @@ class Playlist extends Component {
     super(props);
     //state with id name, tracks
     this.state = {
-      playlistName: {
+      playlist: {
         playlistId: '',
         name: 'New Playlist',
         tracks: []

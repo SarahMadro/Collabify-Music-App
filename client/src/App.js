@@ -61,10 +61,7 @@ class App extends Component {
         </div>
           </form>
         )}
-        <Playlist tracks={this.playlistName.tracks}
-                  onRemove={this.removeTrack}
-                  onNameChange={this.updatePlaylistName}
-                  onSave={this.savePlaylist}/>
+
       </div>
     );
   }
