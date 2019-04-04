@@ -57,7 +57,7 @@ class App extends Component {
       name: playlistName
     };
     spotifyApi.createPlaylist(userId, options).then(response => {
-      console.log(response);
+      console.log(response); // Replace with error handling
     });
   }
 
