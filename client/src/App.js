@@ -15,10 +15,11 @@ class App extends Component {
     this.state = {
       userId: '',
       loggedIn: token ? true : false,
-      nowPlaying: { name: 'Not Checked', albumArt: '' },
       playlistName: '',
-      playlistDesc:''
-    };
+      playlistDesc:'',
+      playlistID:''
+      };
+    this.createPlaylist = this.createPlaylist.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handlePLDescChange = this.handlePLDescChange.bind(this);
   }
@@ -30,7 +31,6 @@ class App extends Component {
         userId: userId
       });
     });
-    const userId = this.state.userId;
   }
 
   getHashParams() {
@@ -54,14 +54,15 @@ class App extends Component {
   }
 
   handlePLDescChange(event) {
-    let playlistDesc = event.target.value;
+    let playlistImage = event.target.value;
     this.setState({
-      playlistDesc: playlistDesc
+      playlistImage: playlistImage
     });
   }
 
-  createPlaylist(userId) {
-    const { playlistName, playlistDesc } = this.state;
+  createPlaylist(e) {
+    e.preventDefault();
+    const { userId, playlistName, playlistDesc} = this.state;
     const options = {
       name: playlistName,
       collaborative: true,
@@ -69,25 +70,27 @@ class App extends Component {
       description: playlistDesc
     };
     spotifyApi.createPlaylist(userId, options).then(response => {
-      console.log(response); // Replace with error handling
-    });
+      console.log("PLAYLIST CREATED!");
+      this.setState({
+        playlistID: response.id
+      })
+    }, function(err){
+      console.log("Something went wrong!", err)
+    })
   }
+
 
   render() {
     return (
       <div className='App'>
-        <a href='http://localhost:8080'> Login to Spotify </a>
-        <div>Now Playing: {this.state.nowPlaying.name}</div>
-        <div>
-          <img alt="album art" src={this.state.nowPlaying.albumArt} style={{ height: 150 }}/>
-        </div>
+        <a href='http://localhost:8080'> Login to Spotify</a><br />
         {this.state.loggedIn && (
           <form>
-            <label>Playlist Name</label>
+            <label>Playlist Name: *</label>
             <input defaultValue={'New Playlist'} onChange={this.handleNameChange} /><br />
-            <label>Playlist Description</label>
+            <label>Playlist Description: </label>
             <input placeholder='Enter description here...' onChange={this.handlePLDescChange} /> <br />
-            <button onClick={() => this.createPlaylist(this.state.userId)}>Check Now Playing</button>
+            <button onClick={this.createPlaylist}>Create new Playlist!</button>
           </form>
         )}
       </div>
