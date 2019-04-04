@@ -17,6 +17,7 @@ class App extends Component {
     //   spotifyApi.setAccessToken(token);
     // }
     this.state = {
+<<<<<<< HEAD
       // userId: '',
       // loggedIn: token ? true : false,
       // playlistName: '',
@@ -31,6 +32,15 @@ class App extends Component {
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+=======
+      loggedIn: token ? true : false,
+      userId: '',
+      playlistName: '',
+      playlistDesc:'',
+      playlistID:''
+      };
+
+>>>>>>> 9136b3d9e15600c299315be93c5bceae692e6969
   }
 
   componentDidMount() {
@@ -105,8 +115,15 @@ class App extends Component {
     });
   }
 
+  getPLID = (plID) => {
+    this.setState({
+      playlistID: plID
+    })
+  }
+
   render() {
     return (
+<<<<<<< HEAD
       <div>
         <h1>Collabs</h1>
         <div className='App'>
@@ -122,6 +139,14 @@ class App extends Component {
             />
           </div>
         </div>
+=======
+      <div className='App'>
+      {!this.state.loggedIn && (
+    <a href='http://localhost:8080'> Login to Spotify</a>)}
+      {this.state.loggedIn && (
+        <NewPlaylist plInfo={this.state} getPLID={this.getPLID} getPLNameChange={this.getPLNameChange} getPLDescChange={this.getPLDescChange} />
+        )}
+>>>>>>> 9136b3d9e15600c299315be93c5bceae692e6969
       </div>
     );
   }
