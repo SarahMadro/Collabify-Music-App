@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Playlist from './Playlist';
+import './App.css';
+import NewPlaylist from './newPlaylist';
 import SpotifyWebApi from 'spotify-web-api-js';
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     const params = this.getHashParams();
     const token = params.access_token;
     if (token) {
@@ -14,11 +16,12 @@ class App extends Component {
     this.state = {
       userId: '',
       loggedIn: token ? true : false,
-      nowPlaying: {
-        name: 'Not Checked',
-        albumArt: ''
-      }
-    };
+      userId: '',
+      playlistName: '',
+      playlistDesc:'',
+      playlistID:''
+      };
+
   }
 
   componentDidMount() {
@@ -26,10 +29,8 @@ class App extends Component {
       const userId = response.id;
       this.setState({
         userId: userId
-
       });
     });
-    const userId = this.state.userId;
   }
 
   getHashParams() {
@@ -45,23 +46,32 @@ class App extends Component {
     return hashParams;
   }
 
+  getPLNameChange = (nameData) => {
+    this.setState({
+      playlistName: nameData
+    })
+  }
+
+  getPLDescChange = (descData) => {
+    this.setState({
+      playlistDesc: descData
+    })
+  }
+
+  getPLID = (plID) => {
+    this.setState({
+      playlistID: plID
+    })
+  }
 
   render() {
     return (
       <div className='App'>
-        <a href='http://localhost:8080'> Login to Spotify </a>
-        {this.state.loggedIn && (
-        <form>
-          <label>Playlist Name</label>
-          <input defaultValue={'New Playlist'} onChange={this.handleNameChange} />
-          <button onClick={() => this.createPlaylist(this.state.userId)}>Check Now Playing</button>
-        <div>Now Playing: {this.state.nowPlaying.name}</div>
-        <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
-        </div>
-          </form>
+      {!this.state.loggedIn && (
+    <a href='http://localhost:8080'> Login to Spotify</a>)}
+      {this.state.loggedIn && (
+        <NewPlaylist plInfo={this.state} getPLID={this.getPLID} getPLNameChange={this.getPLNameChange} getPLDescChange={this.getPLDescChange} />
         )}
-
       </div>
     );
   }
