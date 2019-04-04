@@ -16,9 +16,11 @@ class App extends Component {
       userId: '',
       loggedIn: token ? true : false,
       nowPlaying: { name: 'Not Checked', albumArt: '' },
-      playlistName: ''
+      playlistName: '',
+      playlistDesc:''
     };
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handlePLDescChange = this.handlePLDescChange.bind(this);
   }
 
   componentDidMount() {
@@ -51,10 +53,20 @@ class App extends Component {
     });
   }
 
+  handlePLDescChange(event) {
+    let playlistDesc = event.target.value;
+    this.setState({
+      playlistDesc: playlistDesc
+    });
+  }
+
   createPlaylist(userId) {
-    const { playlistName } = this.state;
+    const { playlistName, playlistDesc } = this.state;
     const options = {
-      name: playlistName
+      name: playlistName,
+      collaborative: true,
+      public: false,
+      description: playlistDesc
     };
     spotifyApi.createPlaylist(userId, options).then(response => {
       console.log(response); // Replace with error handling
@@ -72,7 +84,9 @@ class App extends Component {
         {this.state.loggedIn && (
           <form>
             <label>Playlist Name</label>
-            <input defaultValue={'New Playlist'} onChange={this.handleNameChange} />
+            <input defaultValue={'New Playlist'} onChange={this.handleNameChange} /><br />
+            <label>Playlist Description</label>
+            <input placeholder='Enter description here...' onChange={this.handlePLDescChange} /> <br />
             <button onClick={() => this.createPlaylist(this.state.userId)}>Check Now Playing</button>
           </form>
         )}
