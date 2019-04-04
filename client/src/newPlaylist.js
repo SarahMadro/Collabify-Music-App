@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
+    import React, { Component } from 'react';
+    import SpotifyWebApi from 'spotify-web-api-js';
+    const spotifyApi = new SpotifyWebApi();
 
-class NewPlaylist extends Component {
+    class NewPlaylist extends Component {
     constructor() {
         super();
     this.createPlaylist = this.createPlaylist.bind(this);
@@ -24,31 +24,31 @@ class NewPlaylist extends Component {
         e.preventDefault();
         const { userId, playlistName, playlistDesc} = this.props.plInfo;
         const options = {
-          name: playlistName,
-          collaborative: true,
-          public: false,
-          description: playlistDesc
+            name: playlistName,
+            collaborative: true,
+            public: false,
+            description: playlistDesc
         };
         spotifyApi.createPlaylist(userId, options).then(response => {
-          console.log("PLAYLIST CREATED!");
-          this.setState({
+            console.log("PLAYLIST CREATED!");
+            this.setState({
             playlistID: response.id
-          })
+            })
         }, function(err){
-          console.log("Something went wrong!", err)
+            console.log("Something went wrong!", err)
         })
-      }
+        }
 
-render() {
+    render() {
     return (
     <div><form>
-<label>Playlist Name: *</label>
-<input defaultValue={'New Playlist'} onChange={this.handleNameChange} /><br />
-<label>Playlist Description: </label>
-<input placeholder='Enter description here...' onChange={this.handlePLDescChange} /> <br />
-<button onClick={this.createPlaylist}>Create new Playlist!</button>
-</form></div>
+    <label>Playlist Name: *</label>
+    <input defaultValue={'New Playlist'} onChange={this.handleNameChange} /><br />
+    <label>Playlist Description: </label>
+    <input placeholder='Enter description here...' onChange={this.handlePLDescChange} /> <br />
+    <button onClick={this.createPlaylist}>Create new Playlist!</button>
+    </form></div>
     )}
-}
+    }
 
-export default NewPlaylist;
+    export default NewPlaylist;
