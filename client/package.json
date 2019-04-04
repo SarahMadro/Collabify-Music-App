@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
     "node-sass": "^4.11.0",
     "prop-types": "^15.7.2",
     "react": "^16.1.0",
