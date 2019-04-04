@@ -13,8 +13,8 @@ class App extends Component {
       spotifyApi.setAccessToken(token);
     }
     this.state = {
-      userId: '',
       loggedIn: token ? true : false,
+      userId: '',
       playlistName: '',
       playlistDesc:'',
       playlistID:''
@@ -56,13 +56,19 @@ class App extends Component {
     })
   }
 
+  getPLID = (plID) => {
+    this.setState({
+      playlistID: plID
+    })
+  }
+
   render() {
     return (
       <div className='App'>
       {!this.state.loggedIn && (
     <a href='http://localhost:8080'> Login to Spotify</a>)}
       {this.state.loggedIn && (
-        <NewPlaylist plInfo={this.state} getPLNameChange={this.getPLNameChange} getPLDescChange={this.getPLDescChange} />
+        <NewPlaylist plInfo={this.state} getPLID={this.getPLID} getPLNameChange={this.getPLNameChange} getPLDescChange={this.getPLDescChange} />
         )}
       </div>
     );

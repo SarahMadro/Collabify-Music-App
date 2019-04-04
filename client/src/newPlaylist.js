@@ -15,7 +15,7 @@
         this.props.getPLNameChange(name)
         }
 
-        handlePLDescChange(event) {
+    handlePLDescChange(event) {
         let desc = event.target.value;
         this.props.getPLDescChange(desc)
         }
@@ -31,9 +31,7 @@
         };
         spotifyApi.createPlaylist(userId, options).then(response => {
             console.log("PLAYLIST CREATED!");
-            this.setState({
-            playlistID: response.id
-            })
+            this.props.getPLID(response.id);
         }, function(err){
             console.log("Something went wrong!", err)
         })
