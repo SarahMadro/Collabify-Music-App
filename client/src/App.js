@@ -11,17 +11,9 @@ const spotifyApi = new SpotifyWebApi();
 class App extends Component {
   constructor() {
     super();
-    // const params = this.getHashParams();
-    // const token = params.access_token;
-    // if (token) {
-    //   spotifyApi.setAccessToken(token);
-    // }
+
     this.state = {
-      // userId: '',
-      // loggedIn: token ? true : false,
-      // playlistName: '',
       playlistName: 'New Playlist',
-      // playlistDesc: '',
       playlistID: '',
       searchResults: [],
       playlistTracks: []
@@ -33,26 +25,7 @@ class App extends Component {
     this.search = this.search.bind(this);
   }
 
-  componentDidMount() {
-    // spotifyApi.getMe().then(response => {
-    //   const userId = response.id;
-    //   this.setState({
-    //     userId: userId
-    //   });
-    // });
-  }
-
-  // getPLNameChange = nameData => {
-  //   this.setState({
-  //     playlistName: nameData
-  //   });
-  // };
-
-  // getPLDescChange = descData => {
-  //   this.setState({
-  //     playlistDesc: descData
-  //   });
-  // };
+  componentDidMount() {}
 
   addTrack(track) {
     let tracks = this.state.playlistTracks;
