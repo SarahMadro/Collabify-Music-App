@@ -60,7 +60,6 @@ class App extends Component {
     Spotify.search(searchTerm).then(results => {
       this.setState({ searchResults: results });
     });
-    console.log(document.cookie);
   }
 
   getPLID = plID => {
