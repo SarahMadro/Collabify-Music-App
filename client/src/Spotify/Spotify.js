@@ -1,12 +1,9 @@
 import axios from 'axios';
 
-// const clientId = '283e7d7b42cf4a6482116700c39314e1';
-// const clientSecret = '80c3488c03044a0e8426afa61273b9d6';
-// const redirect_uri = 'http://localhost:3000/callback';
-
 const Spotify = {
   search(searchTerm) {
-    return axios.get('/search').then(response => {
+    return axios.get('/search', { params: { searchTerm: searchTerm } }).then(response => {
+      console.log(searchTerm);
       if (!response.data.tracks) {
         return [];
       }
@@ -19,7 +16,6 @@ const Spotify = {
       }));
     });
   },
-
 
   savePlaylist(playlistName, trackURIs) {
     if (playlistName && trackURIs.length) {
