@@ -1,16 +1,9 @@
-/**
- * This is an example of a basic node.js script that performs
- * the Authorization Code oAuth2 flow to authenticate against
- * the Spotify Accounts.
- *
- * For more information, read
- * https://developer.spotify.com/web-api/authorization-guide/#authorization_code_flow
- */
-
 var express = require('express'); // Express web server framework
 var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
+var cookieSession = require('cookie-session');
+
 require('dotenv').config();
 
 var client_id = process.env.CLIENT_ID; // Your client id
@@ -22,6 +15,7 @@ var redirect_uri = 'http://localhost:8080/callback'; // Or Your redirect uri
  * @param  {number} length The length of the string
  * @return {string} The generated string
  */
+
 var generateRandomString = function(length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -38,12 +32,47 @@ var app = express();
 
 app.use(express.static(__dirname + '/public')).use(cookieParser());
 
+//cookie session ///
+
+// app.set('trust proxy', 1); // trust first proxy
+
+app.use(
+  cookieSession({
+    name: 'session',
+    keys: ['test'],
+    maxAge: 8999393939999
+  })
+);
+
+//cookie session ends here.
+
+app.use(function(req, res, next) {
+  // check if client sent cookie
+  var cookie = req.cookies.cookieName;
+  if (cookie === undefined) {
+    // no: set a new cookie
+    var randomNumber = Math.random().toString();
+    randomNumber = randomNumber.substring(2, randomNumber.length);
+    res.cookie('cookieName', randomNumber, { maxAge: 900000, httpOnly: true });
+    console.log('cookie created successfully');
+  } else {
+    // yes, cookie was already present
+    console.log('cookie exists', cookie);
+  }
+  next(); // <-- important!
+});
+
+app.get('/', function(req, res) {
+  console.log('COOKIES!!!!!!', req.cookies);
+});
+
+// Requesting login information from user
 app.get('/login', function(req, res) {
   var state = generateRandomString(16);
   res.cookie(stateKey, state);
-
   // your application requests authorization
-  var scope = 'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-modify-private';
+  var scope =
+    'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-modify-private';
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
@@ -56,23 +85,27 @@ app.get('/login', function(req, res) {
   );
 });
 
+// your application requests refresh and access tokens
 app.get('/callback', function(req, res) {
-  // your application requests refresh and access tokens
   // after checking the state parameter
 
   var code = req.query.code || null;
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
+  //client is running on 3000
+  //server is running on 8080
+
   if (state === null || state !== storedState) {
     res.redirect(
-      '/#' +
+      '/' +
         querystring.stringify({
           error: 'state_mismatch'
         })
     );
   } else {
-    res.clearCookie(stateKey);
+    // res.clearCookie(stateKey);
+
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {
@@ -99,17 +132,13 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          console.log(body);
+          // console.log(body);
         });
 
+        req.session.token = access_token;
+        //res.cookie('accessor', access_token);
         // we can also pass the token to the browser to make requests from there
-        res.redirect(
-          'http://localhost:3000/#' +
-            querystring.stringify({
-              access_token: access_token,
-              refresh_token: refresh_token
-            })
-        );
+        res.redirect('/');
       } else {
         res.redirect(
           '/#' +
@@ -120,6 +149,50 @@ app.get('/callback', function(req, res) {
       }
     });
   }
+});
+
+app.get('/testtoken', (req, res) => {
+  console.log('we are testing token', req.session.token);
+
+  //call api
+  var searchTerm = 'hello';
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`
+  };
+
+  request(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: headers }, function(
+    err,
+    result,
+    body
+  ) {
+    console.log('test ', body);
+    res.json({ data: data });
+  });
+  // .get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: headers })
+  // .then(
+  //   response => {
+  //     if (response.ok) {
+  //       return response.json();
+  //     }
+  //     throw new Error('Request failed!');
+  //   },
+  //   networkError => {
+  //     console.log(networkError.message);
+  //   }
+  // )
+  // .then(jsonResponse => {
+  //   if (!jsonResponse.tracks) {
+  //     return [];
+  //   }
+  //   console.log('we are getting terms ', jsonResponse.tracks);
+  //   // return jsonResponse.tracks.items.map(track => ({
+  //   //   id: track.id,
+  //   //   name: track.name,
+  //   //   artist: track.artists[0].name,
+  //   //   album: track.album.name,
+  //   //   uri: track.uri
+  //   // }));
+  // });
 });
 
 app.get('/refresh_token', function(req, res) {
@@ -146,6 +219,6 @@ app.get('/refresh_token', function(req, res) {
 });
 
 console.log('Listening on 8080');
-app.listen(8080, function () {
-  console.log("Backend Server is running!")
+app.listen(8080, function() {
+  console.log('Backend Server is running!');
 });

@@ -1,30 +1,46 @@
 const clientId = '283e7d7b42cf4a6482116700c39314e1';
 const clientSecret = '80c3488c03044a0e8426afa61273b9d6';
 const redirect_uri = 'http://localhost:3000/callback';
-let accessToken;
+// let accessToken;
+// const accessToken = window.location.href.match(/access_token=([^&]*)/);
+
+// const expiresIn = window.location.href.match(/expires_in=([^&]*)/);
 
 const Spotify = {
-  getAccessToken() {
-    if (accessToken) {
-      return accessToken;
-    }
+  // getAccessToken() {
+  //   if (accessToken) {
+  //     return accessToken;
+  //   }
 
-    const newAccessToken = window.location.href.match(/access_token=([^&]*)/);
-    const newExpiresIn = window.location.href.match(/expires_in=([^&]*)/);
-    if (newAccessToken && newExpiresIn) {
-      accessToken = newAccessToken[1];
-      const expiresIn = Number(newExpiresIn[1]);
-      window.setTimeout(() => (accessToken = ''), expiresIn * 1000);
-      window.history.pushState('Access Token', null, '/');
-      return accessToken;
-    } else {
-      const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&show_dialog=true&redirect_uri=${redirect_uri}`;
-      window.location = accessUrl;
+  //   const newAccessToken = window.location.href.match(/access_token=([^&]*)/);
+  //   const newExpiresIn = window.location.href.match(/expires_in=([^&]*)/);
+  //   if (newAccessToken && newExpiresIn) {
+  //     accessToken = newAccessToken[1];
+  //     const expiresIn = Number(newExpiresIn[1]);
+  //     window.setTimeout(() => (accessToken = ''), expiresIn * 1000);
+  //     window.history.pushState('Access Token', null, '/');
+  //     return accessToken;
+  //   } else {
+  //     const accessUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&response_type=token&scope=playlist-modify-public&show_dialog=true&redirect_uri=${redirect_uri}`;
+  //     window.location = accessUrl;
+  //   }
+  // },
+
+  getHashParams() {
+    var hashParams = {};
+    var e,
+      r = /([^&;=]+)=?([^&;]*)/g,
+      q = window.location.hash.substring(1);
+    e = r.exec(q);
+    while (e) {
+      hashParams[e[1]] = decodeURIComponent(e[2]);
+      e = r.exec(q);
     }
+    return hashParams;
   },
 
   search(searchTerm) {
-    const accessToken = Spotify.getAccessToken();
+    const accessToken = Spotify.getHashParams();
     const headers = {
       Authorization: `Bearer ${accessToken}`
     };
@@ -56,7 +72,7 @@ const Spotify = {
 
   savePlaylist(playlistName, trackURIs) {
     if (playlistName && trackURIs.length) {
-      const accessToken = Spotify.getAccessToken();
+      const accessToken = Spotify.getHashParams();
       const headers = {
         Authorization: `Bearer ${accessToken}`
       };
