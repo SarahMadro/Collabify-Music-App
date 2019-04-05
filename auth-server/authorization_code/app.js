@@ -39,7 +39,7 @@ app.use(express.static(__dirname + '/public')).use(cookieParser());
 app.use(
   cookieSession({
     name: 'session',
-    keys: ['test'],
+    keys: ['key1', 'key2'],
     maxAge: 8999393939999
   })
 );
@@ -55,9 +55,6 @@ app.use(function(req, res, next) {
     randomNumber = randomNumber.substring(2, randomNumber.length);
     res.cookie('cookieName', randomNumber, { maxAge: 900000, httpOnly: true });
     console.log('cookie created successfully');
-  } else {
-    // yes, cookie was already present
-    console.log('cookie exists', cookie);
   }
   next(); // <-- important!
 });
@@ -132,11 +129,10 @@ app.get('/callback', function(req, res) {
 
         // use the access token to access the Spotify Web API
         request.get(options, function(error, response, body) {
-          // console.log(body);
+          // Add something here
         });
 
         req.session.token = access_token;
-        //res.cookie('accessor', access_token);
         // we can also pass the token to the browser to make requests from there
         res.redirect('/');
       } else {
@@ -151,48 +147,21 @@ app.get('/callback', function(req, res) {
   }
 });
 
-app.get('/testtoken', (req, res) => {
-  console.log('we are testing token', req.session.token);
-
-  //call api
-  var searchTerm = 'hello';
+app.get('/search', (req, res) => {
+  var searchTerm = 'Adriatique';
   const headers = {
-    Authorization: `Bearer ${req.session.token}`
+    Authorization: `Bearer ${req.session.token}`,
+    limit: 2
   };
-
+  // Call Spotify API with search term
   request(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: headers }, function(
     err,
     result,
     body
   ) {
-    console.log('test ', body);
-    res.json({ data: data });
+    console.log(result);
+    res.send(result.body);
   });
-  // .get(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: headers })
-  // .then(
-  //   response => {
-  //     if (response.ok) {
-  //       return response.json();
-  //     }
-  //     throw new Error('Request failed!');
-  //   },
-  //   networkError => {
-  //     console.log(networkError.message);
-  //   }
-  // )
-  // .then(jsonResponse => {
-  //   if (!jsonResponse.tracks) {
-  //     return [];
-  //   }
-  //   console.log('we are getting terms ', jsonResponse.tracks);
-  //   // return jsonResponse.tracks.items.map(track => ({
-  //   //   id: track.id,
-  //   //   name: track.name,
-  //   //   artist: track.artists[0].name,
-  //   //   album: track.album.name,
-  //   //   uri: track.uri
-  //   // }));
-  // });
 });
 
 app.get('/refresh_token', function(req, res) {
@@ -220,5 +189,5 @@ app.get('/refresh_token', function(req, res) {
 
 console.log('Listening on 8080');
 app.listen(8080, function() {
-  console.log('Backend Server is running!');
+  console.log('Server is running!');
 });
