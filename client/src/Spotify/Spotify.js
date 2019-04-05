@@ -1,12 +1,9 @@
 import axios from 'axios';
 
-// const clientId = '283e7d7b42cf4a6482116700c39314e1';
-// const clientSecret = '80c3488c03044a0e8426afa61273b9d6';
-// const redirect_uri = 'http://localhost:3000/callback';
-
 const Spotify = {
   search(searchTerm) {
-    return axios.get('/search').then(response => {
+    return axios.get('/search', { params: { searchTerm: searchTerm } }).then(response => {
+      console.log(searchTerm);
       if (!response.data.tracks) {
         return [];
       }
@@ -19,36 +16,6 @@ const Spotify = {
       }));
     });
   },
-
-  // search(searchTerm) {
-  //   const accessToken = Spotify.getHashParams();
-  //   const headers = {
-  //     Authorization: `Bearer ${accessToken}`
-  //   };
-  //   return fetch(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: headers })
-  //     .then(
-  //       response => {
-  //         if (response.ok) {
-  //           return response.json();
-  //         }
-  //         throw new Error('Request failed!');
-  //       },
-  //       networkError => {
-  //         console.log(networkError.message);
-  //       }
-  //     )
-  //     .then(jsonResponse => {
-  //       if (!jsonResponse.tracks) {
-  //         return [];
-  //       }
-  //       return jsonResponse.tracks.items.map(track => ({
-  //         id: track.id,
-  //         name: track.name,
-  //         artist: track.artists[0].name,
-  //         album: track.album.name,
-  //         uri: track.uri
-  //       }));
-  //     });
 
   savePlaylist(playlistName, trackURIs) {
     if (playlistName && trackURIs.length) {

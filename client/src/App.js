@@ -4,9 +4,6 @@ import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import PlayList from './PlayList';
 import Spotify from './Spotify/Spotify';
-// import NewPlaylist from './newPlaylist';
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
   constructor() {

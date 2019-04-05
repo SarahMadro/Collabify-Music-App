@@ -90,9 +90,6 @@ app.get('/callback', function(req, res) {
   var state = req.query.state || null;
   var storedState = req.cookies ? req.cookies[stateKey] : null;
 
-  //client is running on 3000
-  //server is running on 8080
-
   if (state === null || state !== storedState) {
     res.redirect(
       '/' +
@@ -148,10 +145,10 @@ app.get('/callback', function(req, res) {
 });
 
 app.get('/search', (req, res) => {
-  var searchTerm = 'Adriatique';
+  var searchTerm = req.query.searchTerm;
+  console.log(searchTerm);
   const headers = {
-    Authorization: `Bearer ${req.session.token}`,
-    limit: 2
+    Authorization: `Bearer ${req.session.token}`
   };
   // Call Spotify API with search term
   request(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: headers }, function(
