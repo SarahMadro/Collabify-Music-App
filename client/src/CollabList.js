@@ -38,7 +38,7 @@ class CollabList extends React.Component {
               // name: playlists.name,
               // uri: playlists.uri,
               // image: playlists.images[0].url
-              <a href='' class='list-group-item list-group-item-action CollabItem'>
+              <a href='' className='list-group-item list-group-item-action CollabItem'>
                 {playlist.name}
               </a>
             ))
