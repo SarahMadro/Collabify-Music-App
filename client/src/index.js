@@ -12,21 +12,23 @@ import Room from './Room';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import TrackList from './TrackList';
+import ExistingPlaylist from './ExistingPlaylist';
 
 
 const routing = (
   <Router >
   <div>
     <ul>
-       <li>
-         <Link to="/App">App</Link>
-       </li>
-       <li>
-         <Link to="/CreatPlaylist">CreatePlaylist</Link>
-       </li>
-     </ul>
+      <li>
+        <Link to="/App">App</Link>
+      </li>
+      <li>
+        <Link to="/CreatPlaylist">CreatePlaylist</Link>
+      </li>
+    </ul>
     <Route path='/' exact component={App}/>
     <Route path='/CreatePlaylist' component={CreatePlaylist}/>
+    <Route path='/Room' component={Room} />
   </div>
   </Router>
 )
