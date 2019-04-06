@@ -1,6 +1,4 @@
 import axios from 'axios';
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
 
 const Spotify = {
   search(searchTerm) {
@@ -19,12 +17,10 @@ const Spotify = {
     });
   },
 
-
   savePlaylist(playlistName, playlistDesc, trackURIs) {
-    return axios.post('/playlists', {playlistName, playlistDesc, trackURIs}).then(response => {
+    return axios.post('/playlists', { playlistName, playlistDesc, trackURIs }).then(response => {
       console.log('SAVE PLAYLIST RESPONSE', response);
-    })
-
+    });
   }
 };
 

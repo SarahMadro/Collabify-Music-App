@@ -4,8 +4,7 @@ var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var rp = require('request-promise');
-var bodyParser = require('body-parser')
-
+var bodyParser = require('body-parser');
 
 require('dotenv').config();
 
@@ -104,8 +103,6 @@ app.get('/callback', function(req, res) {
         })
     );
   } else {
-    // res.clearCookie(stateKey);
-
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
       form: {
@@ -137,7 +134,7 @@ app.get('/callback', function(req, res) {
 
         req.session.token = access_token;
         // we can also pass the token to the browser to make requests from there
-        res.redirect('/');
+        res.redirect('http://localhost:3000');
       } else {
         res.redirect(
           '/#' +
@@ -173,27 +170,26 @@ app.post('/playlists', (req, res) => {
     limit: 2
   };
 
-
   let userID;
   let playlistID;
 
   rp('https://api.spotify.com/v1/me', { headers, json: true })
-    .then((body)=> {
+    .then(body => {
       userID = body.id;
       return rp(`https://api.spotify.com/v1/users/${userID}/playlists`, {
         headers,
         json: true,
         method: 'POST',
-        body: ({
+        body: {
           name: req.body.playlistName,
           description: req.body.playlistDesc,
           collaborative: true,
           public: false
-        })
-      })
+        }
+      });
     })
     //post playlist to spotify
-    .then((body) => {
+    .then(body => {
       playlistID = body.id;
       //add conditional if statement to allow playlist to be created without songs
       return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
@@ -201,14 +197,14 @@ app.post('/playlists', (req, res) => {
         json: true,
         method: 'POST',
         body: JSON.stringify({
-        uris: req.body.trackURIs
+          uris: req.body.trackURIs
         })
-      })
+      });
     })
     .then(() => {
-    res.json({playlistID, userID});
-      })
-  });
+      res.json({ playlistID, userID });
+    });
+});
 
 // app.get('/refresh_token', function(req, res) {
 //   // requesting access token from refresh token
