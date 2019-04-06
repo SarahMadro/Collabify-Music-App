@@ -32,7 +32,18 @@ getPlaylists(){
             onClick={this.getPlaylists}>
             GET MY PLAYLISTS        
         </button>
-            {this.state.currentUsersPlaylists.map(playlist => <div>{playlist.name}</div>)}
+            {this.state.currentUsersPlaylists.map(playlist => 
+            // ALL RESULTS GO HERE
+            // access to   
+        // key: playlists.id,
+        // collaborative: playlists.collaborative,
+        // id: playlists.id,
+        // name: playlists.name,
+        // uri: playlists.uri,
+        // image: playlists.images[0].url
+            <div>{playlist.name}</div>)
+            // NOT PAST HERE
+            }
         </div>
     );
     }
