@@ -4,8 +4,8 @@ import './Header.css';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
-import PlayList from './PlayList';
-import Spotify from './Spotify/Spotify';
+import CreatePlaylist from './CreatePlaylist';
+import Spotify from './Spotify';
 
 class App extends Component {
   constructor() {
@@ -83,7 +83,7 @@ class App extends Component {
         <SearchBar onSearch={this.search} />
         <section className='container'>
           <div className='row'>
-            <PlayList
+            <CreatePlaylist
               playlistName={this.state.playlistName}
               playlistDesc={this.state.playlistDesc}
               playlistTracks={this.state.playlistTracks}

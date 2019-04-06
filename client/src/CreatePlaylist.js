@@ -1,7 +1,7 @@
 import React from 'react';
-import './Playlist.css';
+import './CreatePlaylist.css';
 
-class Playlist extends React.Component {
+class CreatePlaylist extends React.Component {
   constructor(props) {
     super(props);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -50,11 +50,11 @@ class Playlist extends React.Component {
         />
         <br />
         <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
-          Save to Spotify
+          Create Playlist
         </button>
       </div>
     );
   }
 }
 
-export default Playlist;
+export default CreatePlaylist;
