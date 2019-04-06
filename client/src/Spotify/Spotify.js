@@ -1,6 +1,4 @@
 import axios from 'axios';
-import SpotifyWebApi from 'spotify-web-api-js';
-const spotifyApi = new SpotifyWebApi();
 
 const Spotify = {
   search(searchTerm) {
@@ -25,6 +23,19 @@ const Spotify = {
       console.log('SAVE PLAYLIST RESPONSE', response);
     })
 
+  },
+
+  getPlaylists(){
+    return axios.get('/getplaylists').then(response => {
+      console.log("CLIENT SPOTIFY GET!", response.data);
+      return response.data.map(playlists => ({
+        collaborative: playlists.collaborative,
+        id: playlists.id,
+        name: playlists.name,
+        uri: playlists.uri,
+        image: playlists.images[0].url
+      }));
+    })
   }
 };
 

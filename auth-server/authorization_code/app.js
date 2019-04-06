@@ -75,7 +75,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
   // your application requests authorization
   var scope =
-    'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-modify-private';
+    'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-read-collaborative';
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
@@ -162,17 +162,27 @@ app.get('/search', (req, res) => {
     result,
     body
   ) {
-    console.log(result);
     res.send(result.body);
   });
 });
+
+app.get('/getplaylists', (req, res) => {
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`
+  };
+
+  rp('https://api.spotify.com/v1/me/playlists?limit=50', { headers, json: true })
+    .then((body)=> {
+      console.log("NOW??!", body.items);
+      res.send(body.items);
+    })
+  }),
 
 app.post('/playlists', (req, res) => {
   const headers = {
     Authorization: `Bearer ${req.session.token}`,
     limit: 2
   };
-
 
   let userID;
   let playlistID;

@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import PlayList from './PlayList';
+import CollabList from './CollabList'
 import Spotify from './Spotify/Spotify';
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
     this.updatePlaylistDesc = this.updatePlaylistDesc.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
+
   }
 
   componentDidMount() {}
@@ -62,11 +64,12 @@ class App extends Component {
     }
   }
 
+
   search(searchTerm) {
     Spotify.search(searchTerm).then(results => {
       this.setState({ searchResults: results });
     });
-    console.log(document.cookie);
+    return(document.cookie);
   }
 
   getPLID = plID => {
@@ -92,6 +95,9 @@ class App extends Component {
               onDescChange={this.updatePlaylistDesc}
               onSave={this.savePlaylist}
             />
+          </div>
+          <div className='Collab-List'>
+          <CollabList />
           </div>
         </div>
       </div>
