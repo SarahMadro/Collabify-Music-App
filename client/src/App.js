@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import './Header.css';
+import Header from './Header';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
 import PlayList from './PlayList';
@@ -11,6 +13,7 @@ class App extends Component {
 
     this.state = {
       playlistName: 'New Playlist',
+      playlistDesc: '',
       playlistID: '',
       searchResults: [],
       playlistTracks: []
@@ -18,6 +21,7 @@ class App extends Component {
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.updatePlaylistDesc = this.updatePlaylistDesc.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
   }
@@ -42,11 +46,15 @@ class App extends Component {
     this.setState({ playlistName: name });
   }
 
+  updatePlaylistDesc(desc) {
+    this.setState({ playlistDesc: desc });
+  }
+
   savePlaylist() {
     let tracks = this.state.playlistTracks;
     if (tracks.length && this.state.playlistName) {
       let trackURIs = tracks.map(trackIndex => trackIndex.uri);
-      Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+      Spotify.savePlaylist(this.state.playlistName, this.state.playlistDesc, trackURIs).then(() => {
         this.setState({
           playlistName: 'New Playlist',
           playlistTracks: []
@@ -60,7 +68,6 @@ class App extends Component {
     Spotify.search(searchTerm).then(results => {
       this.setState({ searchResults: results });
     });
-    console.log(document.cookie);
   }
 
   getPLID = plID => {
@@ -72,20 +79,22 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Collabs</h1>
-        <div className='App'>
-          <SearchBar onSearch={this.search} />
-          <div className='App-playlist'>
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+        <Header />
+        <SearchBar onSearch={this.search} />
+        <section className='container'>
+          <div className='row'>
             <PlayList
               playlistName={this.state.playlistName}
+              playlistDesc={this.state.playlistDesc}
               playlistTracks={this.state.playlistTracks}
               onRemove={this.removeTrack}
               onNameChange={this.updatePlaylistName}
+              onDescChange={this.updatePlaylistDesc}
               onSave={this.savePlaylist}
             />
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
           </div>
-        </div>
+        </section>
       </div>
     );
   }

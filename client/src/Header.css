@@ -1,0 +1,30 @@
+header {
+  padding: 0 60px 0 60px;
+  width: 100%;
+  overflow: hidden;
+  height: 80px;
+  border-bottom: 1px solid #eaeaea;
+  background-color: #eaeaea;
+  position: absolute;
+  top: 0;
+  padding-top: 20px;
+}
+
+.wrapper {
+  max-width: 1200px;
+}
+
+.logged-user {
+  position: absolute;
+  top: 5px;
+  right: 200px;
+  font-weight: 400;
+  color: #606060;
+  padding-top: 20px;
+}
+
+.logo {
+  font-size: 32px;
+  color: #28a745;
+  font-weight: bold;
+}

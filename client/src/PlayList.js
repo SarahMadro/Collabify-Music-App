@@ -1,10 +1,11 @@
 import React from 'react';
-import TrackList from './TrackList';
+import './Playlist.css';
 
 class Playlist extends React.Component {
   constructor(props) {
     super(props);
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleDescChange = this.handleDescChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -23,20 +24,33 @@ class Playlist extends React.Component {
     this.props.onNameChange(event.target.value);
   }
 
+  handleDescChange(event) {
+    this.props.onDescChange(event.target.value);
+  }
+
   render() {
     return (
-      <div className='Playlist'>
+      <div className='Playlist col' alignt='center'>
+        <h2 className='CreatePlaylist'>Create a Playlist</h2>
         <input
           id='Playlist-name'
-          placeholder='Enter a playlist name'
-          defaultValue={this.props.playlistName}
+          className='PlaylistName'
+          placeholder='Enter name'
           onChange={this.handleNameChange}
           onKeyPress={this.handleKeyPress}
           onClick={this.handleClick}
         />
-        <TrackList tracks={this.props.playlistTracks} onRemove={this.props.onRemove} isRemoval={true} />
-        <button className='Playlist-save' onClick={this.props.onSave}>
-          SAVE TO SPOTIFY
+        <br />
+        <input
+          id='Playlist-desc'
+          className='PlaylistDescription'
+          placeholder='Enter description'
+          onChange={this.handleDescChange}
+          onClick={this.handleClick}
+        />
+        <br />
+        <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
+          Save to Spotify
         </button>
       </div>
     );
