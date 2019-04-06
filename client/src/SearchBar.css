@@ -1,0 +1,32 @@
+.SearchBar {
+  position: relative;
+  top: 120px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.SearchInput {
+  width: 600px;
+  border-width: 0 0 1px 0;
+  border-color: #ccc;
+  height: 70px;
+  background-color: transparent;
+  font-size: 30px;
+  color: #606060;
+  outline: 0 none;
+}
+
+.SearchButton {
+  cursor: pointer;
+  height: 62px;
+  width: 120px;
+  border: none;
+  font-size: 22px;
+  margin-left: 20px;
+}
+
+::-webkit-input-placeholder {
+  padding-left: 15px;
+  color: #909090;
+  font-size: 22px;
+}

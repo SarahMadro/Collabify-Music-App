@@ -16,6 +16,7 @@
     "spotify-web-api-js": "^0.22.1"
   },
   "scripts": {
+    "start-poll": "CHOKIDAR_USEPOLLING=true react-scripts start",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
