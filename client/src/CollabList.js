@@ -1,52 +1,54 @@
-    import React from 'react';
-    import Collab from './Collab';
-    import Spotify from './Spotify/Spotify';
+import React from 'react';
+import './CollabList.css';
+import Spotify from './Spotify/Spotify';
 
-    class CollabList extends React.Component {
-    constructor() {
-    super()
-        this.state= {
-            currentUsersPlaylists:[]
-        }
+class CollabList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      currentUsersPlaylists: []
+    };
 
     this.getPlaylists = this.getPlaylists.bind(this);
+  }
 
-    
-}
+  componentDidMount() {
+    this.getPlaylists();
+  }
 
-getPlaylists(){
+  getPlaylists() {
     Spotify.getPlaylists().then(playlists => {
-        console.log("made it to CollabList", playlists);
-        return this.setState({currentUsersPlaylists : playlists})
-    })
-}
+      console.log('made it to CollabList', playlists);
+      return this.setState({ currentUsersPlaylists: playlists });
+    });
+  }
 
-
-
-
-    render() {
+  render() {
     return (
-        <div className='Collablist'>
-        <button 
-            className='Playlist-get' 
-            onClick={this.getPlaylists}>
-            GET MY PLAYLISTS        
-        </button>
-            {this.state.currentUsersPlaylists.map(playlist => 
-            // ALL RESULTS GO HERE
-            // access to   
-        // key: playlists.id,
-        // collaborative: playlists.collaborative,
-        // id: playlists.id,
-        // name: playlists.name,
-        // uri: playlists.uri,
-        // image: playlists.images[0].url
-            <div>{playlist.name}</div>)
+      <div className='col' alignt='center'>
+        <div className='CollabList'>
+          <h3 className='MyCollabs'>My Collabs</h3>
+          <div className='Collablist list-group'>
+            {this.state.currentUsersPlaylists.map(playlist => (
+              // ALL RESULTS GO HERE
+              // access to
+              // key: playlists.id,
+              // collaborative: playlists.collaborative,
+              // id: playlists.id,
+              // name: playlists.name,
+              // uri: playlists.uri,
+              // image: playlists.images[0].url
+              <a href='' class='list-group-item list-group-item-action CollabItem'>
+                {playlist.name}
+              </a>
+            ))
             // NOT PAST HERE
             }
+          </div>
         </div>
+      </div>
     );
-    }
+  }
 }
 
-    export default CollabList;
+export default CollabList;
