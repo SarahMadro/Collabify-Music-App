@@ -20,14 +20,13 @@ const Spotify = {
   savePlaylist(playlistName, playlistDesc, trackURIs) {
     return axios.post('/playlists', { playlistName, playlistDesc, trackURIs }).then(response => {
       console.log('SAVE PLAYLIST RESPONSE', response);
-    })
-
+    });
   },
 
-  getPlaylists(){
+  getPlaylists() {
     // call to backend
     return axios.get('/getplaylists').then(response => {
-      console.log("CLIENT SPOTIFY GET!", response.data);
+      console.log('CLIENT SPOTIFY GET!', response.data);
       // get the playlist data we need from the response
       const allPlaylists = response.data.map(playlists => ({
         key: playlists.id,
@@ -35,17 +34,18 @@ const Spotify = {
         id: playlists.id,
         name: playlists.name,
         uri: playlists.uri,
-        image: playlists.images[0].url
+        image: playlists.images[0].url,
+        tracks: playlists.tracks //object
       }));
       // filters and returns only the collaborative playlists
       const collabPlaylists = [];
       allPlaylists.forEach(function(item) {
         if (item.collaborative === true) {
-          collabPlaylists.push(item)
+          collabPlaylists.push(item);
         }
-      })
+      });
       return collabPlaylists;
-    })
+    });
   }
 };
 

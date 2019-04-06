@@ -49,11 +49,9 @@ class CreatePlaylist extends React.Component {
           onClick={this.handleClick}
         />
         <br />
-        <Link to='/Room'>
-          <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
-            Create Playlist
-          </button>
-        </Link>
+        <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
+          Create Playlist
+        </button>
       </div>
     );
   }

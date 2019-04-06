@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import './Header.css';
 import Header from './Header';
-import SearchBar from './SearchBar';
-import SearchResults from './SearchResults';
 import CreatePlaylist from './CreatePlaylist';
 import CollabList from './CollabList';
 import Spotify from './Spotify/Spotify';
@@ -82,7 +80,6 @@ class App extends Component {
     return (
       <div>
         <Header />
-        <SearchBar onSearch={this.search} />
         <section className='container'>
           <div className='row'>
             <CreatePlaylist
@@ -94,10 +91,10 @@ class App extends Component {
               onDescChange={this.updatePlaylistDesc}
               onSave={this.savePlaylist}
             />
-            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-          </div>
-          <div className='Collab-List'>
+
             <CollabList />
+
+            {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
           </div>
         </section>
       </div>
