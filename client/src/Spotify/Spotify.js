@@ -20,8 +20,8 @@ const Spotify = {
   },
 
 
-  savePlaylist(playlistName, trackURIs) {
-    return axios.post('/playlists', {playlistName, trackURIs}).then(response => {
+  savePlaylist(playlistName, playlistDesc, trackURIs) {
+    return axios.post('/playlists', {playlistName, playlistDesc, trackURIs}).then(response => {
       console.log('SAVE PLAYLIST RESPONSE', response);
     })
 

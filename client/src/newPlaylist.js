@@ -23,13 +23,7 @@
     createPlaylist(e) {
         e.preventDefault();
         const { userId, playlistName, playlistDesc} = this.props.plInfo;
-        const options = {
-            name: playlistName,
-            collaborative: true,
-            public: false,
-            description: playlistDesc
-        };
-        spotifyApi.createPlaylist(userId, options).then(response => {
+        spotifyApi.createPlaylist(userId, playlistName, playlistDesc).then(response => {
             console.log("PLAYLIST CREATED!");
             this.props.getPLID(response.id);
         }, function(err){

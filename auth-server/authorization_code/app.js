@@ -185,7 +185,10 @@ app.post('/playlists', (req, res) => {
         json: true,
         method: 'POST',
         body: ({
-          name: req.body.playlistName
+          name: req.body.playlistName,
+          description: req.body.playlistDesc,
+          collaborative: true,
+          public: false
         })
       })
     })

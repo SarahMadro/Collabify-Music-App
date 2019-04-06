@@ -11,6 +11,7 @@ class App extends Component {
 
     this.state = {
       playlistName: 'New Playlist',
+      playlistDesc: '',
       playlistID: '',
       searchResults: [],
       playlistTracks: []
@@ -18,6 +19,7 @@ class App extends Component {
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
     this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.updatePlaylistDesc = this.updatePlaylistDesc.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
   }
@@ -42,11 +44,15 @@ class App extends Component {
     this.setState({ playlistName: name });
   }
 
+  updatePlaylistDesc(desc) {
+    this.setState({ playlistDesc: desc });
+  }
+
   savePlaylist() {
     let tracks = this.state.playlistTracks;
     if (tracks.length && this.state.playlistName) {
       let trackURIs = tracks.map(trackIndex => trackIndex.uri);
-      Spotify.savePlaylist(this.state.playlistName, trackURIs).then(() => {
+      Spotify.savePlaylist(this.state.playlistName, this.state.playlistDesc, trackURIs).then(() => {
         this.setState({
           playlistName: 'New Playlist',
           playlistTracks: []
@@ -79,9 +85,11 @@ class App extends Component {
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
             <PlayList
               playlistName={this.state.playlistName}
+              playlistDesc={this.state.playlistDesc}
               playlistTracks={this.state.playlistTracks}
               onRemove={this.removeTrack}
               onNameChange={this.updatePlaylistName}
+              onDescChange={this.updatePlaylistDesc}
               onSave={this.savePlaylist}
             />
           </div>
