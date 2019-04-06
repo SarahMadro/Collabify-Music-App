@@ -6,7 +6,7 @@
     constructor() {
     super()
         this.state= {
-            getAllPlaylists:{}
+            currentUsersPlaylists:[]
         }
 
     this.getPlaylists = this.getPlaylists.bind(this);
@@ -16,8 +16,8 @@
 
 getPlaylists(){
     Spotify.getPlaylists().then(playlists => {
-        console.log("Results???", playlists);
-        this.setState({ getAllPlaylists: playlists })   
+        console.log("made it to CollabList", playlists);
+        return this.setState({currentUsersPlaylists : playlists})
     })
 }
 
@@ -32,7 +32,7 @@ getPlaylists(){
             onClick={this.getPlaylists}>
             GET MY PLAYLISTS        
         </button>
-            <Collab playlists={this.state.getAllPlaylists} />
+            {this.state.currentUsersPlaylists.map(playlist => <div>{playlist.name}</div>)}
         </div>
     );
     }

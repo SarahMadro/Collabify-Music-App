@@ -75,7 +75,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
   // your application requests authorization
   var scope =
-    'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-read-collaborative';
+    'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-modify-private playlist-read-collaborative';
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
@@ -157,7 +157,7 @@ app.get('/search', (req, res) => {
     Authorization: `Bearer ${req.session.token}`
   };
   // Call Spotify API with search term
-  request(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}`, { headers: headers }, function(
+  request(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token`, { headers: headers }, function(
     err,
     result,
     body
