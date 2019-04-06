@@ -87,7 +87,7 @@ class App extends Component {
         <SearchBar onSearch={this.search} />
         <section className='container'>
           <div className='row'>
-            <PlayList
+            <CreatePlaylist
               playlistName={this.state.playlistName}
               playlistDesc={this.state.playlistDesc}
               playlistTracks={this.state.playlistTracks}

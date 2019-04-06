@@ -1,7 +1,9 @@
 import React from 'react';
-import './Playlist.css';
+import './CreatePlaylist.css';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
-class Playlist extends React.Component {
+
+class CreatePlaylist extends React.Component {
   constructor(props) {
     super(props);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -49,12 +51,13 @@ class Playlist extends React.Component {
           onClick={this.handleClick}
         />
         <br />
-        <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
-          Save to Spotify
+        <Link to='/Room'> <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
+          Create Playlist
         </button>
+       </Link>
       </div>
     );
   }
 }
 
-export default Playlist;
+export default CreatePlaylist;
