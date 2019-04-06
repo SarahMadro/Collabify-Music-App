@@ -169,11 +169,13 @@ app.get('/getplaylists', (req, res) => {
 
   rp('https://api.spotify.com/v1/me/playlists?limit=50', { headers, json: true })
     .then((body)=> {
+      console.log("NOW??!", body.items);
       res.send(body.items);
     })
   }),
 
-app.post('/createplaylist', (req, res) => {
+app.post('/playlists', (req, res) => {
+  console.log("THEM TRACKS", req.body.trackURIs.length)
   const headers = {
     Authorization: `Bearer ${req.session.token}`,
     limit: 2
@@ -200,32 +202,21 @@ app.post('/createplaylist', (req, res) => {
     // add tracks to Spotify playlist
     .then(body => {
       playlistID = body.id;
-      //   if (req.body.trackURIs.length > 0){
-      //   
+        if (req.body.trackURIs.length > 0){
+        return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+          headers,
+          json: true,
+          method: 'POST',
+          body: JSON.stringify({
+            uris: req.body.trackURIs
+          })
+        });
+      }
     })
     .then(() => {
       res.json({ playlistID, userID });
     });
 });
-
-app.post('/addtracks', (req, res) => {
-  // console.log("THEM TRACKS", req.body.trackURIs.length)
-  const headers = {
-    Authorization: `Bearer ${req.session.token}`,
-    limit: 2
-  };
-  let userID = req.body.userID
-  let playlistID = req.body.playlistID
-  return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
-        headers,
-        json: true,
-        method: 'POST',
-        body: JSON.stringify({
-          uris: req.body.trackURIs
-        })
-      });
-    }),
-
 
 // app.get('/refresh_token', function(req, res) {
 //   // requesting access token from refresh token
