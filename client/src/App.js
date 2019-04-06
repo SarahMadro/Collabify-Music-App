@@ -4,8 +4,8 @@ import './Header.css';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
-import PlayList from './PlayList';
-import CollabList from './CollabList'
+import CreatePlaylist from './CreatePlaylist';
+import CollabList from './CollabList';
 import Spotify from './Spotify/Spotify';
 
 class App extends Component {
@@ -25,7 +25,6 @@ class App extends Component {
     this.updatePlaylistDesc = this.updatePlaylistDesc.bind(this);
     this.savePlaylist = this.savePlaylist.bind(this);
     this.search = this.search.bind(this);
-
   }
 
   componentDidMount() {}
@@ -66,12 +65,11 @@ class App extends Component {
     }
   }
 
-
   search(searchTerm) {
     Spotify.search(searchTerm).then(results => {
       this.setState({ searchResults: results });
     });
-    return(document.cookie);
+    return document.cookie;
   }
 
   getPLID = plID => {
@@ -99,10 +97,10 @@ class App extends Component {
             <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
           </div>
           <div className='Collab-List'>
-          <CollabList />
+            <CollabList />
           </div>
         </section>
-        </div>
+      </div>
     );
   }
 }
