@@ -149,7 +149,6 @@ app.get('/callback', function(req, res) {
 
 app.get('/search', (req, res) => {
   var searchTerm = req.query.searchTerm;
-  console.log(searchTerm);
   const headers = {
     Authorization: `Bearer ${req.session.token}`
   };
@@ -176,6 +175,7 @@ app.get('/getplaylists', (req, res) => {
   }),
 
 app.post('/playlists', (req, res) => {
+  console.log("THEM TRACKS", req.body.trackURIs.length)
   const headers = {
     Authorization: `Bearer ${req.session.token}`,
     limit: 2
@@ -183,7 +183,7 @@ app.post('/playlists', (req, res) => {
 
   let userID;
   let playlistID;
-
+    //post empty playlist to spotify
   rp('https://api.spotify.com/v1/me', { headers, json: true })
     .then(body => {
       userID = body.id;
@@ -199,18 +199,19 @@ app.post('/playlists', (req, res) => {
         }
       });
     })
-    //post playlist to spotify
+    // add tracks to Spotify playlist
     .then(body => {
       playlistID = body.id;
-      //add conditional if statement to allow playlist to be created without songs
-      return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
-        headers,
-        json: true,
-        method: 'POST',
-        body: JSON.stringify({
-          uris: req.body.trackURIs
-        })
-      });
+        if (req.body.trackURIs.length > 0){
+        return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+          headers,
+          json: true,
+          method: 'POST',
+          body: JSON.stringify({
+            uris: req.body.trackURIs
+          })
+        });
+      }
     })
     .then(() => {
       res.json({ playlistID, userID });

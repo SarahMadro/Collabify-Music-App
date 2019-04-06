@@ -54,7 +54,7 @@ class App extends Component {
 
   savePlaylist() {
     let tracks = this.state.playlistTracks;
-    if (tracks.length && this.state.playlistName) {
+    if (this.state.playlistName) {
       let trackURIs = tracks.map(trackIndex => trackIndex.uri);
       Spotify.savePlaylist(this.state.playlistName, this.state.playlistDesc, trackURIs).then(() => {
         this.setState({
