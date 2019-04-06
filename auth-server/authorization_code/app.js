@@ -3,6 +3,9 @@ var request = require('request'); // "Request" library
 var querystring = require('querystring');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
+var rp = require('request-promise');
+var bodyParser = require('body-parser')
+
 
 require('dotenv').config();
 
@@ -30,7 +33,10 @@ var stateKey = 'spotify_auth_state';
 
 var app = express();
 
-app.use(express.static(__dirname + '/public')).use(cookieParser());
+app
+  .use(express.static(__dirname + '/public'))
+  .use(cookieParser())
+  .use(bodyParser.json());
 
 //cookie session ///
 
@@ -161,28 +167,71 @@ app.get('/search', (req, res) => {
   });
 });
 
-app.get('/refresh_token', function(req, res) {
-  // requesting access token from refresh token
-  var refresh_token = req.query.refresh_token;
-  var authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    headers: { Authorization: 'Basic ' + new Buffer(client_id + ':' + client_secret).toString('base64') },
-    form: {
-      grant_type: 'refresh_token',
-      refresh_token: refresh_token
-    },
-    json: true
+app.post('/playlists', (req, res) => {
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`,
+    limit: 2
   };
 
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
-      res.send({
-        access_token: access_token
-      });
-    }
+
+  let userID;
+  let playlistID;
+
+  rp('https://api.spotify.com/v1/me', { headers, json: true })
+    .then((body)=> {
+      userID = body.id;
+      return rp(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+        headers,
+        json: true,
+        method: 'POST',
+        body: ({
+          name: req.body.playlistName,
+          description: req.body.playlistDesc,
+          collaborative: true,
+          public: false
+        })
+      })
+    })
+    //post playlist to spotify
+    .then((body) => {
+      playlistID = body.id;
+      //add conditional if statement to allow playlist to be created without songs
+      return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+        headers,
+        json: true,
+        method: 'POST',
+        body: JSON.stringify({
+        uris: req.body.trackURIs
+        })
+      })
+    })
+    .then(() => {
+    res.json({playlistID, userID});
+      })
   });
-});
+
+// app.get('/refresh_token', function(req, res) {
+//   // requesting access token from refresh token
+//   var refresh_token = req.query.refresh_token;
+//   var authOptions = {
+//     url: 'https://accounts.spotify.com/api/token',
+//     headers: { Authorization: 'Basic ' + new Buffer(client_id + ':' + client_secret).toString('base64') },
+//     form: {
+//       grant_type: 'refresh_token',
+//       refresh_token: refresh_token
+//     },
+//     json: true
+//   };
+
+//   request.post(authOptions, function(error, response, body) {
+//     if (!error && response.statusCode === 200) {
+//       var access_token = body.access_token;
+//       res.send({
+//         access_token: access_token
+//       });
+//     }
+//   });
+// });
 
 console.log('Listening on 8080');
 app.listen(8080, function() {

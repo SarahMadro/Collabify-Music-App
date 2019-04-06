@@ -5,6 +5,7 @@ class Playlist extends React.Component {
   constructor(props) {
     super(props);
     this.handleNameChange = this.handleNameChange.bind(this);
+    this.handleDescChange = this.handleDescChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -23,9 +24,14 @@ class Playlist extends React.Component {
     this.props.onNameChange(event.target.value);
   }
 
+  handleDescChange(event) {
+    this.props.onDescChange(event.target.value)
+    }
+
   render() {
     return (
       <div className='Playlist'>
+        <label>Playlist Name: </label>
         <input
           id='Playlist-name'
           placeholder='Enter a playlist name'
@@ -33,9 +39,21 @@ class Playlist extends React.Component {
           onChange={this.handleNameChange}
           onKeyPress={this.handleKeyPress}
           onClick={this.handleClick}
-        />
-        <TrackList tracks={this.props.playlistTracks} onRemove={this.props.onRemove} isRemoval={true} />
-        <button className='Playlist-save' onClick={this.props.onSave}>
+        /><br />
+        <label>Playlist Description: </label>
+        <input 
+          id="Playlist-desc"
+          placeholder='Enter description here...' 
+          onChange={this.handleDescChange} 
+          onClick={this.handleClick}
+        /> <br />
+        <TrackList 
+          tracks={this.props.playlistTracks} 
+          onRemove={this.props.onRemove} 
+          isRemoval={true} />
+        <button 
+          className='Playlist-save' 
+          onClick={this.props.onSave}>
           SAVE TO SPOTIFY
         </button>
       </div>
