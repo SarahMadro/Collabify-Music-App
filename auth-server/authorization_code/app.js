@@ -174,23 +174,39 @@ app.get('/search', (req, res) => {
   );
 });
 
+// get all playlists of current user
 app.get('/getplaylists', (req, res) => {
   const headers = {
     Authorization: `Bearer ${req.session.token}`
   };
-
   rp('https://api.spotify.com/v1/me/playlists?limit=50', { headers, json: true }).then(body => {
     res.send(body.items);
   });
 }),
 
+app.get('/getPlaylistDetails', (req, res) => {
+  var playlistID = req.query.playlistID;
+  console.log("PLAYLLIST ID!", req)
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`
+  };
+  // Call Spotify API with search term
+  request(
+    `https://api.spotify.com/v1/playlists/${playlistID}`    ,
+    { headers: headers },
+    function(err, result, body) {
+      console.log("WHAT RESULT?", result.body)
+      res.send(result.body);
+    }
+  );
+});
+
 // create a playlist
-  app.post('/createplaylist', (req, res) => {
+app.post('/createplaylist', (req, res) => {
     const headers = {
       Authorization: `Bearer ${req.session.token}`,
       limit: 2
     };
-
     let userID;
     let playlistID;
     //post empty playlist to spotify
