@@ -4,9 +4,9 @@ import './Header.css';
 import Header from './Header';
 import SearchBar from './SearchBar';
 import SearchResults from './SearchResults';
-import PlayList from './PlayList';
+import CreatePlaylist from './CreatePlaylist';
 import CollabList from './CollabList'
-import Spotify from './Spotify/Spotify';
+import Spotify from './Spotify';
 
 class App extends Component {
   constructor() {
