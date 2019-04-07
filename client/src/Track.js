@@ -30,7 +30,6 @@ class Track extends React.Component {
   removeTrack(event) {
     this.props.onRemove(this.props.track);
   }
-
   render() {
     return (
       <div className='Track'>

@@ -28,7 +28,7 @@ const routing = (
     </ul>
     <Route path='/' exact component={App}/>
     <Route path='/CreatePlaylist' component={CreatePlaylist}/>
-    <Route path='/Room' component={Room} />
+    {/* <Route path='/Room' component={Room} /> */}
   </div>
   </Router>
 )
