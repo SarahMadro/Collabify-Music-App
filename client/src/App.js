@@ -44,7 +44,6 @@ class App extends Component {
         document.getElementById('Playlist-name').value = this.state.playlistName;
       });
     }
-  }
 
   getPLID = plID => {
     this.setState({

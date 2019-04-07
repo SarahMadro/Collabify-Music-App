@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const Spotify = {
+
   search(searchTerm) {
     return axios.get('/search', { params: { searchTerm: searchTerm } }).then(response => {
       console.log(searchTerm);
@@ -56,6 +57,10 @@ const Spotify = {
       });
       return collabPlaylists;
     });
+  },
+
+  getUserInfo() {
+    return axios.get('/userinfo')
   }
 };
 

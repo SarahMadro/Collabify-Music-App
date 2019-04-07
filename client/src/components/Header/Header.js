@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './Header.css';
+import Spotify from '../../Spotify/Spotify';
+
 
 class Header extends Component {
   constructor() {
@@ -9,6 +11,13 @@ class Header extends Component {
     };
   }
 
+  componentDidMount () {
+    Spotify.getUserInfo().then(response => {
+      this.setState({
+        userName: response.data.name
+      })
+    })
+  }
 
 
   render() {
@@ -17,6 +26,7 @@ class Header extends Component {
         <header>
           <div className='wrapper'>
             <h1 className='logo'>Collabs</h1>
+            {/* <button onClick={this.getUserInfo}>click to get name</button> */}
             <p className='logged-user'>Logged in as {this.state.userName}</p>
           </div>
         </header>
