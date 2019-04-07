@@ -22,6 +22,10 @@ textarea::-webkit-input-placeholder {
   font-size: 22px;
 }
 
+.Dashboard {
+  margin-top: 50px;
+}
+
 .FormWrapper {
   width: 70%;
   max-width: 500px;

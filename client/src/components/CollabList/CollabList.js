@@ -25,7 +25,7 @@ class CollabList extends React.Component {
 
   render() {
     return (
-      <div className='col' alignt='center'>
+      <div className='Dashboard col' alignt='center'>
         <div className='CollabList'>
           <h3 className='MyCollabs'>My Collabs</h3>
           <div className='Collablist list-group'>

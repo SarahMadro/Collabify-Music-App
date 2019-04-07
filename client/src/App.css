@@ -5,5 +5,10 @@ body {
 
 .container {
   position: relative;
-  top: 150px;
+  top: 15px;
+}
+
+.BodyWrapper {
+  max-width: 1300px;
+  margin: 0 auto;
 }

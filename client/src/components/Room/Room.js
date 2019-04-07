@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
 import SearchBar from '../SearchBar/SearchBar';
+import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
-import SearchResults from '../SearchResults/SearchResults';
 
 class Room extends Component {
   constructor(props) {
@@ -18,7 +18,6 @@ class Room extends Component {
   // onRemove={this.removeTrack}
 
   // removeTrack(track) {
-  //   let tracks = this.state.playlistTracks;
   //   let newTracks = tracks.filter(trackIndex => trackIndex.id !== track.id);
   //   this.setState({ playlistTracks: newTracks });
   // }
@@ -42,8 +41,9 @@ class Room extends Component {
     return (
       <div>
         <Header />
+        <RoomCover />
         <SearchBar onSearch={this.search} />
-        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+        {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
       </div>
     );
   }
