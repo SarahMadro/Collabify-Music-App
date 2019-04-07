@@ -37,10 +37,6 @@ app
   .use(cookieParser())
   .use(bodyParser.json());
 
-//cookie session ///
-
-// app.set('trust proxy', 1); // trust first proxy
-
 app.use(
   cookieSession({
     name: 'session',
@@ -48,8 +44,6 @@ app.use(
     maxAge: 8999393939999
   })
 );
-
-//cookie session ends here.
 
 app.use(function(req, res, next) {
   // check if client sent cookie
@@ -153,13 +147,13 @@ app.get('/search', (req, res) => {
     Authorization: `Bearer ${req.session.token}`
   };
   // Call Spotify API with search term
-  request(`https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token`, { headers: headers }, function(
-    err,
-    result,
-    body
-  ) {
-    res.send(result.body);
-  });
+  request(
+    `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token`,
+    { headers: headers },
+    function(err, result, body) {
+      res.send(result.body);
+    }
+  );
 });
 
 app.get('/getplaylists', (req, res) => {
@@ -167,90 +161,60 @@ app.get('/getplaylists', (req, res) => {
     Authorization: `Bearer ${req.session.token}`
   };
 
-  rp('https://api.spotify.com/v1/me/playlists?limit=50', { headers, json: true })
-    .then((body)=> {
-      res.send(body.items);
-    })
-  }),
+  rp('https://api.spotify.com/v1/me/playlists?limit=50', { headers, json: true }).then(body => {
+    res.send(body.items);
+  });
+}),
+  app.post('/createplaylist', (req, res) => {
+    const headers = {
+      Authorization: `Bearer ${req.session.token}`,
+      limit: 2
+    };
 
-app.post('/createplaylist', (req, res) => {
-  const headers = {
-    Authorization: `Bearer ${req.session.token}`,
-    limit: 2
-  };
-
-  let userID;
-  let playlistID;
+    let userID;
+    let playlistID;
     //post empty playlist to spotify
-  rp('https://api.spotify.com/v1/me', { headers, json: true })
-    .then(body => {
-      userID = body.id;
-      return rp(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-        headers,
-        json: true,
-        method: 'POST',
-        body: {
-          name: req.body.playlistName,
-          description: req.body.playlistDesc,
-          collaborative: true,
-          public: false
-        }
+    rp('https://api.spotify.com/v1/me', { headers, json: true })
+      .then(body => {
+        userID = body.id;
+        return rp(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+          headers,
+          json: true,
+          method: 'POST',
+          body: {
+            name: req.body.playlistName,
+            description: req.body.playlistDesc,
+            collaborative: true,
+            public: false
+          }
+        });
+      })
+      // add tracks to Spotify playlist
+      .then(body => {
+        playlistID = body.id;
+      })
+      .then(() => {
+        res.json({ playlistID, userID });
       });
-    })
-    // add tracks to Spotify playlist
-    .then(body => {
-      playlistID = body.id;
-      //   if (req.body.trackURIs.length > 0){
-      //   
-    })
-    .then(() => {
-      res.json({ playlistID, userID });
-    });
-});
+  });
 
 app.post('/addtracks', (req, res) => {
-  // console.log("THEM TRACKS", req.body.trackURIs.length)
   const headers = {
     Authorization: `Bearer ${req.session.token}`,
     limit: 2
   };
-  let userID = req.body.userID
-  let playlistID = req.body.playlistID
+  let userID = req.body.userID;
+  let playlistID = req.body.playlistID;
   return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
-        headers,
-        json: true,
-        method: 'POST',
-        body: JSON.stringify({
-          uris: req.body.trackURIs
-        })
-      });
-    }),
-
-
-// app.get('/refresh_token', function(req, res) {
-//   // requesting access token from refresh token
-//   var refresh_token = req.query.refresh_token;
-//   var authOptions = {
-//     url: 'https://accounts.spotify.com/api/token',
-//     headers: { Authorization: 'Basic ' + new Buffer(client_id + ':' + client_secret).toString('base64') },
-//     form: {
-//       grant_type: 'refresh_token',
-//       refresh_token: refresh_token
-//     },
-//     json: true
-//   };
-
-//   request.post(authOptions, function(error, response, body) {
-//     if (!error && response.statusCode === 200) {
-//       var access_token = body.access_token;
-//       res.send({
-//         access_token: access_token
-//       });
-//     }
-//   });
-// });
-
-console.log('Listening on 8080');
+    headers,
+    json: true,
+    method: 'POST',
+    body: JSON.stringify({
+      uris: req.body.trackURIs
+    })
+  });
+}),
+  console.log('Listening on 8080');
 app.listen(8080, function() {
   console.log('Server is running!');
 });

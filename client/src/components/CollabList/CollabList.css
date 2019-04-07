@@ -1,0 +1,32 @@
+.MyCollabs {
+  color: #404040;
+  margin-bottom: 25px;
+}
+
+.CollabList {
+  background-color: #f9f9f9;
+  padding: 45px;
+  width: 70% !important;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.PlaylistGet {
+  padding: 15px 25px;
+  font-size: 18px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.CollabItem {
+  border: none;
+  border-bottom: 1px solid #ccc !important;
+  margin-bottom: 15px;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 500;
+  color: #28a745;
+  padding-bottom: 20px;
+}

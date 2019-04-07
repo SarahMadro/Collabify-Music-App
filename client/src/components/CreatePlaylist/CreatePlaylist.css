@@ -1,0 +1,69 @@
+input {
+  margin: 0 auto !important;
+  width: 100%;
+  font-size: 50px;
+}
+
+textarea {
+  margin: 0 auto !important;
+  width: 100% !important;
+  font-size: 50px;
+}
+
+input::-webkit-input-placeholder {
+  padding-left: 15px;
+  color: #909090;
+  font-size: 22px;
+}
+
+textarea::-webkit-input-placeholder {
+  padding-left: 15px;
+  color: #909090;
+  font-size: 22px;
+}
+
+.FormWrapper {
+  width: 70%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.CreatePlaylist {
+  color: #404040;
+  text-align: center;
+  font-weight: 600;
+  font-size: 38px;
+}
+
+.PlaylistName {
+  margin-top: 40px !important;
+  border-width: 0 0 1px 0;
+  border-color: #ccc;
+  height: 70px;
+  background-color: transparent;
+  color: #606060;
+  outline: 0 none;
+  font-size: 22px;
+}
+
+.PlaylistDescription {
+  margin-top: 40px !important;
+  border-width: 0 0 1px 0;
+  border-color: #ccc;
+  background-color: transparent;
+  font-size: 22px;
+  color: #606060;
+  outline: 0 none;
+  min-height: 100px;
+}
+
+.PlaylistSave {
+  position: relative;
+  top: 30px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 30px;
+  height: 70px;
+  border: none;
+  font-size: 22px;
+}
