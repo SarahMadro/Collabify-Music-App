@@ -36,7 +36,7 @@ const Spotify = {
   getPlaylists() {
     // call to backend
     return axios.get('/getplaylists').then(response => {
-      console.log('CLIENT SPOTIFY GET!', response.data);
+      // console.log('CLIENT SPOTIFY GET!', response.data);
       // get the playlist data we need from the response
       const allPlaylists = response.data.map(playlists => ({
         key: playlists.id,

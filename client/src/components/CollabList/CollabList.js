@@ -1,5 +1,6 @@
 import React from 'react';
 import Spotify from '../../Spotify/Spotify';
+import './CollabList.css';
 
 class CollabList extends React.Component {
   constructor() {
@@ -17,7 +18,7 @@ class CollabList extends React.Component {
 
   getPlaylists() {
     Spotify.getPlaylists().then(playlists => {
-      console.log('made it to CollabList', playlists);
+      // console.log('made it to CollabList', playlists);
       return this.setState({ currentUsersPlaylists: playlists });
     });
   }
