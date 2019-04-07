@@ -1,6 +1,5 @@
 import React from 'react';
-import Collab from './Collab';
-import Spotify from './Spotify/Spotify';
+import Spotify from '../../Spotify/Spotify';
 
 class CollabList extends React.Component {
   constructor() {
