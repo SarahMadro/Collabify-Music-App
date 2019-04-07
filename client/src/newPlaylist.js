@@ -20,18 +20,6 @@ class NewPlaylist extends Component {
     this.props.getPLDescChange(desc);
   }
 
-<<<<<<< HEAD
-    createPlaylist(e) {
-        e.preventDefault();
-        const { userId, playlistName, playlistDesc} = this.props.plInfo;
-        spotifyApi.createPlaylist(userId, playlistName, playlistDesc).then(response => {
-            console.log("PLAYLIST CREATED!");
-            this.props.getPLID(response.id);
-        }, function(err){
-            console.log("Something went wrong!", err)
-        })
-        }
-=======
   createPlaylist(e) {
     e.preventDefault();
     const { userId, playlistName, playlistDesc } = this.props.plInfo;
@@ -51,7 +39,6 @@ class NewPlaylist extends Component {
       }
     );
   }
->>>>>>> Layout
 
   render() {
     return (
