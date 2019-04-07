@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import SearchBar from './SearchBar';
-import ExistingPlaylist from './ExistingPlaylist';
 
 class Room extends Component {
   constructor(props) {
@@ -12,8 +11,6 @@ class Room extends Component {
     return (
       <div>
         <Header />
-
-        <SearchBar />
       </div>
     );
   }

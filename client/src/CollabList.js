@@ -1,5 +1,5 @@
 import React from 'react';
-import './CollabList.css';
+import Collab from './Collab';
 import Spotify from './Spotify/Spotify';
 
 class CollabList extends React.Component {

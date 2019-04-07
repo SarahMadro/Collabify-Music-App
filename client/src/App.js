@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 import './Header.css';
 import Header from './Header';
+import SearchBar from './SearchBar';
 import CreatePlaylist from './CreatePlaylist';
 import CollabList from './CollabList';
 import Spotify from './Spotify/Spotify';
+import SearchResults from './SearchResults';
 
 class App extends Component {
   constructor() {
@@ -51,7 +53,7 @@ class App extends Component {
 
   savePlaylist() {
     let tracks = this.state.playlistTracks;
-    if (tracks.length && this.state.playlistName) {
+    if (this.state.playlistName) {
       let trackURIs = tracks.map(trackIndex => trackIndex.uri);
       Spotify.savePlaylist(this.state.playlistName, this.state.playlistDesc, trackURIs).then(() => {
         this.setState({
@@ -80,6 +82,10 @@ class App extends Component {
     return (
       <div>
         <Header />
+        <SearchBar onSearch={this.search} />
+
+        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+
         <section className='container'>
           <div className='row'>
             <CreatePlaylist
@@ -93,8 +99,6 @@ class App extends Component {
             />
 
             <CollabList />
-
-            {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
           </div>
         </section>
       </div>

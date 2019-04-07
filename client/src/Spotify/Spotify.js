@@ -18,9 +18,19 @@ const Spotify = {
   },
 
   savePlaylist(playlistName, playlistDesc, trackURIs) {
-    return axios.post('/playlists', { playlistName, playlistDesc, trackURIs }).then(response => {
-      console.log('SAVE PLAYLIST RESPONSE', response);
-    });
+    return axios
+      .post('/createplaylist', { playlistName, playlistDesc })
+      .then(response => {
+        console.log('SAVE PLAYLIST RESPONSE', response.data);
+        const userID = response.data.userId;
+        const playlistID = response.data.playlistID;
+        if (trackURIs.length > 0) {
+          return axios.post('/addtracks', { userID, playlistID, trackURIs });
+        }
+      })
+      .then(() => {
+        this.getPlaylists();
+      });
   },
 
   getPlaylists() {
@@ -34,7 +44,7 @@ const Spotify = {
         id: playlists.id,
         name: playlists.name,
         uri: playlists.uri,
-        image: playlists.images[0].url,
+        // image: playlists.images[0].url,
         tracks: playlists.tracks //object
       }));
       // filters and returns only the collaborative playlists
