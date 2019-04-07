@@ -5,9 +5,11 @@ class Header extends Component {
   constructor() {
     super();
     this.state = {
-      userName: 'Ralf'
+      userName: 'Anonymous'
     };
   }
+
+
 
   render() {
     return (
