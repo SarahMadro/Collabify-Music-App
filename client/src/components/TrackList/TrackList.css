@@ -1,0 +1,51 @@
+.MyTrackList {
+  color: #404040;
+  margin-bottom: 25px;
+}
+
+.TrackImg {
+  max-width: 80px;
+}
+
+.Remove {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+}
+
+.TrackList {
+  background-color: #f9f9f9;
+  padding: 45px;
+  max-width: 70% !important;
+  margin-top: 75px;
+}
+
+.SongDuration {
+  position: absolute;
+  right: 140px;
+  top: 20px;
+  font-weight: 400;
+}
+
+.ArtistName {
+  font-weight: 400;
+}
+
+.TracklistGet {
+  padding: 15px 25px;
+  font-size: 18px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.TrackItem {
+  border: none;
+  border-bottom: 1px solid #ccc !important;
+  margin-bottom: 15px;
+  background: transparent;
+  font-size: 18px;
+  font-weight: 500;
+  padding-bottom: 20px;
+}
