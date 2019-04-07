@@ -61,8 +61,16 @@ const Spotify = {
 
   getPlaylistDetails(playlistID) {
     console.log("SPOTIFY JS GOT IT", playlistID)
-    return axios.get('/getPlaylistDetails', {playlistID: playlistID}).then(response => {
-      console.log("DAAA RESPONSE", response)
+    return axios.get('/getPlaylistDetails', { params: { playlistID: playlistID }}).then(response => {
+      console.log("DAAA RESPONSE", response.data)
+      const pldata = {
+        id: response.data.id,
+        description: response.data.description,
+        tracks: response.data.tracks.items,
+        name: response.data.name,
+        image: response.data.images[0].url
+      }
+    return pldata
     })
   },
 

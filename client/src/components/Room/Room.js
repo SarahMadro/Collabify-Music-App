@@ -9,6 +9,10 @@ class Room extends Component {
     super(props);
     this.state = {
       playlistID: this.getPlaylistFromUrl(),
+      playlistDesc: '',
+      playlistTracks: [],
+      playlistImage: '',
+      playlistName: '',
       searchResults: []
     };
 
@@ -16,9 +20,15 @@ class Room extends Component {
     this.search = this.search.bind(this);
     this.addTrack = this.addTrack.bind(this);
     this.getPlaylistFromUrl = this.getPlaylistFromUrl.bind(this);
+    this.getPlaylistDetails = this.getPlaylistDetails.bind(this);
 
     // this.removeTrack = this.removeTrack.bind(this);
   }
+
+  componentDidMount(){
+    this.getPlaylistDetails()
+  }
+
 
   // onRemove={this.removeTrack}
 
@@ -28,8 +38,15 @@ class Room extends Component {
   //   this.setState({ playlistTracks: newTracks });
   // }
 
-  componentDidMount(){
-    console.log(Spotify.getPlaylistDetails(this.state.playlistID))
+  getPlaylistDetails(){
+    Spotify.getPlaylistDetails(this.state.playlistID).then(response => {
+    return this.setState ({
+      playlistDesc: response.description,
+      playlistTracks: response.tracks,
+      playlistImage: response.image,
+      playlistName: response.name
+    })
+    })
   }
 
   getPlaylistFromUrl(){

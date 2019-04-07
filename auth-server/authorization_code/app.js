@@ -186,16 +186,14 @@ app.get('/getplaylists', (req, res) => {
 
 app.get('/getPlaylistDetails', (req, res) => {
   var playlistID = req.query.playlistID;
-  console.log("PLAYLLIST ID!", req)
   const headers = {
     Authorization: `Bearer ${req.session.token}`
   };
-  // Call Spotify API with search term
+  // Call Spotify API with Playlist ID
   request(
     `https://api.spotify.com/v1/playlists/${playlistID}`    ,
     { headers: headers },
     function(err, result, body) {
-      console.log("WHAT RESULT?", result.body)
       res.send(result.body);
     }
   );
