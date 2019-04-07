@@ -17,7 +17,7 @@ class CollabList extends React.Component {
 
   getPlaylists() {
     Spotify.getPlaylists().then(playlists => {
-      console.log('made it to CollabList', playlists);
+      // console.log('made it to CollabList', playlists);
       return this.setState({ currentUsersPlaylists: playlists });
     });
   }
