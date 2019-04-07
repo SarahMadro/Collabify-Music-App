@@ -46,8 +46,6 @@ class SearchBar extends React.Component {
           Search
         </button>
         <br />
-
-        {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
       </div>
     );
   }

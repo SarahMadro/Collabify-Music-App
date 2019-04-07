@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Script from 'react-load-script';
+import SDKauth from './SDKauth';
+
 
 class App extends Component {
 
@@ -72,6 +74,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
+        <SDKauth />
           <Script
             url="https://sdk.scdn.co/spotify-player.js"
             onCreate={this.handleScriptCreate.bind(this)}
@@ -79,6 +82,7 @@ class App extends Component {
             onLoad={this.handleScriptLoad.bind(this)}
           />
         </header>
+
       </div>
     );
   }

@@ -37,7 +37,7 @@ const Spotify = {
   getPlaylists() {
     // call to backend
     return axios.get('/getplaylists').then(response => {
-      // console.log('CLIENT SPOTIFY GET!', response.data);
+      // console.log('CLIENT SPOTIFY GET!', response.data[10].images[0].url);
       // get the playlist data we need from the response
       const allPlaylists = response.data.map(playlists => ({
         key: playlists.id,
@@ -45,10 +45,10 @@ const Spotify = {
         id: playlists.id,
         name: playlists.name,
         uri: playlists.uri,
-        // image: playlists.images[0].url,
+        image: playlists.images[0],
         tracks: playlists.tracks //object
-      }));
-      // filters and returns only the collaborative playlists
+        })
+      );      // filters and returns only the collaborative playlists
       const collabPlaylists = [];
       allPlaylists.forEach(function(item) {
         if (item.collaborative === true) {
@@ -59,9 +59,25 @@ const Spotify = {
     });
   },
 
+  getPlaylistDetails(playlistID) {
+    console.log("SPOTIFY JS GOT IT", playlistID)
+    return axios.get('/getPlaylistDetails', { params: { playlistID: playlistID }}).then(response => {
+      console.log("DAAA RESPONSE", response.data)
+      const pldata = {
+        id: response.data.id,
+        description: response.data.description,
+        tracks: response.data.tracks.items,
+        name: response.data.name,
+        image: response.data.images[0].url
+      }
+    return pldata
+    })
+  },
+
   getUserInfo() {
     return axios.get('/userinfo')
-  }
+  },
+
 };
 
 

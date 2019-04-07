@@ -30,7 +30,7 @@ class CreatePlaylist extends React.Component {
 
   render() {
     return (
-      <div className='Playlist col' alignt='center'>
+      <div className='Dashboard col' alignt='center'>
         <h2 className='CreatePlaylist'>Create a Playlist</h2>
         <input
           id='Playlist-name'
