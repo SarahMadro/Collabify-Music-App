@@ -11,7 +11,7 @@ class App extends Component {
     super();
 
     this.state = {
-      playlistName: 'New Playlist',
+      playlistName: '',
       playlistDesc: '',
       playlistID: '',
       playlistTracks: []
@@ -32,17 +32,18 @@ class App extends Component {
 
   savePlaylist() {
     let tracks = this.state.playlistTracks;
-    if (this.state.playlistName) {
+    if (!this.state.playlistName) {
+      alert("Playlist must have a name")
+    }
       let trackURIs = tracks.map(trackIndex => trackIndex.uri);
       Spotify.savePlaylist(this.state.playlistName, this.state.playlistDesc, trackURIs).then(() => {
         this.setState({
-          playlistName: 'New Playlist',
+          playlistName: '',
           playlistTracks: []
         });
         document.getElementById('Playlist-name').value = this.state.playlistName;
       });
     }
-  }
 
   getPLID = plID => {
     this.setState({

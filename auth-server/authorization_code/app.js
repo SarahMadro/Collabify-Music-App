@@ -68,7 +68,7 @@ app.get('/login', function(req, res) {
   res.cookie(stateKey, state);
   // your application requests authorization
   var scope =
-    'user-read-private user-read-email user-read-playback-state playlist-modify-public playlist-modify-private playlist-read-collaborative';
+    'user-read-private user-read-playback-state playlist-modify-public playlist-modify-private playlist-read-collaborative';
   res.redirect(
     'https://accounts.spotify.com/authorize?' +
       querystring.stringify({
@@ -141,6 +141,24 @@ app.get('/callback', function(req, res) {
   }
 });
 
+// get current user's info
+app.get('/userinfo', (req, res) => {
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`
+  };
+  rp('https://api.spotify.com/v1/me', { headers, json: true })
+      .then(body => {
+        const userInfo = {
+          name: body.display_name,
+          id: body.id,
+          uri: body.uri,
+          image: body.images[0].url
+        }
+        console.log("USER INFO", userInfo)
+        res.send(userInfo)
+      })
+}),
+
 app.get('/search', (req, res) => {
   var searchTerm = req.query.searchTerm;
   const headers = {
@@ -165,6 +183,8 @@ app.get('/getplaylists', (req, res) => {
     res.send(body.items);
   });
 }),
+
+// create a playlist
   app.post('/createplaylist', (req, res) => {
     const headers = {
       Authorization: `Bearer ${req.session.token}`,
