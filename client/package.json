@@ -11,8 +11,10 @@
     "prop-types": "^15.7.2",
     "react": "^16.1.0",
     "react-dom": "^16.1.0",
+    "react-load-script": "0.0.6",
     "react-router-dom": "^5.0.0",
     "react-scripts": "1.0.17",
+    "react-spotify-api": "^1.5.2",
     "spotify-web-api-js": "^0.22.1"
   },
   "scripts": {
