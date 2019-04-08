@@ -35,14 +35,6 @@ class CollabList extends React.Component {
           <h3 className='MyCollabs'>My Collabs</h3>
           <div className='Collablist list-group'>
             {this.state.currentUsersPlaylists.map(playlist => (
-              // ALL RESULTS GO HERE
-              // access to
-              // key: playlists.id,
-              // collaborative: playlists.collaborative,
-              // id: playlists.id,
-              // name: playlists.name,
-              // uri: playlists.uri,
-              // image: playlists.images[0].url  IMAGES DOESN'T WORK RIGHT NOW
               <a href={'/room/?pl=' + playlist.id} className='list-group-item list-group-item-action CollabItem'>
                 <p style={{ marginBottom: '2px' }} className='CollabPlayListName'>
                   {playlist.name}

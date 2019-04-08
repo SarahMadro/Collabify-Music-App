@@ -28,7 +28,6 @@ class Room extends Component {
 
   componentDidMount() {
     this.getPlaylistDetails();
-    console.log(this.state);
   }
 
   // onRemove={this.removeTrack}
@@ -74,10 +73,10 @@ class Room extends Component {
     return (
       <div>
         <Header />
-        <RoomCover />
+        <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} />
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
-        <TrackList />
+        <TrackList playlistTracks={this.state.playlistTracks} />
       </div>
     );
   }
