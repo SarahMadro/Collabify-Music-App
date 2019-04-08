@@ -148,7 +148,7 @@ app.get('/userinfo', (req, res) => {
           uri: body.uri,
           image: body.images[0].url
         }
-        console.log("USER INFO", userInfo)
+        console.log("Got User Info!")
         res.send(userInfo)
       })
 }),

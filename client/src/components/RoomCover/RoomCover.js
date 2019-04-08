@@ -20,9 +20,8 @@ class RoomCover extends Component {
               <h5 className='HostMenu'>Menu</h5>
               <ul>
                 <li>
-                  <a href=''> Share</a>
+                  <a href=''>Share</a>
                 </li>
-                <a href=''> Delete</a>
               </ul>
             </div>
           </div>
