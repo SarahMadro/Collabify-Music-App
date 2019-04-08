@@ -1,0 +1,147 @@
+.homepage {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(-100deg, #56269a, #241e94);
+  background-size: 100% 100%;
+  -webkit-animation: Gradient 5s ease infinite;
+  -moz-animation: Gradient 5s ease infinite;
+  animation: Gradient 5s ease infinite;
+}
+
+#login {
+  text-align: center;
+  width: 500px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+
+.welcome {
+  margin: 0 auto;
+  color: #fff;
+  font-weight: bold;
+  padding-bottom: 50px;
+  font-size: 3.3em;
+}
+
+.home-logo {
+  margin: 0 auto;
+  color: #28a745;
+  font-weight: bold;
+}
+
+.login-btn {
+  padding: 15px 25px;
+  color: #454545;
+  background-color: #fff;
+  font-size: 16px;
+  border-radius: 45px;
+  border: none;
+  transition: all 0.2s;
+}
+
+.login-btn:hover {
+  background-color: #ddd !important;
+  color: #454545;
+}
+
+.login-btn span {
+  padding-left: 15px;
+}
+
+.login-btn img {
+  width: 30px;
+}
+
+.Sound {
+  position: absolute;
+  top: 27%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}
+.Sound:hover span {
+  background-color: #fff;
+}
+.Sound span {
+  display: block;
+  width: 5px;
+  margin-right: 3px;
+  background-color: #fff;
+  animation: sound 0ms -0.8s ease-in-out infinite alternate;
+  transition: height 0.8s, background 0.3s;
+}
+.Sound span:nth-child(1) {
+  height: 1px;
+  animation-duration: 474ms;
+}
+.Sound span:nth-child(2) {
+  height: 3px;
+  animation-duration: 633ms;
+}
+.Sound span:nth-child(3) {
+  height: 5px;
+  animation-duration: 407ms;
+}
+.Sound span:nth-child(4) {
+  height: 7px;
+  animation-duration: 658ms;
+}
+.Sound span:nth-child(5) {
+  height: 8px;
+  animation-duration: 0.4s;
+}
+
+@keyframes sound {
+  0% {
+    opacity: 0.35;
+    height: 6px;
+  }
+  100% {
+    opacity: 1;
+    height: 23px;
+  }
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
