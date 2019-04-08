@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import Script from 'react-load-script';
-import SDKauth from './SDKauth';
+// import WebPlaybackReact from './Spotify/WebPlaybackReact.js';
 
-
-class App extends Component {
+class SDKPlayer extends Component {
 
   constructor(props) {
     super(props);
@@ -21,12 +20,14 @@ class App extends Component {
   handleLoadSuccess() {
     this.setState({ scriptLoaded: true });
     console.log("Script loaded");
-    const token = '[BQC9VM4SwhgHqTEOMDXwOpuFDJ8lCAARx2SHBpFBnXk_Hn5OKNNSWP5VcVH9sUgPDrr9tm45Bsrwo-EE0huG9s1gTx9GDNcPxhGQWchth7oslTxaFE8iMejXqwCaxnIBePk1JKMhpJfP2mEL8Q7CarF1IGVZ5-jJ-62kSxYrc0BnZ4qdP2CoYWow9_In]';
+    const token = '[BQC1CPueegfe7Xp34mYl8NPfnrELW10CYjd5_Cn2ca1vK6wRMtmRSUb4vcDw24WCDyveAIM8lEpRi7sthqxnmhmLR7NCT0ldLxcvG0fm57HR5L2CAARhXCYzNwOc3js_a0vQ2NiXA-Om3zC_aQbWOgRk28f2h74g17GfgX-Ptb1o-ccIkV3V3amYxKhY]';
+    console.log('TOKEN IS HERE')
+
     const player = new window.Spotify.Player({
       name: 'Web Playback SDK Quick Start Player',
       getOAuthToken: cb => { cb(token); }
     });
-    console.log(player);
+    console.log('@@@@@@@', player);
 
     // Error handling
     player.addListener('initialization_error', ({ message }) => { console.error(message); });
@@ -56,7 +57,7 @@ class App extends Component {
   }
 
   handleScriptCreate() {
-    this.setState({ scriptLoaded: false });
+    this.setState({ scriptLoaded: true });
     console.log("Script created");
   }
 
@@ -74,7 +75,6 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-        <SDKauth />
           <Script
             url="https://sdk.scdn.co/spotify-player.js"
             onCreate={this.handleScriptCreate.bind(this)}
@@ -82,9 +82,8 @@ class App extends Component {
             onLoad={this.handleScriptLoad.bind(this)}
           />
         </header>
-
       </div>
     );
   }
 }
-export default App;
+export default SDKPlayer;

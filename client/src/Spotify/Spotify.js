@@ -1,4 +1,5 @@
 import axios from 'axios';
+// var Spotify = require('spotify-web-api-js');
 
 const Spotify = {
 
@@ -17,7 +18,7 @@ const Spotify = {
       }));
     });
   },
-  
+
 
   savePlaylist(playlistName, playlistDesc, trackURIs) {
     return axios
@@ -59,6 +60,8 @@ const Spotify = {
     });
   },
 
+
+  //try use this funciton to send token to skd player
   getPlaylistDetails(playlistID) {
     console.log("SPOTIFY JS GOT IT", playlistID)
     return axios.get('/getPlaylistDetails', { params: { playlistID: playlistID }}).then(response => {

@@ -6,6 +6,7 @@ import TrackList from '../TrackList/TrackList';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
 import SearchResults from '../SearchResults/SearchResults';
+import SDKPlayer from '../../Spotify/Player';
 
 class Room extends Component {
   constructor(props) {
@@ -84,6 +85,7 @@ class Room extends Component {
         <SearchBar onSearch={this.search} />
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
         <TrackList playlistTracks={this.state.playlistTracks} />
+        <SDKPlayer />
       </div>
     );
   }
