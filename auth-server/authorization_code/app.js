@@ -12,12 +12,6 @@ var client_id = process.env.CLIENT_ID; // Your client id
 var client_secret = process.env.CLIENT_SECRET; // Your secret
 var redirect_uri = 'http://localhost:8080/callback'; // Or Your redirect uri
 
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
-
 var generateRandomString = function(length) {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -53,14 +47,14 @@ app.use(function(req, res, next) {
     var randomNumber = Math.random().toString();
     randomNumber = randomNumber.substring(2, randomNumber.length);
     res.cookie('cookieName', randomNumber, { maxAge: 900000, httpOnly: true });
-    console.log('cookie created successfully');
+    console.log('Cookie created successfully');
   }
   next(); // <-- important!
 });
 
-app.get('/', function(req, res) {
-  console.log('COOKIES!!!!!!', req.cookies);
-});
+// app.get('/', function(req, res) {
+//   console.log('COOKIES!!!!!!', req.cookies);
+// });
 
 // Requesting login information from user
 app.get('/login', function(req, res) {
@@ -184,6 +178,7 @@ app.get('/getplaylists', (req, res) => {
   });
 }),
 
+// get a specific playlist's details
 app.get('/getPlaylistDetails', (req, res) => {
   var playlistID = req.query.playlistID;
   const headers = {
@@ -199,7 +194,7 @@ app.get('/getPlaylistDetails', (req, res) => {
   );
 });
 
-// create a playlist
+// create a new playlist
 app.post('/createplaylist', (req, res) => {
     const headers = {
       Authorization: `Bearer ${req.session.token}`,
@@ -223,7 +218,6 @@ app.post('/createplaylist', (req, res) => {
           }
         });
       })
-      // add tracks to Spotify playlist
       .then(body => {
         playlistID = body.id;
       })
@@ -232,6 +226,7 @@ app.post('/createplaylist', (req, res) => {
       });
   });
 
+// add tracks to Spotify playlist
 app.post('/addtracks', (req, res) => {
   const headers = {
     Authorization: `Bearer ${req.session.token}`,

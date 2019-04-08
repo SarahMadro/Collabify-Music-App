@@ -27,7 +27,7 @@ class Header extends Component {
           <div className='wrapper'>
             <h1 className='logo'>Collabs</h1>
             <div className='UserProfile'>
-              <img className='UserPhoto' src={this.state.userPhoto} />
+              <img alt="current user avatar" className='UserPhoto' src={this.state.userPhoto} />
               <p className='UserName'> {this.state.userName}</p>
             </div>
           </div>
