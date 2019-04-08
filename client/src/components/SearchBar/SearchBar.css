@@ -1,32 +1,37 @@
 .SearchBar {
   position: relative;
-  top: 40px;
-  max-width: 800px;
-  margin: 0 auto;
+  top: 90px;
+  left: 60px;
+  margin-bottom: 20px;
 }
 
 .SearchInput {
-  width: 600px;
-  border-width: 0 0 1px 0;
+  border-radius: 45px;
+  width: 640px;
+  border-width: 1px;
   border-color: #ccc;
-  height: 70px;
+  border-style: solid;
+  height: 55px;
   background-color: transparent;
   font-size: 30px;
-  color: #606060;
+  color: #fff;
   outline: 0 none;
+  padding-left: 20px;
+  background-color: rgba(255, 255, 255, 0.119);
 }
 
 .SearchButton {
   cursor: pointer;
-  height: 62px;
-  width: 120px;
+  padding: 10px 45px 10px 45px;
   border: none;
-  font-size: 22px;
+  font-size: 20px;
   margin-left: 20px;
+  border-radius: 40px;
+  margin-top: -10px;
 }
 
 ::-webkit-input-placeholder {
   padding-left: 15px;
   color: #909090;
-  font-size: 22px;
+  font-size: 20px;
 }

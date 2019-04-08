@@ -1,6 +1,18 @@
 body {
   font-family: 'Hind', sans-serif;
-  background-color: #f1f1f1;
+  /* background: linear-gradient(to bottom right, #730f7f, #1d094c); */
+  height: 100%;
+
+  background: linear-gradient(-100deg, #56269a, #241e94);
+  background-size: 100% 100%;
+  -webkit-animation: Gradient 5s ease infinite;
+  -moz-animation: Gradient 5s ease infinite;
+  animation: Gradient 5s ease infinite;
+}
+
+.Dash {
+  position: absolute;
+  top: 140px;
 }
 
 .container {
@@ -11,4 +23,45 @@ body {
 .BodyWrapper {
   max-width: 1300px;
   margin: 0 auto;
+}
+
+.full-screeen {
+  width: 100vw;
+  height: 100vh;
+}
+
+@-webkit-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@-moz-keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes Gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

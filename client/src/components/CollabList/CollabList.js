@@ -18,10 +18,11 @@ class CollabList extends React.Component {
 
   getPlaylists() {
     Spotify.getPlaylists().then(playlists => {
-      // console.log('made it to CollabList', playlists);
       playlists.forEach(playlist => {
         if (playlist.image === undefined) {
           console.log("This playlist doesn't have an image. Gotta find a sub");
+          playlist.image = '../RoomCover/collabs.jpg'
+          console.log(playlist.image)
         }
       });
       return this.setState({ currentUsersPlaylists: playlists });

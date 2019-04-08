@@ -7,24 +7,23 @@ class RoomCover extends Component {
       <div className='BodyWrapper'>
         <div className='container RoomCover'>
           <div className='row'>
-            <div className='col-10 Col1'>
+            <div className='col-8 Col1'>
               <div className='media'>
                 <img src={this.props.playlistInfo.playlistImage} className='mr-3 PlaylistImg' alt='...' />
                 <div className='media-body PlaylistInfo'>
-                  <h3 className='mt-0'>{this.props.playlistInfo.playlistName}</h3>
-                  <p>{this.props.playlistInfo.playlistDesc}</p>
+                  <h3 className='mt-0 PlaylistN'>{this.props.playlistInfo.playlistName}</h3>
+                  <p className='PlaylistDesc'>{this.props.playlistInfo.playlistDesc}</p>
+                  <ul>
+                    <li style={{ display: 'inline' }}>
+                      <a className='btn btn-success share' href=''>
+                        Share
+                      </a>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
-            <div className='col-2 Col2'>
-              <h5 className='HostMenu'>Menu</h5>
-              <ul>
-                <li>
-                  <a href=''> Share</a>
-                </li>
-                <a href=''> Delete</a>
-              </ul>
-            </div>
+            <div className='col-4 Col2' />
           </div>
         </div>
       </div>
