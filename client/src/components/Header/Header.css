@@ -32,12 +32,17 @@ header {
   color: #fff;
 }
 
-.logo {
+.wrapper > a {
   margin-left: 60px;
-  margin-top: -25px;
+  position: relative;
+  top: -27px !important;
   font-size: 32px;
   color: #28a745;
   font-weight: bold;
+}
+
+.wrapper > a:hover {
+  text-decoration: none;
 }
 
 .Sound {

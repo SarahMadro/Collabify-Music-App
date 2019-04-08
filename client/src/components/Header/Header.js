@@ -24,7 +24,7 @@ class Header extends Component {
     return (
       <div>
         <header>
-          <div class='Sound'>
+          <div className='Sound'>
             <span />
             <span />
             <span />
@@ -32,9 +32,11 @@ class Header extends Component {
             <span />
           </div>
           <div className='wrapper'>
-            <h1 className='logo'>Collabify</h1>
+            <a href='/' className='logo'>
+              Collabify
+            </a>
             <div className='UserProfile'>
-              <img className='UserPhoto' src={this.state.userPhoto} />
+              <img alt='current user avatar' className='UserPhoto' src={this.state.userPhoto} />
               <p className='UserName'> {this.state.userName}</p>
             </div>
           </div>

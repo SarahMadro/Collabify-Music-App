@@ -1,4 +1,5 @@
 import axios from 'axios';
+import defaultPlaylistPic from '../components/RoomCover/collabs.jpg'
 
 const Spotify = {
 
@@ -17,27 +18,26 @@ const Spotify = {
       }));
     });
   },
+  
 
   savePlaylist(playlistName, playlistDesc, trackURIs) {
     return axios
       .post('/createplaylist', { playlistName, playlistDesc })
       .then(response => {
-        console.log('SAVE PLAYLIST RESPONSE', response.data);
+        console.log('Playlist Saved!');
         const userID = response.data.userId;
         const playlistID = response.data.playlistID;
+        const responseData = response.data;
         if (trackURIs.length > 0) {
           return axios.post('/addtracks', { userID, playlistID, trackURIs });
         }
+        return responseData
       })
-      .then(() => {
-        this.getPlaylists();
-      });
   },
 
   getPlaylists() {
     // call to backend
     return axios.get('/getplaylists').then(response => {
-      // console.log('CLIENT SPOTIFY GET!', response.data[10].images[0].url);
       // get the playlist data we need from the response
       const allPlaylists = response.data.map(playlists => ({
         key: playlists.id,
@@ -45,10 +45,10 @@ const Spotify = {
         id: playlists.id,
         name: playlists.name,
         uri: playlists.uri,
-        image: playlists.images[0],
+        // image: playlists.images[0].url,
         tracks: playlists.tracks //object
-        })
-      );      // filters and returns only the collaborative playlists
+      }));
+      // filters and returns only the collaborative playlists
       const collabPlaylists = [];
       allPlaylists.forEach(function(item) {
         if (item.collaborative === true) {
@@ -60,24 +60,25 @@ const Spotify = {
   },
 
   getPlaylistDetails(playlistID) {
-    console.log("SPOTIFY JS GOT IT", playlistID)
     return axios.get('/getPlaylistDetails', { params: { playlistID: playlistID }}).then(response => {
-      console.log("DAAA RESPONSE", response.data)
       const pldata = {
         id: response.data.id,
         description: response.data.description,
         tracks: response.data.tracks.items,
         name: response.data.name,
-        image: response.data.images[0].url
       }
+      if (response.data.images[0] === undefined) {
+        pldata.image = defaultPlaylistPic
+      }
+      else {pldata.image = response.data.images[0].url}
+      console.log("IMAGE!", pldata.image)
     return pldata
     })
   },
 
   getUserInfo() {
     return axios.get('/userinfo')
-  },
-
+  }
 };
 
 export default Spotify;

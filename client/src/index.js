@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import CreatePlaylist from './components/CreatePlaylist/CreatePlaylist';
 import Room from './components/Room/Room';
 

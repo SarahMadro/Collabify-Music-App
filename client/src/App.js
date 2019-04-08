@@ -36,20 +36,13 @@ class App extends Component {
       alert('Playlist must have a name');
     }
     let trackURIs = tracks.map(trackIndex => trackIndex.uri);
-    Spotify.savePlaylist(this.state.playlistName, this.state.playlistDesc, trackURIs).then(() => {
-      this.setState({
-        playlistName: '',
-        playlistTracks: []
-      });
-      document.getElementById('Playlist-name').value = this.state.playlistName;
-    });
-  }
-
-  getPLID = plID => {
-    this.setState({
-      playlistID: plID
-    });
-  };
+    Spotify.savePlaylist(this.state.playlistName, this.state.playlistDesc, trackURIs).then(response => {
+      this.setState ({
+        playlistID: response.playlistID,
+        })
+      })
+    };
+  
 
   render() {
     return (
@@ -58,6 +51,7 @@ class App extends Component {
         <section className='container full-screen'>
           <div className='row Dash'>
             <CreatePlaylist
+              playlistID={this.state.playlistID}
               playlistName={this.state.playlistName}
               playlistDesc={this.state.playlistDesc}
               playlistTracks={this.state.playlistTracks}
