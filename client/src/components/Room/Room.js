@@ -83,13 +83,8 @@ class Room extends Component {
         <Header />
         <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} />
-<<<<<<< HEAD
-        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
-        <SDK onLoad={true}/>
-=======
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
         <TrackList playlistTracks={this.state.playlistTracks} />
->>>>>>> cbc172f45ccef6877521b9e7465ee2138c6b72e2
       </div>
     );
   }
