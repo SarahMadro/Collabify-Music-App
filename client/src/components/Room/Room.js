@@ -10,7 +10,7 @@ class Room extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlistID: this.getPlaylistFromUrl(),
+      playlistID: '',
       playlistDesc: '',
       playlistTracks: [],
       playlistImage: '',
@@ -26,8 +26,14 @@ class Room extends Component {
     // this.removeTrack = this.removeTrack.bind(this);
   }
 
-  componentDidMount() {
-    this.getPlaylistDetails();
+  componentWillMount(){
+    this.setState ({
+      playlistID: this.getPlaylistFromUrl()
+    })
+  }
+
+  componentDidMount(){
+    this.getPlaylistDetails()
   }
 
   // onRemove={this.removeTrack}
