@@ -1,9 +1,16 @@
 import React from 'react';
+import Spotify from '../../Spotify/Spotify';
+
 
 class Track extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      hideTrack: false
+    }
+
     this.millisToMinutesAndSeconds = this.millisToMinutesAndSeconds.bind(this);
+
   }
 
   millisToMinutesAndSeconds(millis) {
@@ -11,6 +18,15 @@ class Track extends React.Component {
     var seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
+
+  removeTrack(trackURI){
+    this.props.remove(trackURI)
+    this.setState({
+      hideTrack: true
+    })
+  }
+
+  
 
   render() {
     return (
@@ -25,7 +41,7 @@ class Track extends React.Component {
                 <p className='SongDuration'>{this.millisToMinutesAndSeconds(track.track.duration_ms)}</p>
               </div>
             </div>
-            <button type='button' className='btn btn-success Remove'>
+            <button type='button' className='btn btn-success Remove' onClick={() => {this.removeTrack(track.track.uri)}} >
               Remove
             </button>
           </li>

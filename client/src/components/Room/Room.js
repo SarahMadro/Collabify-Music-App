@@ -15,15 +15,16 @@ class Room extends Component {
       playlistTracks: [],
       playlistImage: '',
       playlistName: '',
-      searchResults: []
+      searchResults: [],
+      tracksToRemove: []
     };
 
     this.search = this.search.bind(this);
     this.addTrack = this.addTrack.bind(this);
     this.getPlaylistFromUrl = this.getPlaylistFromUrl.bind(this);
     this.getPlaylistDetails = this.getPlaylistDetails.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
 
-    // this.removeTrack = this.removeTrack.bind(this);
   }
 
   componentWillMount(){
@@ -36,12 +37,6 @@ class Room extends Component {
     this.getPlaylistDetails()
   }
 
-  // onRemove={this.removeTrack}
-
-  // removeTrack(track) {
-  //   let newTracks = tracks.filter(trackIndex => trackIndex.id !== track.id);
-  //   this.setState({ playlistTracks: newTracks });
-  // }
 
   getPlaylistDetails() {
     Spotify.getPlaylistDetails(this.state.playlistID).then(response => {
@@ -68,6 +63,12 @@ class Room extends Component {
     }
   }
 
+  removeTrack(trackURIToGo){
+    this.setState({ tracksToRemove: [...this.state.tracksToRemove, trackURIToGo] })
+    let newTracks = this.state.playlistTracks;
+    this.setState({ playlistTracks: newTracks.filter(trackIndex => trackIndex.track.uri !== trackURIToGo) });
+  } 
+
   search(searchTerm) {
     Spotify.search(searchTerm).then(results => {
       this.setState({ searchResults: results });
@@ -82,7 +83,7 @@ class Room extends Component {
         <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} />
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
-        <TrackList playlistTracks={this.state.playlistTracks} />
+        <TrackList playlistTracks={this.state.playlistTracks} remove={this.removeTrack} />
       </div>
     );
   }
