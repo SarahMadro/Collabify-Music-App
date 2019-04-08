@@ -3,6 +3,7 @@ import Header from '../Header/Header';
 import SearchBar from '../SearchBar/SearchBar';
 import Spotify from '../../Spotify/Spotify';
 import SearchResults from '../SearchResults/SearchResults';
+import MusicPlayer from '../../Spotify/MusicPlayer';
 
 class Room extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class Room extends Component {
         <Header />
         <SearchBar onSearch={this.search} />
         <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
+        <MusicPlayer  onLoad={true}/>
       </div>
     );
   }
