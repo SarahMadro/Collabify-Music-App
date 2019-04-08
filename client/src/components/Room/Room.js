@@ -5,11 +5,8 @@ import TrackList from '../TrackList/TrackList';
 // import SearchResults from '../SearchResults/SearchResults';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
-<<<<<<< HEAD
 import SearchResults from '../SearchResults/SearchResults';
 import SDK from '../../Spotify/SDK';
-=======
->>>>>>> 5901b69e6d034de12f21405fbe5b6b1de91a7b57
 
 class Room extends Component {
   constructor(props) {
@@ -82,13 +79,8 @@ class Room extends Component {
         <Header />
         <RoomCover />
         <SearchBar onSearch={this.search} />
-<<<<<<< HEAD
         <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
         <SDK onLoad={true}/>
-=======
-        {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
-        <TrackList />
->>>>>>> 5901b69e6d034de12f21405fbe5b6b1de91a7b57
       </div>
     );
   }
