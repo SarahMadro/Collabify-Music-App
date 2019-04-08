@@ -53,10 +53,10 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ height: '100vh' }}>
         <Header />
-        <section className='container'>
-          <div className='row'>
+        <section className='container full-screen'>
+          <div className='row Dash'>
             <CreatePlaylist
               playlistName={this.state.playlistName}
               playlistDesc={this.state.playlistDesc}

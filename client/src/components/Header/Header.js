@@ -24,8 +24,15 @@ class Header extends Component {
     return (
       <div>
         <header>
+          <div class='Sound'>
+            <span />
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
           <div className='wrapper'>
-            <h1 className='logo'>Collabs</h1>
+            <h1 className='logo'>Collabify</h1>
             <div className='UserProfile'>
               <img className='UserPhoto' src={this.state.userPhoto} />
               <p className='UserName'> {this.state.userName}</p>

@@ -15,10 +15,11 @@ class TrackList extends React.Component {
       <div className='BodyWrapper col'>
         <div className='TrackList'>
           <h3 className='MyTrackList'>Track List</h3>
-          <div className='list-group' />
-          <ul className='list-group'>
-            <Track tracks={this.props.playlistTracks} />
-          </ul>
+          <div className='list-group'>
+            <ul className='list-group'>
+              <Track tracks={this.props.playlistTracks} />
+            </ul>
+          </div>
         </div>
       </div>
     );

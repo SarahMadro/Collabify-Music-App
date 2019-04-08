@@ -1,14 +1,26 @@
 .MyCollabs {
   color: #404040;
-  margin-bottom: 25px;
+  font-weight: bold;
+  width: 100%;
+  background-color: #eaeaea;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 0;
+}
+
+.list-group-item:first-child {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .CollabList {
-  background-color: #f9f9f9;
-  padding: 25px;
+  border-radius: 10px;
+  background-color: #fff;
   width: 70% !important;
   margin: 0 auto;
   text-align: center;
+  max-height: 450px;
+  overflow-y: scroll;
 }
 
 .PlaylistGet {
@@ -22,10 +34,11 @@
 
 .CollabItem {
   border: none;
-  border-bottom: 1px solid #ccc !important;
+  border-bottom: 1px solid #eaeaea !important;
   background: transparent;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: bold;
+  text-transform: capitalize;
   color: #28a745;
   padding-top: 20px;
   padding-bottom: 5px;
@@ -33,7 +46,7 @@
 }
 
 .CollabItem:hover {
-  background-color: green;
+  background-color: #28a745;
 }
 
 .CollabItem:hover {
@@ -45,7 +58,31 @@
 }
 
 .CollabPlayInfo {
-  color: #454545;
+  color: #606060;
   font-size: 15px;
   font-weight: 400;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background: #ccc;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

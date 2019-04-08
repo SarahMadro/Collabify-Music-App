@@ -2,9 +2,8 @@ header {
   padding: 0 60px 0 60px;
   width: 100%;
   overflow: hidden;
-  height: 80px;
-  border-bottom: 1px solid #eaeaea;
-  background-color: #eaeaea;
+  height: 85px;
+  background: transparent;
   position: absolute;
   top: 0;
   padding-top: 20px;
@@ -23,18 +22,95 @@ header {
 .UserProfile {
   position: absolute;
   top: 20px;
-  right: 200px;
+  right: 170px;
 }
 
 .UserName {
   padding-left: 10px;
   display: inline-block;
   font-weight: 400;
-  color: #606060;
+  color: #fff;
 }
 
 .logo {
+  margin-left: 60px;
+  margin-top: -25px;
   font-size: 32px;
   color: #28a745;
   font-weight: bold;
+}
+
+.Sound {
+  width: 40px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}
+.Sound:hover span {
+  background-color: #fff;
+}
+.Sound span {
+  display: block;
+  width: 3px;
+  margin-right: 2px;
+  background-color: #fff;
+  animation: sound 0ms -0.8s ease-in-out infinite alternate;
+  transition: height 0.8s, background 0.3s;
+}
+.Sound span:nth-child(1) {
+  height: 1px;
+  animation-duration: 474ms;
+}
+.Sound span:nth-child(2) {
+  height: 3px;
+  animation-duration: 633ms;
+}
+.Sound span:nth-child(3) {
+  height: 5px;
+  animation-duration: 407ms;
+}
+.Sound span:nth-child(4) {
+  height: 7px;
+  animation-duration: 658ms;
+}
+.Sound span:nth-child(5) {
+  height: 8px;
+  animation-duration: 0.4s;
+}
+
+.Sound.off span {
+  animation: none;
+}
+.Sound.off span:nth-child(1) {
+  height: 8px;
+  animation-duration: 474ms;
+}
+.Sound.off span:nth-child(2) {
+  height: 3px;
+  animation-duration: 433ms;
+}
+.Sound.off span:nth-child(3) {
+  height: 5px;
+  animation-duration: 407ms;
+}
+.Sound.off span:nth-child(4) {
+  height: 4px;
+  animation-duration: 458ms;
+}
+.Sound.off span:nth-child(5) {
+  height: 8px;
+  animation-duration: 0.4s;
+}
+
+@keyframes sound {
+  0% {
+    opacity: 0.35;
+    height: 6px;
+  }
+  100% {
+    opacity: 1;
+    height: 23px;
+  }
 }

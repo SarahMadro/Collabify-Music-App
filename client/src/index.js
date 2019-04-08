@@ -8,14 +8,6 @@ import Room from './components/Room/Room';
 const routing = (
   <Router>
     <div>
-      <ul>
-        <li>
-          <Link to='/App'>App</Link>
-        </li>
-        <li>
-          <Link to='/CreatPlaylist'>CreatePlaylist</Link>
-        </li>
-      </ul>
       <Route path='/' exact component={App} />
       <Route path='/CreatePlaylist' component={CreatePlaylist} />
       <Route path='/Room' component={Room} />
