@@ -2,23 +2,23 @@ import React, { Component } from 'react';
 import './Header.css';
 import Spotify from '../../Spotify/Spotify';
 
-
 class Header extends Component {
   constructor() {
     super();
     this.state = {
-      userName: 'Anonymous'
+      userName: 'Anonymous',
+      userPhoto: ''
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     Spotify.getUserInfo().then(response => {
       this.setState({
-        userName: response.data.name
-      })
-    })
+        userName: response.data.name,
+        userPhoto: response.data.image
+      });
+    });
   }
-
 
   render() {
     return (
@@ -26,8 +26,10 @@ class Header extends Component {
         <header>
           <div className='wrapper'>
             <h1 className='logo'>Collabs</h1>
-            {/* <button onClick={this.getUserInfo}>click to get name</button> */}
-            <p className='logged-user'>Logged in as {this.state.userName}</p>
+            <div className='UserProfile'>
+              <img className='UserPhoto' src={this.state.userPhoto} />
+              <p className='UserName'> {this.state.userName}</p>
+            </div>
           </div>
         </header>
       </div>

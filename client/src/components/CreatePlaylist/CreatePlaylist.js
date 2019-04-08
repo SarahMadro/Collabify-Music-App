@@ -1,9 +1,12 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+
 import './CreatePlaylist.css';
 
 class CreatePlaylist extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescChange = this.handleDescChange.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
@@ -28,7 +31,11 @@ class CreatePlaylist extends React.Component {
     this.props.onDescChange(event.target.value);
   }
 
+
   render() {
+    if (this.props.playlistID.length > 0){
+      return <Redirect to={'/room/?pl=' + this.props.playlistID }/>
+    }
     return (
       <div className='Dashboard col' alignt='center'>
         <h2 className='CreatePlaylist'>Create a Playlist</h2>

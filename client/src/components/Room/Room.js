@@ -12,14 +12,13 @@ class Room extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlistID: this.getPlaylistFromUrl(),
+      playlistID: '',
       playlistDesc: '',
       playlistTracks: [],
       playlistImage: '',
       playlistName: '',
       searchResults: []
     };
-
 
     this.search = this.search.bind(this);
     this.addTrack = this.addTrack.bind(this);
@@ -29,10 +28,15 @@ class Room extends Component {
     // this.removeTrack = this.removeTrack.bind(this);
   }
 
+  componentWillMount(){
+    this.setState ({
+      playlistID: this.getPlaylistFromUrl()
+    })
+  }
+
   componentDidMount(){
     this.getPlaylistDetails()
   }
-
 
   // onRemove={this.removeTrack}
 
@@ -41,20 +45,20 @@ class Room extends Component {
   //   this.setState({ playlistTracks: newTracks });
   // }
 
-  getPlaylistDetails(){
+  getPlaylistDetails() {
     Spotify.getPlaylistDetails(this.state.playlistID).then(response => {
-    return this.setState ({
-      playlistDesc: response.description,
-      playlistTracks: response.tracks,
-      playlistImage: response.image,
-      playlistName: response.name
-    })
-    })
+      return this.setState({
+        playlistDesc: response.description,
+        playlistTracks: response.tracks,
+        playlistImage: response.image,
+        playlistName: response.name
+      });
+    });
   }
 
-  getPlaylistFromUrl(){
+  getPlaylistFromUrl() {
     let query = window.location.href;
-    let vars = query.split("=");
+    let vars = query.split('=');
     return vars[1];
   }
 
@@ -77,10 +81,15 @@ class Room extends Component {
     return (
       <div>
         <Header />
-        <RoomCover />
+        <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} />
+<<<<<<< HEAD
         <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} />
         <SDK onLoad={true}/>
+=======
+        {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
+        <TrackList playlistTracks={this.state.playlistTracks} />
+>>>>>>> cbc172f45ccef6877521b9e7465ee2138c6b72e2
       </div>
     );
   }

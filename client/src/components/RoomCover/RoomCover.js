@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import './RoomCover.css';
-import collabs from './collabs.jpg';
 
 class RoomCover extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className='BodyWrapper'>
@@ -14,11 +9,10 @@ class RoomCover extends Component {
           <div className='row'>
             <div className='col-10 Col1'>
               <div className='media'>
-                <img src={collabs} className='mr-3 PlaylistImg' alt='...' />
+                <img src={this.props.playlistInfo.playlistImage} className='mr-3 PlaylistImg' alt='...' />
                 <div className='media-body PlaylistInfo'>
-                  <h3 className='mt-0'>Cool Playlist</h3>
-                  This is our Lighthouselabs final project cool and copllaborative playlist. Add your songs and let's
-                  dance!
+                  <h3 className='mt-0'>{this.props.playlistInfo.playlistName}</h3>
+                  <p>{this.props.playlistInfo.playlistDesc}</p>
                 </div>
               </div>
             </div>

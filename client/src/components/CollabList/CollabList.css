@@ -5,7 +5,7 @@
 
 .CollabList {
   background-color: #f9f9f9;
-  padding: 45px;
+  padding: 25px;
   width: 70% !important;
   margin: 0 auto;
   text-align: center;
@@ -23,10 +23,29 @@
 .CollabItem {
   border: none;
   border-bottom: 1px solid #ccc !important;
-  margin-bottom: 15px;
   background: transparent;
   font-size: 18px;
   font-weight: 500;
   color: #28a745;
-  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 5px;
+  transition: background-color 0.3s;
+}
+
+.CollabItem:hover {
+  background-color: green;
+}
+
+.CollabItem:hover {
+  color: #fff !important;
+}
+
+.CollabItem:hover p {
+  color: #fff;
+}
+
+.CollabPlayInfo {
+  color: #454545;
+  font-size: 15px;
+  font-weight: 400;
 }
