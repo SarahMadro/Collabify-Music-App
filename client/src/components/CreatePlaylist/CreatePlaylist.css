@@ -12,18 +12,21 @@ textarea {
 
 input::-webkit-input-placeholder {
   padding-left: 15px;
-  color: #909090;
+  color: #fff;
   font-size: 22px;
+  opacity: 0.5;
 }
 
 textarea::-webkit-input-placeholder {
   padding-left: 15px;
-  color: #909090;
+  color: #fff;
+  opacity: 0.8;
   font-size: 22px;
 }
 
 .Dashboard {
-  margin-top: 50px;
+  margin: 0 auto !important;
+  width: 80%;
 }
 
 .FormWrapper {
@@ -33,19 +36,19 @@ textarea::-webkit-input-placeholder {
 }
 
 .CreatePlaylist {
-  color: #404040;
+  color: #fff;
   text-align: center;
   font-weight: 700;
-  font-size: 38px;
+  font-size: 40px;
 }
 
 .PlaylistName {
   margin-top: 40px !important;
   border-width: 0 0 1px 0;
-  border-color: #ccc;
+  border-color: #fff;
   height: 70px;
   background-color: transparent;
-  color: #606060;
+  color: #fff;
   outline: 0 none;
   font-size: 22px;
 }
@@ -53,21 +56,22 @@ textarea::-webkit-input-placeholder {
 .PlaylistDescription {
   margin-top: 40px !important;
   border-width: 0 0 1px 0;
-  border-color: #ccc;
+  border-color: #fff;
   background-color: transparent;
   font-size: 22px;
-  color: #606060;
+  color: #fff;
   outline: 0 none;
   min-height: 100px;
 }
 
 .PlaylistSave {
+  border-radius: 60px;
   position: relative;
   top: 30px;
   cursor: pointer;
   width: 100%;
   margin-top: 30px;
-  height: 70px;
+  height: 60px;
   border: none;
   font-size: 22px;
 }

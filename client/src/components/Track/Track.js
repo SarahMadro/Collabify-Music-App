@@ -18,9 +18,9 @@ class Track extends React.Component {
         {this.props.tracks.map(track => (
           <li className='list-group-item TrackItem'>
             <div className='media'>
-              <img src={track.track.album.images[0].url} className='mr-3 TrackImg' alt='...' />
+              <img src={track.track.album.images[0].url} className='mr-3 TrackImg' alt='album-cover' />
               <div className='media-body'>
-                <h5 className='mt-0'>{track.track.name}</h5>
+                <h5 className='mt-0 TrackName'>{track.track.name}</h5>
                 <p className='ArtistName'>{track.track.artists[0].name}</p>
                 <p className='SongDuration'>{this.millisToMinutesAndSeconds(track.track.duration_ms)}</p>
               </div>

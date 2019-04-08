@@ -1,4 +1,5 @@
 import axios from 'axios';
+import defaultPlaylistPic from '../components/RoomCover/collabs.jpg'
 
 const Spotify = {
 
@@ -23,7 +24,7 @@ const Spotify = {
     return axios
       .post('/createplaylist', { playlistName, playlistDesc })
       .then(response => {
-        console.log('SAVE PLAYLIST RESPONSE', response.data);
+        console.log('Playlist Saved!');
         const userID = response.data.userId;
         const playlistID = response.data.playlistID;
         const responseData = response.data;
@@ -37,7 +38,6 @@ const Spotify = {
   getPlaylists() {
     // call to backend
     return axios.get('/getplaylists').then(response => {
-      // console.log('CLIENT SPOTIFY GET!', response.data);
       // get the playlist data we need from the response
       const allPlaylists = response.data.map(playlists => ({
         key: playlists.id,
@@ -60,20 +60,21 @@ const Spotify = {
   },
 
   getPlaylistDetails(playlistID) {
-    console.log("SPOTIFY JS GOT IT", playlistID)
     return axios.get('/getPlaylistDetails', { params: { playlistID: playlistID }}).then(response => {
-      console.log("DAAA RESPONSE", response.data)
       const pldata = {
         id: response.data.id,
         description: response.data.description,
         tracks: response.data.tracks.items,
         name: response.data.name,
-        // image: response.data.images[0].url
       }
+      if (response.data.images[0] === undefined) {
+        pldata.image = defaultPlaylistPic
+      }
+      else {pldata.image = response.data.images[0].url}
+      console.log("IMAGE!", pldata.image)
     return pldata
     })
   },
-
 
   getUserInfo() {
     return axios.get('/userinfo')

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../Header/Header';
-import SearchBar from '../SearchBar/SearchBar';
 import TrackList from '../TrackList/TrackList';
+import SearchBar from '../SearchBar/SearchBar';
 // import SearchResults from '../SearchResults/SearchResults';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
@@ -82,6 +82,7 @@ class Room extends Component {
         <Header />
         <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} />
+
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
         <TrackList playlistTracks={this.state.playlistTracks} />
       </div>

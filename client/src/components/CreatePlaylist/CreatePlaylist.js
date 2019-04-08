@@ -37,28 +37,30 @@ class CreatePlaylist extends React.Component {
       return <Redirect to={'/room/?pl=' + this.props.playlistID }/>
     }
     return (
-      <div className='Dashboard col' alignt='center'>
-        <h2 className='CreatePlaylist'>Create a Playlist</h2>
-        <input
-          id='Playlist-name'
-          className='PlaylistName'
-          placeholder='Enter name'
-          onChange={this.handleNameChange}
-          onKeyPress={this.handleKeyPress}
-          onClick={this.handleClick}
-        />
-        <br />
-        <input
-          id='Playlist-desc'
-          className='PlaylistDescription'
-          placeholder='Enter description'
-          onChange={this.handleDescChange}
-          onClick={this.handleClick}
-        />
-        <br />
-        <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
-          Create Playlist
-        </button>
+      <div className='col' alignt='center'>
+        <div className='Dashboard'>
+          <h2 className='CreatePlaylist'>Create a Playlist</h2>
+          <input
+            id='Playlist-name'
+            className='PlaylistName'
+            placeholder='Enter name'
+            onChange={this.handleNameChange}
+            onKeyPress={this.handleKeyPress}
+            onClick={this.handleClick}
+          />
+          <br />
+          <input
+            id='Playlist-desc'
+            className='PlaylistDescription'
+            placeholder='Enter description'
+            onChange={this.handleDescChange}
+            onClick={this.handleClick}
+          />
+          <br />
+          <button className='PlaylistSave btn btn-success' onClick={this.props.onSave}>
+            Create Playlist
+          </button>
+        </div>
       </div>
     );
   }
