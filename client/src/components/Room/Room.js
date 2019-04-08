@@ -18,7 +18,6 @@ class Room extends Component {
       searchResults: []
     };
 
-
     this.search = this.search.bind(this);
     this.addTrack = this.addTrack.bind(this);
     this.getPlaylistFromUrl = this.getPlaylistFromUrl.bind(this);
@@ -27,10 +26,10 @@ class Room extends Component {
     // this.removeTrack = this.removeTrack.bind(this);
   }
 
-  componentDidMount(){
-    this.getPlaylistDetails()
+  componentDidMount() {
+    this.getPlaylistDetails();
+    console.log(this.state);
   }
-
 
   // onRemove={this.removeTrack}
 
@@ -39,20 +38,20 @@ class Room extends Component {
   //   this.setState({ playlistTracks: newTracks });
   // }
 
-  getPlaylistDetails(){
+  getPlaylistDetails() {
     Spotify.getPlaylistDetails(this.state.playlistID).then(response => {
-    return this.setState ({
-      playlistDesc: response.description,
-      playlistTracks: response.tracks,
-      playlistImage: response.image,
-      playlistName: response.name
-    })
-    })
+      return this.setState({
+        playlistDesc: response.description,
+        playlistTracks: response.tracks,
+        playlistImage: response.image,
+        playlistName: response.name
+      });
+    });
   }
 
-  getPlaylistFromUrl(){
+  getPlaylistFromUrl() {
     let query = window.location.href;
-    let vars = query.split("=");
+    let vars = query.split('=');
     return vars[1];
   }
 
