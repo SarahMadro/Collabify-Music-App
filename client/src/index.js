@@ -13,7 +13,7 @@ const routing = (
           <Link to='/App'>App</Link>
         </li>
         <li>
-          <Link to='/CreatPlaylist'>CreatePlaylist</Link>
+          <Link to='/CreatePlaylist'>CreatePlaylist</Link>
         </li>
       </ul>
       <Route path='/' exact component={App} />
