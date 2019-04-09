@@ -140,33 +140,31 @@ app.get('/userinfo', (req, res) => {
   const headers = {
     Authorization: `Bearer ${req.session.token}`
   };
-  rp('https://api.spotify.com/v1/me', { headers, json: true })
-      .then(body => {
-        const userInfo = {
-          name: body.display_name,
-          id: body.id,
-          uri: body.uri,
-          image: body.images[0].url
-        }
-        console.log("Got User Info!")
-        res.send(userInfo)
-      })
+  rp('https://api.spotify.com/v1/me', { headers, json: true }).then(body => {
+    const userInfo = {
+      name: body.display_name,
+      id: body.id,
+      uri: body.uri,
+      image: body.images[0].url
+    };
+    console.log('Got User Info!');
+    res.send(userInfo);
+  });
 }),
-
-app.get('/search', (req, res) => {
-  var searchTerm = req.query.searchTerm;
-  const headers = {
-    Authorization: `Bearer ${req.session.token}`
-  };
-  // Call Spotify API with search term
-  request(
-    `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token`,
-    { headers: headers },
-    function(err, result, body) {
-      res.send(result.body);
-    }
-  );
-});
+  app.get('/search', (req, res) => {
+    var searchTerm = req.query.searchTerm;
+    const headers = {
+      Authorization: `Bearer ${req.session.token}`
+    };
+    // Call Spotify API with search term
+    request(
+      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token`,
+      { headers: headers },
+      function(err, result, body) {
+        res.send(result.body);
+      }
+    );
+  });
 
 // get all playlists of current user
 app.get('/getplaylists', (req, res) => {
@@ -177,54 +175,49 @@ app.get('/getplaylists', (req, res) => {
     res.send(body.items);
   });
 }),
-
-// get a specific playlist's details
-app.get('/getPlaylistDetails', (req, res) => {
-  var playlistID = req.query.playlistID;
-  const headers = {
-    Authorization: `Bearer ${req.session.token}`
-  };
-  // Call Spotify API with Playlist ID
-  request(
-    `https://api.spotify.com/v1/playlists/${playlistID}`    ,
-    { headers: headers },
-    function(err, result, body) {
+  // get a specific playlist's details
+  app.get('/getPlaylistDetails', (req, res) => {
+    var playlistID = req.query.playlistID;
+    const headers = {
+      Authorization: `Bearer ${req.session.token}`
+    };
+    // Call Spotify API with Playlist ID
+    request(`https://api.spotify.com/v1/playlists/${playlistID}`, { headers: headers }, function(err, result, body) {
       res.send(result.body);
-    }
-  );
-});
+    });
+  });
 
 // create a new playlist
 app.post('/createplaylist', (req, res) => {
-    const headers = {
-      Authorization: `Bearer ${req.session.token}`,
-      limit: 2
-    };
-    let userID;
-    let playlistID;
-    //post empty playlist to spotify
-    rp('https://api.spotify.com/v1/me', { headers, json: true })
-      .then(body => {
-        userID = body.id;
-        return rp(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-          headers,
-          json: true,
-          method: 'POST',
-          body: {
-            name: req.body.playlistName,
-            description: req.body.playlistDesc,
-            collaborative: true,
-            public: false
-          }
-        });
-      })
-      .then(body => {
-        playlistID = body.id;
-      })
-      .then(() => {
-        res.json({ playlistID, userID });
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`,
+    limit: 2
+  };
+  let userID;
+  let playlistID;
+  //post empty playlist to spotify
+  rp('https://api.spotify.com/v1/me', { headers, json: true })
+    .then(body => {
+      userID = body.id;
+      return rp(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+        headers,
+        json: true,
+        method: 'POST',
+        body: {
+          name: req.body.playlistName,
+          description: req.body.playlistDesc,
+          collaborative: true,
+          public: false
+        }
       });
-  });
+    })
+    .then(body => {
+      playlistID = body.id;
+    })
+    .then(() => {
+      res.json({ playlistID, userID });
+    });
+});
 
 // add tracks to Spotify playlist
 app.post('/addtracks', (req, res) => {
