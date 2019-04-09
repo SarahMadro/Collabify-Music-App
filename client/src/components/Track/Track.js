@@ -1,35 +1,24 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Spotify from '../../Spotify/Spotify';
 
-
-class Track extends React.Component {
+class Track extends Component {
   constructor(props) {
     super(props);
-    this.state={
+    this.state = {
       playlistID: this.props.playlistID,
-      hideTrack: false
     }
-
-    this.millisToMinutesAndSeconds = this.millisToMinutesAndSeconds.bind(this);
-    this.removeTrack = this.removeTrack.bind(this)
   }
 
-  millisToMinutesAndSeconds(millis) {
-    var minutes = Math.floor(millis / 60000);
-    var seconds = ((millis % 60000) / 1000).toFixed(0);
+  millisToMinutesAndSeconds = millis => {
+    let minutes = Math.floor(millis / 60000);
+    let seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
-  removeTrack(trackURI, index){
-    console.log("LOGLOGLOGLO", index)
-    // this.setState({
-    //   hideTrack: true
-    // })
+  removeTrack = trackURI => {
     this.props.remove(trackURI)
     Spotify.deleteTracks(this.state.playlistID, trackURI)
   }
-
-  
 
   render() {
     return (
@@ -44,7 +33,10 @@ class Track extends React.Component {
                 <p className='SongDuration'>{this.millisToMinutesAndSeconds(track.track.duration_ms)}</p>
               </div>
             </div>
-            <button type='button' className='btn btn-success Remove' onClick={() => {this.removeTrack(track.track.uri, (index+1))}} >
+            <button
+              type='button'
+              className='btn btn-success Remove'
+              onClick={() => {this.removeTrack(track.track.uri)}} >
               Remove
             </button>
           </li>
