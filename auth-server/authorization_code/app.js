@@ -187,9 +187,8 @@ app.get('/getPlaylistDetails', (req, res) => {
     { headers: headers },
     function(err, result, body) {
       res.send(result.body);
-    }
-  );
-});
+    });
+  });
 
 // create a new playlist
 app.post('/createplaylist', (req, res) => {
@@ -220,7 +219,14 @@ app.post('/createplaylist', (req, res) => {
       .then(() => {
         res.json({ playlistID, userID });
       });
-  });
+    })
+    .then(body => {
+      playlistID = body.id;
+    })
+    .then(() => {
+      res.json({ playlistID, userID });
+    });
+});
 
 // add tracks to Spotify playlist
 app.post('/addtracks', (req, res) => {
