@@ -37,7 +37,7 @@ class SDKPlayer extends Component {
   handleLoadSuccess() {
     this.setState({ scriptLoaded: true });
     console.log("Script loaded");
-    const token = 'BQAtYOrvlCbX3-Q9ctkdtoAjTn2pmmkHhjmw17sB6p_TzrhY2DOQHrpLXvaMofCF5Vfakmq5gzVk2gPeGqc6TITzgTk6WS5wtG53NTHtczlHUhJBVkbFGAW39YpppzqACuR8fh6MyhFDUmMoXwBLXbbYOOuDYo_qJJq-hicM-MZd_eQABTyH1e5jw35r';
+    const token = 'BQBze7a2Y2wbctMqPkKa5FH2HQcrYhAXOYeYQqsfPaHopi-vcos-6riP2KchyFCZBKrylyWA14bOZxZGWfYQUhyfj05PA-_BetNekLcbbyg6STcfxh8t-tM5bkp8VhPq3YtkP1-EyBMCEdlrwYF38rKmbXOlr8ZZO84j94tEuYqlHw4ekvaXyTVLUnCw';
     console.log('TOKEN IS HERE')
 
     this.player = new window.Spotify.Player({
