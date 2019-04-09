@@ -1,4 +1,24 @@
+// import axios from 'axios';
 
+// const SDKauth =  {
+//   getauth() {
+//   return axios.get({
+//       url: `https://accounts.spotify.com/api/token`,
+//       data: { // in axios data is the body request
+//         grant_type: 'implicit_grant_flow',
+//         code: req.query.code, // code I'm receiving from https://accounts.spotify.com/authorize
+//         redirect_uri: 'http://localhost:3000',
+//         scope: ["streaming", "user-read-birthdate", "user-read-email", "user-read-private"]
+//       },
+//       // console.log('QUERY CODE', req.query.code)
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded',
+//         'Authorization': 'Basic ' + Buffer.from(`${ab3efed3813144cba3ffa461eddaee9f}:${a2511b841b14472da5aa82ccce02c84a}`).toString('base64') // client id and secret from env
+//       }
+//     })
+//   }
+// }
+// export default SDKauth;
 // import axios from 'axios';
 // //implicit grant flow
 // // Get the hash of the url

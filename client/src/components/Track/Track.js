@@ -20,11 +20,33 @@ class Track extends Component {
     Spotify.deleteTracks(this.state.playlistID, trackURI)
   }
 
+  playSong(songURI) {
+    if(!this.props.player) return;
+    this.props.player._options.getOAuthToken(token => {
+      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.props.player._options.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          uris: [songURI]
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+    })
+  }
+
   render() {
     return (
       <div>
         {this.props.tracks.map((track, index) => (
-          <li className='list-group-item TrackItem'>
+          <li className='list-group-item TrackItem' onClick={() => this.playSong(track.track.uri)}>
+           <button
+            type='button'
+            className = 'list-group-item TrackItem'
+            onClick={() => this.playSong(track.track.uri)}>
+            Play
+            </button>
             <div className='media'>
               <img src={track.track.album.images[0].url} className='mr-3 TrackImg' alt='album-cover' />
               <div className='media-body'>

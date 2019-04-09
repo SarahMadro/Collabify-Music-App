@@ -11,6 +11,23 @@ class SDKPlayer extends Component {
     this.cb = this.cb.bind(this);
   }
 
+  //   logInWithSpotify = () => {
+  //     let client_id      = "bad9e04cf07e4ac89c75a71999f18955";
+  //     let redirect_uri   = "https://spotify-web-playback-react.glitch.me";
+  //     let scopes         = "streaming user-read-birthdate user-read-email user-read-private user-modify-playback-state";
+  //     let scopes_encoded = scopes.replace(" ", "%20");
+  //       console.log('AUTHORIZATION')
+  //     window.location = [
+  //       "https://accounts.spotify.com/authorize",
+  //       `?client_id=${client_id}`,
+  //       `&redirect_uri=${redirect_uri}`,
+  //       `&scope=${scopes_encoded}`,
+  //       "&response_type=token",
+  //       "&show_dialog=true"
+  //     ].join('');
+  // }
+
+
   componentDidMount() {
     window.onSpotifyWebPlaybackSDKReady = () => {
       this.handleLoadSuccess();
@@ -20,36 +37,40 @@ class SDKPlayer extends Component {
   handleLoadSuccess() {
     this.setState({ scriptLoaded: true });
     console.log("Script loaded");
-    const token = '[BQC1CPueegfe7Xp34mYl8NPfnrELW10CYjd5_Cn2ca1vK6wRMtmRSUb4vcDw24WCDyveAIM8lEpRi7sthqxnmhmLR7NCT0ldLxcvG0fm57HR5L2CAARhXCYzNwOc3js_a0vQ2NiXA-Om3zC_aQbWOgRk28f2h74g17GfgX-Ptb1o-ccIkV3V3amYxKhY]';
+    const token = 'BQAtYOrvlCbX3-Q9ctkdtoAjTn2pmmkHhjmw17sB6p_TzrhY2DOQHrpLXvaMofCF5Vfakmq5gzVk2gPeGqc6TITzgTk6WS5wtG53NTHtczlHUhJBVkbFGAW39YpppzqACuR8fh6MyhFDUmMoXwBLXbbYOOuDYo_qJJq-hicM-MZd_eQABTyH1e5jw35r';
     console.log('TOKEN IS HERE')
 
-    const player = new window.Spotify.Player({
+    this.player = new window.Spotify.Player({
       name: 'Web Playback SDK Quick Start Player',
       getOAuthToken: cb => { cb(token); }
     });
-    console.log('@@@@@@@', player);
+    console.log('@@@@@@@', this.player);
 
     // Error handling
-    player.addListener('initialization_error', ({ message }) => { console.error(message); });
-    player.addListener('authentication_error', ({ message }) => { console.error(message); });
-    player.addListener('account_error', ({ message }) => { console.error(message); });
-    player.addListener('playback_error', ({ message }) => { console.error(message); });
+    this.player.addListener('initialization_error', ({ message }) => { console.error(message); });
+    this.player.addListener('authentication_error', ({ message }) => { console.error(message); });
+    this.player.addListener('account_error', ({ message }) => { console.error(message); });
+    this.player.addListener('playback_error', ({ message }) => { console.error(message); });
 
     // Playback status updates
-    player.addListener('player_state_changed', state => { console.log(state); });
+    this.player.addListener('player_state_changed', state => { console.log(state); });
 
     // Ready
-    player.addListener('ready', ({ device_id }) => {
+    this.player.addListener('ready', ({ device_id }) => {
       console.log('Ready with Device ID', device_id);
+      this.props.onPlayerCreated(this.player);
     });
 
     // Not Ready
-    player.addListener('not_ready', ({ device_id }) => {
+    this.player.addListener('not_ready', ({ device_id }) => {
       console.log('Device ID has gone offline', device_id);
     });
 
     // Connect to the player!
-    player.connect();
+    this.player.connect();
+
+
+
   }
 
   cb(token) {
@@ -75,12 +96,7 @@ class SDKPlayer extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <Script
-            url="https://sdk.scdn.co/spotify-player.js"
-            onCreate={this.handleScriptCreate.bind(this)}
-            onError={this.handleScriptError.bind(this)}
-            onLoad={this.handleScriptLoad.bind(this)}
-          />
+
         </header>
       </div>
     );

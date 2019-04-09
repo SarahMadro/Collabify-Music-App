@@ -5,10 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="theme-color" content="#000000" />
-  <!--
-      manifest.json provides metadata used when your web app is added to the
-      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
-    -->
+
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
@@ -31,20 +28,82 @@
   <noscript>
     You need to enable JavaScript to run this app.
   </noscript>
-  <h1>SDK PLAYER HERE</h1>
   <div id="root"></div>
-    <!-- <script src="https://sdk.scdn.co/spotify-player.js"></script> -->
-
-  <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
 </body>
 
 </html>
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+  <title>Spotify Web Playback SDK Quick Start Tutorial</title>
+</head>
+
+<body>
+
+  <div id="root"></div>
+  <h1>Spotify Web Playback SDK Quick Start Tutorial</h1>
+  <h2>Open your console log: <code>View > Developer > JavaScript Console</code></h2>
+
+  <script src="https://sdk.scdn.co/spotify-player.js"></script>
+  <script>
+    window.onSpotifyWebPlaybackSDKReady = () => {
+      const token =
+      'BQCaZsdePBrR39YWPoE84DjaoNuvJuhqLPtRrJtUXSo4dHV_HPXdi7d9BjjIChX3LkBj2yY7gQVcS8X16mRlVwKf1gxI4IQAaEVgEloDKyHJSvbnj2MdfX91GJsn8pefy8_8nV6CyxPJOOHHQopHirSb60V3C2JSEkayW5mKJRAi_ZfNqA87wBVUE0ec';
+      const player = new Spotify.Player({
+        name: 'Web Playback SDK Quick Start Player',
+        getOAuthToken: cb => {
+          cb(token);
+        }
+      });
+
+      // Error handling
+      player.addListener('initialization_error', ({
+        message
+      }) => {
+        console.error(message);
+      });
+      player.addListener('authentication_error', ({
+        message
+      }) => {
+        console.error(message);
+      });
+      player.addListener('account_error', ({
+        message
+      }) => {
+        console.error(message);
+      });
+      player.addListener('playback_error', ({
+        message
+      }) => {
+        console.error(message);
+      });
+
+      // Playback status updates
+      player.addListener('player_state_changed', state => {
+        console.log(state);
+      });
+
+      // Ready
+      player.addListener('ready', ({
+        device_id
+      }) => {
+        console.log('Ready with Device ID', device_id);
+      });
+
+      // Not Ready
+      player.addListener('not_ready', ({
+        device_id
+      }) => {
+        console.log('Device ID has gone offline', device_id);
+      });
+
+      // Connect to the player!
+      player.connect();
+    };
+  </script>
+</body>
+
+</html> -->
