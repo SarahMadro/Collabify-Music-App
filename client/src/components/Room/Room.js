@@ -4,7 +4,7 @@ import TrackList from '../TrackList/TrackList';
 import SearchBar from '../SearchBar/SearchBar';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
-// import SearchResults from '../SearchResults/SearchResults';
+import SearchResults from '../SearchResults/SearchResults';
 
 class Room extends Component {
   constructor(props) {
@@ -68,10 +68,12 @@ class Room extends Component {
   }
 
   search = searchTerm => {
+    console.log("Got here with", searchTerm);
     Spotify.search(searchTerm).then(results => {
-      this.setState({ searchResults: results });
+      console.log("search coming back with", results)
+      // this.setState({ searchResults: results });
     });
-    return document.cookie;
+    // return document.cookie;
   }
 
   render() {
