@@ -1,22 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Spotify from '../../Spotify/Spotify';
 import './CollabList.css';
 
-class CollabList extends React.Component {
+class CollabList extends Component {
   constructor() {
     super();
     this.state = {
       currentUsersPlaylists: []
     };
-
-    this.getPlaylists = this.getPlaylists.bind(this);
   }
 
   componentDidMount() {
     this.getPlaylists();
   }
 
-  getPlaylists() {
+  getPlaylists = () => {
     Spotify.getPlaylists().then(playlists => {
       return this.setState({ currentUsersPlaylists: playlists });
     });
@@ -36,7 +34,6 @@ class CollabList extends React.Component {
                 <p className='CollabPlayInfo'>This playlist has {playlist.tracks.total} Tracks</p>
               </a>
             ))
-            // NOT PAST HERE
             }
           </div>
         </div>

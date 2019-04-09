@@ -12,7 +12,8 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    Spotify.getUserInfo().then(response => {
+    Spotify.getUserInfo()
+    .then(response => {
       this.setState({
         userName: response.data.name,
         userPhoto: response.data.image
@@ -24,6 +25,7 @@ class Header extends Component {
     return (
       <div>
         <header>
+          {/* bars of the moving audio wave */}
           <div className='Sound'>
             <span />
             <span />
