@@ -1,8 +1,8 @@
-import React from 'react';
-import './TrackList.css';
+import React, { Component } from 'react';
 import Track from '../Track/Track';
+import './TrackList.css';
 
-class TrackList extends React.Component {
+class TrackList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +18,11 @@ class TrackList extends React.Component {
           <h3 className='MyTrackList'>Track List</h3>
           <div className='list-group' />
           <ul className='list-group'>
-            <Track playlistID ={this.props.playlistID} tracks={this.props.playlistTracks} remove={this.props.remove} />
+            <Track
+              playlistID ={this.props.playlistID}
+              tracks={this.props.playlistTracks}
+              remove={this.props.remove}
+            />
           </ul>
         </div>
       </div>
