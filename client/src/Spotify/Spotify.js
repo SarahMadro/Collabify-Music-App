@@ -35,6 +35,12 @@ const Spotify = {
       })
   },
 
+  deleteTracks(playlistID, trackURIs){
+    const removeTracks = []
+    removeTracks.push({uri: trackURIs})
+    return axios.post('/deletetracks', {playlistID, removeTracks})
+  },
+
   getPlaylists() {
     // call to backend
     return axios.get('/getplaylists').then(response => {
@@ -45,7 +51,7 @@ const Spotify = {
         id: playlists.id,
         name: playlists.name,
         uri: playlists.uri,
-        // image: playlists.images[0].url,
+        // image: ((playlists.images[0].url === undefined ) ?  defaultPlaylistPic : playlists.images[0].url),
         tracks: playlists.tracks //object
       }));
       // filters and returns only the collaborative playlists
@@ -67,11 +73,11 @@ const Spotify = {
         tracks: response.data.tracks.items,
         name: response.data.name,
       }
+      console.log("RRRRRRR", response.data)
       if (response.data.images[0] === undefined) {
         pldata.image = defaultPlaylistPic
       }
       else {pldata.image = response.data.images[0].url}
-      console.log("IMAGE!", pldata.image)
     return pldata
     })
   },
