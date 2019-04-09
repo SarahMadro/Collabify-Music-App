@@ -1,9 +1,17 @@
 import React from 'react';
+import Spotify from '../../Spotify/Spotify';
+
 
 class Track extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      playlistID: this.props.playlistID,
+      hideTrack: false
+    }
+
     this.millisToMinutesAndSeconds = this.millisToMinutesAndSeconds.bind(this);
+    this.removeTrack = this.removeTrack.bind(this)
   }
 
   millisToMinutesAndSeconds(millis) {
@@ -12,10 +20,21 @@ class Track extends React.Component {
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
   }
 
+  removeTrack(trackURI, index){
+    console.log("LOGLOGLOGLO", index)
+    // this.setState({
+    //   hideTrack: true
+    // })
+    this.props.remove(trackURI)
+    Spotify.deleteTracks(this.state.playlistID, trackURI)
+  }
+
+  
+
   render() {
     return (
       <div>
-        {this.props.tracks.map(track => (
+        {this.props.tracks.map((track, index) => (
           <li className='list-group-item TrackItem'>
             <div className='media'>
               <img src={track.track.album.images[0].url} className='mr-3 TrackImg' alt='album-cover' />
@@ -25,7 +44,7 @@ class Track extends React.Component {
                 <p className='SongDuration'>{this.millisToMinutesAndSeconds(track.track.duration_ms)}</p>
               </div>
             </div>
-            <button type='button' className='btn btn-success Remove'>
+            <button type='button' className='btn btn-success Remove' onClick={() => {this.removeTrack(track.track.uri, (index+1))}} >
               Remove
             </button>
           </li>

@@ -15,15 +15,16 @@ class Room extends Component {
       playlistTracks: [],
       playlistImage: '',
       playlistName: '',
-      searchResults: []
+      searchResults: [],
+      tracksToRemove: []
     };
 
     this.search = this.search.bind(this);
     this.addTrack = this.addTrack.bind(this);
     this.getPlaylistFromUrl = this.getPlaylistFromUrl.bind(this);
     this.getPlaylistDetails = this.getPlaylistDetails.bind(this);
+    this.removeTracks = this.removeTracks.bind(this);
 
-    // this.removeTrack = this.removeTrack.bind(this);
   }
 
   componentWillMount(){
@@ -36,16 +37,12 @@ class Room extends Component {
     this.getPlaylistDetails()
   }
 
-  // onRemove={this.removeTrack}
-
-  // removeTrack(track) {
-  //   let newTracks = tracks.filter(trackIndex => trackIndex.id !== track.id);
-  //   this.setState({ playlistTracks: newTracks });
-  // }
 
   getPlaylistDetails() {
     Spotify.getPlaylistDetails(this.state.playlistID).then(response => {
+      console.log(response)
       return this.setState({
+        playlistTrackIndex: response.tracks.index,
         playlistDesc: response.description,
         playlistTracks: response.tracks,
         playlistImage: response.image,
@@ -68,6 +65,15 @@ class Room extends Component {
     }
   }
 
+  removeTracks(trackURIToGo){
+    console.log("we here")
+    let newTracks = this.state.playlistTracks;
+    this.setState({ tracksToRemove: [...this.state.tracksToRemove, trackURIToGo] }, () => {
+      this.setState({ playlistTracks: newTracks.filter(trackIndex => trackIndex.track.uri !== trackURIToGo)}
+        )
+    })
+  } 
+
   search(searchTerm) {
     Spotify.search(searchTerm).then(results => {
       this.setState({ searchResults: results });
@@ -83,7 +89,7 @@ class Room extends Component {
         <SearchBar onSearch={this.search} />
 
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
-        <TrackList playlistTracks={this.state.playlistTracks} />
+        <TrackList playlistID={this.state.playlistID} playlistTracks={this.state.playlistTracks} remove={this.removeTracks} />
       </div>
     );
   }

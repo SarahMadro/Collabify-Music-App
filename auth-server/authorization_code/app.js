@@ -236,6 +236,29 @@ app.post('/addtracks', (req, res) => {
     })
   });
 }),
+
+// delete tracks from playlist
+app.post('/deletetracks', (req, res) =>{
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`
+  }
+  let playlistID = req.body.playlistID;
+  console.log(req.body)
+  console.log("did it go?")
+  return rp(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+    headers,
+    json: true,
+    method: 'DELETE',
+    body: JSON.stringify({
+      tracks: req.body.removeTracks,
+    })
+}).then (() => {
+  console.log("Track deleted.")
+  })
+}),
+
+
+// checks if server is running
   console.log('Listening on 8080');
 app.listen(8080, function() {
   console.log('Server is running!');
