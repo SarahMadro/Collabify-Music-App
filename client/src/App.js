@@ -17,20 +17,17 @@ class App extends Component {
       playlistTracks: []
     };
 
-    this.updatePlaylistName = this.updatePlaylistName.bind(this);
-    this.updatePlaylistDesc = this.updatePlaylistDesc.bind(this);
-    this.savePlaylist = this.savePlaylist.bind(this);
   }
 
-  updatePlaylistName(name) {
+  updatePlaylistName = name => {
     this.setState({ playlistName: name });
   }
 
-  updatePlaylistDesc(desc) {
+  updatePlaylistDesc = desc => {
     this.setState({ playlistDesc: desc });
   }
 
-  savePlaylist() {
+  savePlaylist = () => {
     let tracks = this.state.playlistTracks;
     if (!this.state.playlistName) {
       alert('Playlist must have a name');
@@ -42,7 +39,7 @@ class App extends Component {
         })
       })
     };
-  
+
 
   render() {
     return (
@@ -59,7 +56,6 @@ class App extends Component {
               onDescChange={this.updatePlaylistDesc}
               onSave={this.savePlaylist}
             />
-
             <CollabList />
           </div>
         </section>
