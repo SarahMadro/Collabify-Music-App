@@ -10,7 +10,7 @@ class SearchBar extends React.Component {
   }
 
   componentDidUpdate (prevProps, prevState) {
-    if (prevState.searchTerm !== this.state.searchTerm) {
+    if (prevState.searchTerm !== this.state.searchTerm && this.state.searchTerm.length % 2 === 0) {
       this.search();
     }
   }

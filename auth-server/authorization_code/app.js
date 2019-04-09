@@ -155,7 +155,7 @@ app.get('/userinfo', (req, res) => {
     };
   // Call Spotify API with search term
     request(
-      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token`,
+      `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token&limit=5`,
       { headers: headers },
       function(err, result, body) {
         res.send(result.body);
@@ -224,16 +224,17 @@ app.post('/createplaylist', (req, res) => {
 // add tracks to Spotify playlist
 app.post('/addtracks', (req, res) => {
   const headers = {
-    Authorization: `Bearer ${req.session.token}`,
-  };
-  let userID = req.body.userID;
+    'Authorization': `Bearer ${req.session.token}`,
+    'Content-Type': 'application/json'
+    };
   let playlistID = req.body.playlistID;
-  return rp(`https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`, {
+  let addTracks = req.body.addTrack
+  return rp(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
     headers,
     json: true,
     method: 'POST',
     body: JSON.stringify({
-      uris: req.body.trackURIs
+      uris: addTracks
     })
   });
 }),

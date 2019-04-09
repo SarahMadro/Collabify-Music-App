@@ -52,12 +52,15 @@ class Room extends Component {
   }
 
   addTrack = track => {
+    console.log("Hello!", track)
     let tracks = this.state.playlistTracks;
     if (!tracks.find(trackIndex => trackIndex.id === track.id)) {
       tracks.push(track);
-      this.setState({ playlistTracks: tracks });
-    }
+      this.setState({ playlistTracks: tracks }, () => {
+        this.setState({ searchResults: []});
+    })
   }
+}
 
   removeTracks = trackURIToGo => {
     let newTracks = this.state.playlistTracks;
@@ -68,12 +71,9 @@ class Room extends Component {
   }
 
   search = searchTerm => {
-    console.log("Got here with", searchTerm);
     Spotify.search(searchTerm).then(results => {
-      console.log("search coming back with", results)
-      // this.setState({ searchResults: results });
+      this.setState({ searchResults: results });
     });
-    // return document.cookie;
   }
 
   render() {
@@ -82,8 +82,12 @@ class Room extends Component {
         <Header />
         <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} />
-
-        {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
+        <br /><br /><br />
+        <SearchResults 
+          results={this.state.searchResults} 
+          addTrack={this.addTrack}
+          playlistID={this.state.playlistID}
+          />
         <TrackList
           playlistID={this.state.playlistID}
           playlistTracks={this.state.playlistTracks}
