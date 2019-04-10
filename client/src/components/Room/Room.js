@@ -4,9 +4,10 @@ import TrackList from '../TrackList/TrackList';
 import SearchBar from '../SearchBar/SearchBar';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
-import SDKPlayer from '../../Spotify/Player';
+import './Room.css';
+
+// import SDKPlayer from '../../Spotify/Player';
 import Widget from '../../Spotify/Playback';
-import SearchResults from '../SearchResults/SearchResults';
 
 class Room extends Component {
   constructor(props) {
@@ -51,16 +52,6 @@ class Room extends Component {
     return vars[1];
   };
 
-  // addTrack = track => {
-  //   let tracks = this.state.playlistTracks;
-  //   if (!tracks.find(trackIndex => trackIndex.id === track.id)) {
-  //     tracks.push(track);
-  //     this.setState({ playlistTracks: tracks }, () => {
-  //       this.setState({ searchResults: []})
-  //       ;})
-  //     }
-  // }
-
   removeTracks = trackURIToGo => {
     let newTracks = this.state.playlistTracks;
     this.setState({ tracksToRemove: [...this.state.tracksToRemove, trackURIToGo] }, () => {
@@ -76,19 +67,16 @@ class Room extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ overflow: 'hidden' }}>
         <Header />
         <RoomCover playlistInfo={this.state} />
-        <SearchBar onSearch={this.search} />
-
+        <SearchBar onSearch={this.search} playlistID={this.state.playlistID} />
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
-        {/* <SDKPlayer onPlayerCreated={player => this.setState({
-          player})}/> */}
-        {/* <Widget playlistID={this.state.playlistID} /> */}
-        <br />
-        <br />
-        <br />
-        <SearchResults results={this.state.searchResults} addTrack={this.addTrack} playlistID={this.state.playlistID} />
+        {/* <SDKPlayer onPlayerCreated={player => this.setState({ */}
+        {/* player})}/> */}
+        <div className='WidgetPlayer'>
+          <Widget playlistID={this.state.playlistID} />
+        </div>
         <TrackList
           playlistID={this.state.playlistID}
           playlistTracks={this.state.playlistTracks}

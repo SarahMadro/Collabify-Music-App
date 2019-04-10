@@ -6,8 +6,8 @@
 }
 
 .TrackImg {
-  max-width: 80px;
-  border-radius: 5px;
+  max-width: 70px;
+  border-radius: 50px;
 }
 
 .Remove {
@@ -18,6 +18,8 @@
 }
 
 .TrackList {
+  position: relative;
+  top: 90px;
   padding: 30px;
   max-width: 70% !important;
   margin-top: 75px;
@@ -61,4 +63,8 @@
   font-size: 18px;
   font-weight: 500;
   padding-bottom: 15px;
+}
+
+.AlignVertical {
+  padding-bottom: 250px;
 }

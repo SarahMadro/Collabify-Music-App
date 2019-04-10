@@ -5,26 +5,20 @@ const SearchResults = props => {
   const options = props.results.map(song => (
     <li
       key={song.id}
-      className='list-group-item TrackItem'
+      className='list-group-item TrackItemResult'
       onClick={() => {
-        props.addSong(song.uri);
+        props.addSong(props.playlistID, song.uri);
       }}
     >
       <div className='media'>
-        {/* <img src={song.album.images[0].url} className='mr-3 TrackImg' alt='album-cover' /> */}
         <div className='media-body'>
-          <h5 className='mt-0 TrackName'>{song.name}</h5>
-          <p className='ArtistName'>{song.artist}</p>
-          <button>ADD SONG</button>
+          <h5 className='mt-0 TrackNameResult'>{song.name}</h5>
+          <p className='ArtistNameResult'>{song.artist}</p>
         </div>
       </div>
     </li>
   ));
-  return (
-    <div className='Results'>
-      <ul>{options}</ul>
-    </div>
-  );
+  return <div className='Results'>{options}</div>;
 };
 
 export default SearchResults;
