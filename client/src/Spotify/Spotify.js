@@ -66,6 +66,8 @@ const Spotify = {
     });
   },
 
+
+  //try use this funciton to send token to skd player
   getPlaylistDetails(playlistID) {
     return axios.get('/getPlaylistDetails', { params: { playlistID: playlistID }})
     .then(response => {

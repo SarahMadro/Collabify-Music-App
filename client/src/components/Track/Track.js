@@ -20,6 +20,29 @@ class Track extends Component {
     Spotify.deleteTracks(this.state.playlistID, trackURI)
   }
 
+  playSong = (songURI) => {
+    if (!this.props.player) return;
+    this.props.player._options.getOAuthToken(token => {
+      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.props.player._options.id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          uris: [songURI]
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+      });
+    })
+  }
+
+  // pauseSong = (songURI) => {
+  //   if(!this.props.player) return;
+  //   this.props.player.pause(songURI).then(() => {
+  //     console.log('Paused!');
+  //   });
+  // }
+
   render() {
     return (
       <div>
@@ -33,10 +56,22 @@ class Track extends Component {
                 <p className='SongDuration'>{this.millisToMinutesAndSeconds(track.track.duration_ms)}</p>
               </div>
             </div>
+            < button
+            type = 'button'
+            className = 'list-group-item TrackItem'
+            onClick={() => this.playSong(track.track.uri)}>
+              Play
+            </button>
+            {/* < button
+            type = 'button'
+            className = 'btn btn-success Pause'
+            onClick={() => this.playSong(track.track.uri)}>
+              Pause
+            </button> */}
             <button
               type='button'
               className='btn btn-success Remove'
-              onClick={() => {this.removeTrack(track.track.uri)}} >
+              onClick={() => this.removeTrack(track.track.uri)} >
               Remove
             </button>
           </li>

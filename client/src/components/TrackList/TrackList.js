@@ -22,6 +22,7 @@ class TrackList extends Component {
               playlistID ={this.props.playlistID}
               tracks={this.props.playlistTracks}
               remove={this.props.remove}
+              player={this.props.player}
             />
           </ul>
         </div>

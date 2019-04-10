@@ -4,6 +4,9 @@ import TrackList from '../TrackList/TrackList';
 import SearchBar from '../SearchBar/SearchBar';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
+import SDKPlayer from '../../Spotify/Player';
+import Widget from '../../Spotify/Playback';
+// import SearchResults from '../SearchResults/SearchResults';
 import SearchResults from '../SearchResults/SearchResults';
 
 class Room extends Component {
@@ -16,7 +19,8 @@ class Room extends Component {
       playlistImage: '',
       playlistName: '',
       searchResults: [],
-      tracksToRemove: []
+      tracksToRemove: [],
+      player: null
     };
 
   }
@@ -82,9 +86,14 @@ class Room extends Component {
         <Header />
         <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} />
+
+        {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
+        <SDKPlayer onPlayerCreated={player => this.setState({
+          player})}/>
+        <Widget playlistID={this.state.playlistID} />
         <br /><br /><br />
-        <SearchResults 
-          results={this.state.searchResults} 
+        <SearchResults
+          results={this.state.searchResults}
           addTrack={this.addTrack}
           playlistID={this.state.playlistID}
           />
@@ -92,6 +101,7 @@ class Room extends Component {
           playlistID={this.state.playlistID}
           playlistTracks={this.state.playlistTracks}
           remove={this.removeTracks}
+          player={this.state.player}
         />
       </div>
     );
