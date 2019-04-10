@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import SearchResults from '../SearchResults/SearchResults';
 import Spotify from '../../Spotify/Spotify';
-
-
 import './SearchBar.css';
 
 class SearchBar extends Component {
@@ -15,12 +13,12 @@ class SearchBar extends Component {
     };
   }
 
-  componentWillMount(){
-    this.setState ({
+  componentWillMount() {
+    this.setState({
       playlistID: this.props.playlistID
-    })
+    });
   }
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.searchTerm !== this.state.searchTerm) {
       this.search();
     }
@@ -28,32 +26,32 @@ class SearchBar extends Component {
 
   handleClick = event => {
     event.target.setSelectionRange(0, event.target.value.length);
-  }
+  };
 
   handleKeyPress = event => {
     if (event.key === 'Enter' && event.target.value) {
       this.search();
     }
-  }
+  };
 
   handleTermChange = event => {
     this.setState({ searchTerm: event.target.value });
-  }
+  };
 
   search = () => {
-    this.state.searchTerm && Spotify.search(this.state.searchTerm).then(results => {
-      this.setState({ searchResults: results });
-    })
-  }
+    this.state.searchTerm &&
+      Spotify.search(this.state.searchTerm).then(results => {
+        this.setState({ searchResults: results });
+      });
+  };
 
   addSong = (playlistID, uri) => {
-    console.log("WOAH!", playlistID)
-    console.log("HUH?", uri)
-    Spotify.addTrack(playlistID, uri)
-    let target = document.getElementById('SearchInput')
-    target.value = ''
+    Spotify.addTrack(playlistID, uri);
+    let target = document.getElementById('SearchInput');
+    target.value = '';
     this.setState({ searchResults: [] });
-  }
+    this.props.reload();
+  };
 
   render() {
     return (
@@ -67,16 +65,12 @@ class SearchBar extends Component {
             onKeyPress={this.handleKeyPress}
             onClick={this.handleClick}
           />
-          <button className='SearchButton btn btn-success' onClick={this.search}>
+          {/* <button className='SearchButton btn btn-success' onClick={this.search}>
             Search
-          </button>
+          </button> */}
           <br />
         </div>
-        <SearchResults 
-          playlistID = {this.props.playlistID}
-          addSong = {this.addSong}
-          results={this.state.searchResults} 
-          />
+        <SearchResults playlistID={this.props.playlistID} addSong={this.addSong} results={this.state.searchResults} />
       </div>
     );
   }

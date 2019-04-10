@@ -1,12 +1,13 @@
 .RoomCover {
   position: relative;
-  top: 60px;
+  top: 90px;
   margin: 0;
   padding: 20px 40px;
   border-bottom: 1px solid rgba(204, 204, 204, 0.42) !important;
 }
 
 .PlaylistN {
+  font-size: 38px;
 }
 
 .share {
@@ -27,6 +28,7 @@
 
 .PlaylistImg {
   max-width: 130px;
+  border-radius: 100px;
 }
 
 .PlaylistDesc {

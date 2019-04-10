@@ -1,8 +1,9 @@
 .SearchBar {
   position: relative;
-  top: 90px;
-  left: 60px;
+  top: 140px;
+  left: 100px;
   margin-bottom: 20px;
+  z-index: 1000 !important;
 }
 
 .SearchInput {

@@ -5,22 +5,22 @@ class Track extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      playlistID: this.props.playlistID,
-    }
+      playlistID: this.props.playlistID
+    };
   }
 
   millisToMinutesAndSeconds = millis => {
     let minutes = Math.floor(millis / 60000);
     let seconds = ((millis % 60000) / 1000).toFixed(0);
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-  }
+  };
 
   removeTrack = trackURI => {
-    this.props.remove(trackURI)
-    Spotify.deleteTracks(this.state.playlistID, trackURI)
-  }
+    this.props.remove(trackURI);
+    Spotify.deleteTracks(this.state.playlistID, trackURI);
+  };
 
-  playSong = (songURI) => {
+  playSong = songURI => {
     if (!this.props.player) return;
     this.props.player._options.getOAuthToken(token => {
       fetch(`https://api.spotify.com/v1/me/player/play?device_id=${this.props.player._options.id}`, {
@@ -30,11 +30,11 @@ class Track extends Component {
         }),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
+          Authorization: `Bearer ${token}`
+        }
       });
-    })
-  }
+    });
+  };
 
   // pauseSong = (songURI) => {
   //   if(!this.props.player) return;
@@ -56,22 +56,7 @@ class Track extends Component {
                 <p className='SongDuration'>{this.millisToMinutesAndSeconds(track.track.duration_ms)}</p>
               </div>
             </div>
-            < button
-            type = 'button'
-            className = 'list-group-item TrackItem'
-            onClick={() => this.playSong(track.track.uri)}>
-              Play
-            </button>
-            {/* < button
-            type = 'button'
-            className = 'btn btn-success Pause'
-            onClick={() => this.playSong(track.track.uri)}>
-              Pause
-            </button> */}
-            <button
-              type='button'
-              className='btn btn-success Remove'
-              onClick={() => this.removeTrack(track.track.uri)} >
+            <button type='button' className='btn btn-success Remove' onClick={() => this.removeTrack(track.track.uri)}>
               Remove
             </button>
           </li>

@@ -1,21 +1,24 @@
 import React from 'react';
-import Spotify from '../../Spotify/Spotify';
+import './SearchResults.css';
 
-
-const SearchResults = (props) => {
+const SearchResults = props => {
   const options = props.results.map(song => (
-    <li key={song.id} className='list-group-item TrackItem'>
-    <div className='media'>
-      {/* <img src={song.album.images[0].url} className='mr-3 TrackImg' alt='album-cover' /> */}
-      <div className='media-body'>
-        <h5 className='mt-0 TrackName'>{song.name}</h5>
-        <p className='ArtistName'>{song.artist}</p>
-      <button onClick={() => {props.addSong(props.playlistID, song.uri)}}>ADD SONG</button>
+    <li
+      key={song.id}
+      className='list-group-item TrackItemResult'
+      onClick={() => {
+        props.addSong(props.playlistID, song.uri);
+      }}
+    >
+      <div className='media'>
+        <div className='media-body'>
+          <h5 className='mt-0 TrackNameResult'>{song.name}</h5>
+          <p className='ArtistNameResult'>{song.artist}</p>
+        </div>
       </div>
-      </div>
-      </li>
-  ))
-  return <ul>{options}</ul>
-}
+    </li>
+  ));
+  return <div className='Results'>{options}</div>;
+};
 
-export default SearchResults
+export default SearchResults;
