@@ -236,22 +236,35 @@ app.post('/addtracks', (req, res) => {
     })
   });
 }),
-  // delete tracks from playlist
-  app.post('/deletetracks', (req, res) => {
-    const headers = {
-      Authorization: `Bearer ${req.session.token}`
-    };
-    let playlistID = req.body.playlistID;
-    return rp(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
-      headers,
-      json: true,
-      method: 'DELETE',
-      body: JSON.stringify({
-        tracks: req.body.removeTracks
+
+// delete tracks from playlist
+app.post('/deletetracks', (req, res) =>{
+  const headers = {
+    Authorization: `Bearer ${req.session.token}`
+  }
+  let playlistID = req.body.playlistID;
+  return rp(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
+    headers,
+    json: true,
+    method: 'DELETE',
+    body: JSON.stringify({
+      tracks: req.body.removeTracks,
+    })
+  })
+}),
+
+app.get('/sendtext', function(req, res) {
+  let playlistID = req.query.playlistID;
+  twilioClient.messages
+  .create({
+      from: '+12048179218',
+      body: `https://open.spotify.com/playlist/${playlistID}/`,
+      to: '+17783177270'
       })
-    });
-  }),
-  // checks if server is running
+  .then(message => console.log(message.sid));
+}),
+
+// checks if server is running
   console.log('Listening on 8080');
 app.listen(8080, function() {
   console.log('Server is running!');
