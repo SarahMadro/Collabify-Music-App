@@ -1,38 +1,61 @@
 import React, { Component } from 'react';
+import twilio from '../../Twilio/twilio';
+import './SMSForm.css';
 
 class SMSForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       playlistID: this.props.playlistID,
-      phone: ''
+      phone: '',
+      textSent: false
     };
   }
 
-  sendText = (props, phone) => {
-    console.log(props);
-    console.log(phone);
+  onHandleChange = event => {
+    this.setState({
+      phone: event.target.value
+    });
   };
 
-  onKeyDown = event => {
+  sendText = event => {
     event.preventDefault();
-    if (event.key === 'Enter' && event.target.value) {
-      let phone = document.getElementById('phoneNumber');
-      this.setState = {
-        phone: phone.value
-      };
-      phone.value = '';
-    }
-    this.sendText(this.state.playlistID, this.state.phone);
+    twilio.sendText(this.state.playlistID, this.state.phone);
+
+    this.showMsg();
+    this.resetState();
   };
 
+  showMsg = () => {
+    this.setState({
+      textSent: true
+    });
+  };
+
+  resetState = () => {
+    setTimeout(() => {
+      this.setState({
+        textSent: false
+      });
+    }, 3500);
+  };
   render() {
     return (
       <div>
+        <h4 className='TextHeader'>Share your music:</h4>
         <form>
-          <input id='phoneNumber' />
-          <button onClick={this.onKeyDown}>Sent Text</button>
+          <input
+            id='phoneNumber'
+            className='TextInput'
+            onChange={this.onHandleChange}
+            value={this.state.phone}
+            placeholder='Enter phone number'
+          />
+          <button className='TextButton btn btn-success' onClick={this.sendText}>
+            Sent Text
+          </button>
         </form>
+        {this.state.textSent ? <p className='message'>Your friend has been texted, keep sharing!</p> : ''}
       </div>
     );
   }

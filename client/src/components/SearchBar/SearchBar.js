@@ -65,12 +65,8 @@ class SearchBar extends Component {
             onKeyPress={this.handleKeyPress}
             onClick={this.handleClick}
           />
-          {/* <button className='SearchButton btn btn-success' onClick={this.search}>
-            Search
-          </button> */}
-          <br />
+          <SearchResults playlistID={this.props.playlistID} addSong={this.addSong} results={this.state.searchResults} />
         </div>
-        <SearchResults playlistID={this.props.playlistID} addSong={this.addSong} results={this.state.searchResults} />
       </div>
     );
   }

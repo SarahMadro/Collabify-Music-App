@@ -6,13 +6,16 @@ const cookieSession = require('cookie-session');
 const rp = require('request-promise');
 const bodyParser = require('body-parser');
 require('dotenv').config();
-// const accountSid = 'AC856d1cf5ce531e37e0a59fd968ee704f';
-// const authToken = '727f5f6bd223688e1c6497a5e9a3aa88';
-// const client = require('twilio')(accountSid, authToken);
 
+//SPOTIFY KEYS
 const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
 const redirect_uri = 'http://localhost:8080/callback'; // Or Your redirect uri
+
+//TWILIO KEYS
+const twilioAccountSid = process.env.TWILIO_CLIENT_ID;
+const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioClient = require('twilio')(twilioAccountSid, twilioAuthToken);
 
 const generateRandomString = function(length) {
   let text = '';
@@ -54,23 +57,33 @@ app.use(function(req, res, next) {
   next();
 });
 
-// Requesting login information from user
-app.get('/login', function(req, res) {
-  let state = generateRandomString(16);
-  res.cookie(stateKey, state);
-  // your application requests authorization
-  const scope = 'user-read-private user-read-playback-state playlist-modify-private playlist-read-collaborative';
-  res.redirect(
-    'https://accounts.spotify.com/authorize?' +
-      querystring.stringify({
-        response_type: 'code',
-        client_id: client_id,
-        scope: scope,
-        redirect_uri: redirect_uri,
-        state: state
-      })
-  );
-});
+app.get('/sendtext', function(req, res) {
+  let playlistID = req.query.playlistID;
+  twilioClient.messages
+    .create({
+      from: '+12048179218',
+      body: `https://open.spotify.com/playlist/${playlistID}/`,
+      to: '+17783177270'
+    })
+    .then(message => console.log(message.sid));
+}),
+  // Requesting login information from user
+  app.get('/login', function(req, res) {
+    let state = generateRandomString(16);
+    res.cookie(stateKey, state);
+    // your application requests authorization
+    const scope = 'user-read-private user-read-playback-state playlist-modify-private playlist-read-collaborative';
+    res.redirect(
+      'https://accounts.spotify.com/authorize?' +
+        querystring.stringify({
+          response_type: 'code',
+          client_id: client_id,
+          scope: scope,
+          redirect_uri: redirect_uri,
+          state: state
+        })
+    );
+  });
 
 // your application requests access tokens
 app.get('/callback', function(req, res) {
@@ -108,13 +121,6 @@ app.get('/callback', function(req, res) {
           headers: { Authorization: 'Bearer ' + access_token },
           json: true
         };
-
-        // IMPORTANT!!!!! ********************************************************************************************
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          // Add something here
-        });
-        // IMPORTANT!!!!! ********************************************************************************************
 
         req.session.token = access_token;
         // we can also pass the token to the browser to make requests from there

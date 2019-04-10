@@ -5,8 +5,6 @@ import SearchBar from '../SearchBar/SearchBar';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
 import './Room.css';
-
-// import SDKPlayer from '../../Spotify/Player';
 import Widget from '../../Spotify/Playback';
 
 class Room extends Component {
@@ -74,10 +72,6 @@ class Room extends Component {
         <Header />
         <RoomCover playlistInfo={this.state} />
         <SearchBar onSearch={this.search} playlistID={this.state.playlistID} reload={this.reload} />
-
-        {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
-        {/* <SDKPlayer onPlayerCreated={player => this.setState({ */}
-        {/* player})}/> */}
         <div className='WidgetPlayer'>
           <Widget playlistID={this.state.playlistID} />
         </div>

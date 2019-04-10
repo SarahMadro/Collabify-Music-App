@@ -1,3 +1,7 @@
+.WidgetPlayer {
+  z-index: 999 !important;
+}
+
 .WidgetPlayer iframe {
   width: 100% !important;
   height: 80px;
