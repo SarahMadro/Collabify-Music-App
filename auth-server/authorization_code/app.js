@@ -7,9 +7,17 @@ const rp = require('request-promise');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
+
+//SPOTIFY KEYS
 const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
 const redirect_uri = 'http://localhost:8080/callback'; // Or Your redirect uri
+
+
+const twilioAccountSid = 'AC856d1cf5ce531e37e0a59fd968ee704f';
+const twilioAuthToken = '727f5f6bd223688e1c6497a5e9a3aa88';
+const twilioClient = require('twilio')(twilioAccountSid, twilioAuthToken);
+
 
 const generateRandomString = function(length) {
   let text = '';
@@ -50,6 +58,18 @@ app.use(function(req, res, next) {
   }
   next();
 });
+
+app.get('/sendtext', function(req, res) {
+  let playlistID = req.query.playlistID;
+  twilioClient.messages
+  .create({
+      from: '+12048179218',
+      body: `https://open.spotify.com/playlist/${playlistID}/`,
+      to: '+17783177270'
+      })
+  .then(message => console.log(message.sid));
+}),
+
 
 // Requesting login information from user
 app.get('/login', function(req, res) {
