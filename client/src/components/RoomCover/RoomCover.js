@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SMSForm from '../SMSForm/SMSForm';
 import './RoomCover.css';
 
 class RoomCover extends Component {
@@ -16,7 +17,9 @@ class RoomCover extends Component {
                 </div>
               </div>
             </div>
-            <div className='col-4 Col2' />
+            <div className='col-4 Col2' >
+            <SMSForm playlistID={this.props.playlistInfo.playlistID} />
+            </div>
           </div>
         </div>
       </div>
