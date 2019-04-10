@@ -6,26 +6,8 @@ class SDKPlayer extends Component {
 
   constructor(props) {
     super(props);
-    this.handleLoadSuccess = this.handleLoadSuccess.bind(this);
-    this.handleLoadFailure = this.handleLoadSuccess.bind(this);
     this.cb = this.cb.bind(this);
   }
-
-  //   logInWithSpotify = () => {
-  //     let client_id      = "bad9e04cf07e4ac89c75a71999f18955";
-  //     let redirect_uri   = "https://spotify-web-playback-react.glitch.me";
-  //     let scopes         = "streaming user-read-birthdate user-read-email user-read-private user-modify-playback-state";
-  //     let scopes_encoded = scopes.replace(" ", "%20");
-  //       console.log('AUTHORIZATION')
-  //     window.location = [
-  //       "https://accounts.spotify.com/authorize",
-  //       `?client_id=${client_id}`,
-  //       `&redirect_uri=${redirect_uri}`,
-  //       `&scope=${scopes_encoded}`,
-  //       "&response_type=token",
-  //       "&show_dialog=true"
-  //     ].join('');
-  // }
 
 
   componentDidMount() {
@@ -34,7 +16,7 @@ class SDKPlayer extends Component {
     };
   }
 
-  handleLoadSuccess() {
+  handleLoadSuccess = () => {
     this.setState({ scriptLoaded: true });
     console.log("Script loaded");
     const token = 'BQCJ6hMNShS5wQLyyZNDgnFp0gNkLV4VqpqnM_aLbz-ZrRExSvtfRB9AywN9mRb1a6_3hORq7o_4vP_PaCGU08SfBVyJv3LDCDU6RNA_XAaxoCNcTCR3EBF12FYCXtkc3wFhMDmX5Z6s0XiQyVxjP4ZJvAkKpVEG9axS1pm93MBozyrtERANMQPxk5fS';
@@ -94,10 +76,7 @@ class SDKPlayer extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-
-        </header>
+      <div>
       </div>
     );
   }
