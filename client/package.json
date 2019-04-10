@@ -14,7 +14,8 @@
     "react-router-dom": "^5.0.0",
     "react-scripts": "1.0.17",
     "react-spotify-api": "^1.5.2",
-    "spotify-web-api-js": "^0.22.1"
+    "spotify-web-api-js": "^0.22.1",
+    "twilio": "^3.30.0"
   },
   "scripts": {
     "start-poll": "CHOKIDAR_USEPOLLING=true react-scripts start",
