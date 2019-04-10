@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { Component } from 'react';
+import SearchResults from '../SearchResults/SearchResults';
+import Spotify from '../../Spotify/Spotify';
+
+
 import './SearchBar.css';
 
-class SearchBar extends React.Component {
+class SearchBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchTerm: ''
+      searchTerm: '',
+      searchResults: [],
+      playlistID: ''
     };
   }
 
+  componentWillMount(){
+    this.setState ({
+      playlistID: this.props.playlistID
+    })
+  }
   componentDidUpdate (prevProps, prevState) {
-    if (prevState.searchTerm !== this.state.searchTerm && this.state.searchTerm.length % 2 === 0) {
+    if (prevState.searchTerm !== this.state.searchTerm) {
       this.search();
     }
   }
@@ -30,7 +41,18 @@ class SearchBar extends React.Component {
   }
 
   search = () => {
-    this.state.searchTerm && this.props.onSearch(this.state.searchTerm);
+    this.state.searchTerm && Spotify.search(this.state.searchTerm).then(results => {
+      this.setState({ searchResults: results });
+    })
+  }
+
+  addSong = (playlistID, uri) => {
+    console.log("WOAH!", playlistID)
+    console.log("HUH?", uri)
+    Spotify.addTrack(playlistID, uri)
+    let target = document.getElementById('SearchInput')
+    target.value = ''
+    this.setState({ searchResults: [] });
   }
 
   render() {
@@ -50,6 +72,11 @@ class SearchBar extends React.Component {
           </button>
           <br />
         </div>
+        <SearchResults 
+          playlistID = {this.props.playlistID}
+          addSong = {this.addSong}
+          results={this.state.searchResults} 
+          />
       </div>
     );
   }

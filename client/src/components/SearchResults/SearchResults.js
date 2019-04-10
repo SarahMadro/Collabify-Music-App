@@ -3,7 +3,6 @@ import Spotify from '../../Spotify/Spotify';
 
 
 const SearchResults = (props) => {
-  console.log(props.results)
   const options = props.results.map(song => (
     <li key={song.id} className='list-group-item TrackItem'>
     <div className='media'>
@@ -11,7 +10,7 @@ const SearchResults = (props) => {
       <div className='media-body'>
         <h5 className='mt-0 TrackName'>{song.name}</h5>
         <p className='ArtistName'>{song.artist}</p>
-      <button onClick={() => {Spotify.addTrack(props.playlistID, song.uri)}}>ADD SONG</button>
+      <button onClick={() => {props.addSong(props.playlistID, song.uri)}}>ADD SONG</button>
       </div>
       </div>
       </li>

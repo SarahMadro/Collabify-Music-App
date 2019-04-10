@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Script from 'react-load-script';
 // import WebPlaybackReact from './Spotify/WebPlaybackReact.js';
 
 class SDKPlayer extends Component {
