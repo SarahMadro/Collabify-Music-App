@@ -7,7 +7,13 @@ import Spotify from '../../Spotify/Spotify';
 import './Room.css';
 
 // import SDKPlayer from '../../Spotify/Player';
+<<<<<<< HEAD
 import Widget from '../../Spotify/Playback';
+=======
+// import Widget from '../../Spotify/Playback';
+
+
+>>>>>>> 47a00419be74a5f13267599fabcddcec8ac4a8ad
 
 class Room extends Component {
   constructor(props) {
@@ -24,8 +30,15 @@ class Room extends Component {
     };
   }
 
+<<<<<<< HEAD
   componentWillMount() {
     this.setState({
+=======
+
+  
+  componentWillMount(){
+    this.setState ({
+>>>>>>> 47a00419be74a5f13267599fabcddcec8ac4a8ad
       playlistID: this.getPlaylistFromUrl()
     });
   }
@@ -37,7 +50,6 @@ class Room extends Component {
   getPlaylistDetails = () => {
     Spotify.getPlaylistDetails(this.state.playlistID).then(response => {
       return this.setState({
-        playlistTrackIndex: response.tracks.index,
         playlistDesc: response.description,
         playlistTracks: response.tracks,
         playlistImage: response.image,
@@ -65,12 +77,24 @@ class Room extends Component {
     });
   };
 
+  reload = () => {
+    window.location.reload(false);
+  }
+
   render() {
     return (
       <div style={{ overflow: 'hidden' }}>
         <Header />
         <RoomCover playlistInfo={this.state} />
+<<<<<<< HEAD
         <SearchBar onSearch={this.search} playlistID={this.state.playlistID} />
+=======
+        <SearchBar 
+          onSearch={this.search} 
+          playlistID={this.state.playlistID}
+          reload={this.reload}/>
+
+>>>>>>> 47a00419be74a5f13267599fabcddcec8ac4a8ad
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
         {/* <SDKPlayer onPlayerCreated={player => this.setState({ */}
         {/* player})}/> */}

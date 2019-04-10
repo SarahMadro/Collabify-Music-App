@@ -13,13 +13,6 @@ class RoomCover extends Component {
                 <div className='media-body PlaylistInfo'>
                   <h3 className='mt-0 PlaylistN'>{this.props.playlistInfo.playlistName}</h3>
                   <p className='PlaylistDesc'>{this.props.playlistInfo.playlistDesc}</p>
-                  <ul>
-                    <li style={{ display: 'inline' }}>
-                      <a className='btn btn-success share' href=''>
-                        Share
-                      </a>
-                    </li>
-                  </ul>
                 </div>
               </div>
             </div>
