@@ -19,6 +19,7 @@
     "sequelize": "^5.2.11",
     "sequelize-cli": "^5.4.0",
     "socket.io": "^2.2.0",
+    "twilio": "^3.30.0",
     "whatwg-fetch": "^3.0.0"
   }
 }
