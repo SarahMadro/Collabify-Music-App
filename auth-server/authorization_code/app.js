@@ -127,28 +127,6 @@ app.get('/callback', function(req, res) {
           json: true
         };
 
-<<<<<<< HEAD
-        // IMPORTANT!!!!! ********************************************************************************************
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          // Add something here
-        });
-        // IMPORTANT!!!!! ********************************************************************************************
-
-
-
-        req.session.token = access_token;
-        // we can also pass the token to the browser to make requests from there
-        res.redirect('http://localhost:3000');
-      } else {
-        res.redirect(
-          '/#' +
-            querystring.stringify({
-              error: 'invalid_token'
-            })
-        );
-      }
-=======
     req.session.token = access_token;
     // we can also pass the token to the browser to make requests from there
     res.redirect('http://localhost:3000');
@@ -163,7 +141,6 @@ app.get('/callback', function(req, res) {
     }
     });
     }
->>>>>>> 4083343b56474208108ca2b7cb06c43739e37435
     });
   }
 });
