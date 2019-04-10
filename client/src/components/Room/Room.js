@@ -6,7 +6,6 @@ import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
 import SDKPlayer from '../../Spotify/Player';
 import Widget from '../../Spotify/Playback';
-// import SearchResults from '../SearchResults/SearchResults';
 import SearchResults from '../SearchResults/SearchResults';
 
 class Room extends Component {
@@ -22,7 +21,6 @@ class Room extends Component {
       tracksToRemove: [],
       player: null
     };
-
   }
 
   componentWillMount(){
@@ -55,16 +53,15 @@ class Room extends Component {
     return vars[1];
   }
 
-  addTrack = track => {
-    console.log("Hello!", track)
-    let tracks = this.state.playlistTracks;
-    if (!tracks.find(trackIndex => trackIndex.id === track.id)) {
-      tracks.push(track);
-      this.setState({ playlistTracks: tracks }, () => {
-        this.setState({ searchResults: []});
-    })
-  }
-}
+  // addTrack = track => {
+  //   let tracks = this.state.playlistTracks;
+  //   if (!tracks.find(trackIndex => trackIndex.id === track.id)) {
+  //     tracks.push(track);
+  //     this.setState({ playlistTracks: tracks }, () => {
+  //       this.setState({ searchResults: []})
+  //       ;})
+  //     }
+  // }
 
   removeTracks = trackURIToGo => {
     let newTracks = this.state.playlistTracks;
