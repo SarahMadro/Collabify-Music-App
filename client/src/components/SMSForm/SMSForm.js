@@ -1,41 +1,64 @@
-    import React, { Component } from 'react';
-    import twilio from '../../Twilio/twilio';
+import React, { Component } from 'react';
+import twilio from '../../Twilio/twilio';
+import './SMSForm.css';
 
-    class SMSForm extends Component {
-    constructor(props) {
+class SMSForm extends Component {
+  constructor(props) {
     super(props);
     this.state = {
-        playlistID: this.props.playlistID,
-        phone: ''
+      playlistID: this.props.playlistID,
+      phone: '',
+      textSent: false
     };
-    }
+  }
 
-    sendText = (playlistID, phone) => {
-    console.log(playlistID);
-    console.log(phone);
-    };
+  onHandleChange = event => {
+    this.setState({
+      phone: event.target.value
+    });
+  };
 
-    onHandleChange = event =>{
-        this.setState ({
-            phone: event.target.value 
-        })
-    }
+  sendText = event => {
+    event.preventDefault();
+    twilio.sendText(this.state.playlistID, this.state.phone);
 
-    sendText = (event) => {
-        event.preventDefault();
-        twilio.sendText(this.state.playlistID, this.state.phone)
-    };
+    this.showMsg();
+    this.resetState();
+  };
 
-    render() {
+  showMsg = () => {
+    this.setState({
+      textSent: true
+    });
+  };
+
+  resetState = () => {
+    setTimeout(() => {
+      this.setState({
+        textSent: false
+      });
+    }, 3500);
+  };
+  render() {
     return (
-        <div>
+      <div>
+        <h4 className='TextHeader'>Share your music:</h4>
         <form>
-            <input id='phoneNumber' onChange={this.onHandleChange} value={this.state.phone}  />
-            <button onClick={this.sendText} >Sent Text</button>
+          <input
+            id='phoneNumber'
+            className='TextInput'
+            onChange={this.onHandleChange}
+            value={this.state.phone}
+            placeholder='Enter phone number'
+          />
+          <button className='TextButton btn btn-success' onClick={this.sendText}>
+            Sent Text
+          </button>
         </form>
-        </div>
+        {this.state.textSent ? <p className='message'>Your friend has been texted, keep sharing!</p> : ''}
+      </div>
     );
-    }
-    }
+  }
+}
 
-    export default SMSForm;
+export default SMSForm;

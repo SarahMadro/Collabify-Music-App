@@ -1,0 +1,41 @@
+.TextInput {
+  width: 200px;
+  height: 45px;
+  border-radius: 50px;
+  border-width: 1px;
+  border-color: #ccc;
+  border-style: solid;
+  background-color: transparent;
+  font-size: 20px;
+  color: #fff;
+  outline: 0 none;
+  padding-left: 10px;
+  background-color: rgba(255, 255, 255, 0.119);
+}
+
+.message {
+  padding-top: 20px;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.TextHeader {
+  color: #fff;
+  font-size: 18px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.TextInput::placeholder {
+  font-size: 15px;
+}
+
+.TextButton {
+  border-radius: 50px;
+  cursor: pointer;
+  margin-left: 10px;
+  height: 45px;
+  border: none;
+  padding: 10px 20px 10px 20px;
+  font-size: 16px;
+}

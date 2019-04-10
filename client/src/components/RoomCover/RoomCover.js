@@ -17,8 +17,8 @@ class RoomCover extends Component {
                 </div>
               </div>
             </div>
-            <div className='col-4 Col2' >
-            <SMSForm playlistID={this.props.playlistInfo.playlistID} />
+            <div className='col-4 Col2'>
+              <SMSForm playlistID={this.props.playlistInfo.playlistID} />
             </div>
           </div>
         </div>

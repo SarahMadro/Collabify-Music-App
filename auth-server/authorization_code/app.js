@@ -7,17 +7,15 @@ const rp = require('request-promise');
 const bodyParser = require('body-parser');
 require('dotenv').config();
 
-
 //SPOTIFY KEYS
 const client_id = process.env.CLIENT_ID; // Your client id
 const client_secret = process.env.CLIENT_SECRET; // Your secret
 const redirect_uri = 'http://localhost:8080/callback'; // Or Your redirect uri
 
-
-const twilioAccountSid = 'AC856d1cf5ce531e37e0a59fd968ee704f';
-const twilioAuthToken = '727f5f6bd223688e1c6497a5e9a3aa88';
+//TWILIO KEYS
+const twilioAccountSid = process.env.TWILIO_CLIENT_ID;
+const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require('twilio')(twilioAccountSid, twilioAuthToken);
-
 
 const generateRandomString = function(length) {
   let text = '';
@@ -62,33 +60,30 @@ app.use(function(req, res, next) {
 app.get('/sendtext', function(req, res) {
   let playlistID = req.query.playlistID;
   twilioClient.messages
-  .create({
+    .create({
       from: '+12048179218',
       body: `https://open.spotify.com/playlist/${playlistID}/`,
       to: '+17783177270'
-      })
-  .then(message => console.log(message.sid));
+    })
+    .then(message => console.log(message.sid));
 }),
-
-
-// Requesting login information from user
-app.get('/login', function(req, res) {
-  let state = generateRandomString(16);
-  res.cookie(stateKey, state);
-  // your application requests authorization
-  const scope =
-    'user-read-private user-read-playback-state playlist-modify-private playlist-read-collaborative';
-  res.redirect(
-    'https://accounts.spotify.com/authorize?' +
-      querystring.stringify({
-        response_type: 'code',
-        client_id: client_id,
-        scope: scope,
-        redirect_uri: redirect_uri,
-        state: state
-      })
-  );
-});
+  // Requesting login information from user
+  app.get('/login', function(req, res) {
+    let state = generateRandomString(16);
+    res.cookie(stateKey, state);
+    // your application requests authorization
+    const scope = 'user-read-private user-read-playback-state playlist-modify-private playlist-read-collaborative';
+    res.redirect(
+      'https://accounts.spotify.com/authorize?' +
+        querystring.stringify({
+          response_type: 'code',
+          client_id: client_id,
+          scope: scope,
+          redirect_uri: redirect_uri,
+          state: state
+        })
+    );
+  });
 
 // your application requests access tokens
 app.get('/callback', function(req, res) {
@@ -127,20 +122,17 @@ app.get('/callback', function(req, res) {
           json: true
         };
 
-    req.session.token = access_token;
-    // we can also pass the token to the browser to make requests from there
-    res.redirect('http://localhost:3000');
-    }
-    else {
-      res.redirect(
-        '/#' +
-        querystring.stringify({
-          error: 'invalid_token'
-        })
-      );
-    }
-    });
-    }
+        req.session.token = access_token;
+        // we can also pass the token to the browser to make requests from there
+        res.redirect('http://localhost:3000');
+      } else {
+        res.redirect(
+          '/#' +
+            querystring.stringify({
+              error: 'invalid_token'
+            })
+        );
+      }
     });
   }
 });
@@ -150,24 +142,22 @@ app.get('/userinfo', (req, res) => {
   const headers = {
     Authorization: `Bearer ${req.session.token}`
   };
-  rp('https://api.spotify.com/v1/me', { headers, json: true })
-      .then(body => {
-        const userInfo = {
-          name: body.display_name,
-          id: body.id,
-          uri: body.uri,
-          image: body.images[0].url
-        }
-        res.send(userInfo)
-      })
-    }),
-
+  rp('https://api.spotify.com/v1/me', { headers, json: true }).then(body => {
+    const userInfo = {
+      name: body.display_name,
+      id: body.id,
+      uri: body.uri,
+      image: body.images[0].url
+    };
+    res.send(userInfo);
+  });
+}),
   app.get('/search', (req, res) => {
     let searchTerm = req.query.searchTerm;
     const headers = {
       Authorization: `Bearer ${req.session.token}`
     };
-  // Call Spotify API with search term
+    // Call Spotify API with search term
     request(
       `https://api.spotify.com/v1/search?type=track&q=${searchTerm}&market=from_token&limit=5`,
       { headers: headers },
@@ -182,24 +172,18 @@ app.get('/getplaylists', (req, res) => {
   const headers = {
     Authorization: `Bearer ${req.session.token}`
   };
-  rp('https://api.spotify.com/v1/me/playlists?limit=50',
-    { headers, json: true })
-    .then(body => {
-      res.send(body.items);
-    });
-  }),
-
-// get a specific playlist's details
-app.get('/getPlaylistDetails', (req, res) => {
-  let playlistID = req.query.playlistID;
-  const headers = {
-    Authorization: `Bearer ${req.session.token}`
-  };
-  // Call Spotify API with Playlist ID
-  request(
-    `https://api.spotify.com/v1/playlists/${playlistID}`    ,
-    { headers: headers },
-    function(err, result, body) {
+  rp('https://api.spotify.com/v1/me/playlists?limit=50', { headers, json: true }).then(body => {
+    res.send(body.items);
+  });
+}),
+  // get a specific playlist's details
+  app.get('/getPlaylistDetails', (req, res) => {
+    let playlistID = req.query.playlistID;
+    const headers = {
+      Authorization: `Bearer ${req.session.token}`
+    };
+    // Call Spotify API with Playlist ID
+    request(`https://api.spotify.com/v1/playlists/${playlistID}`, { headers: headers }, function(err, result, body) {
       res.send(result.body);
     });
   });
@@ -207,7 +191,7 @@ app.get('/getPlaylistDetails', (req, res) => {
 // create a new playlist
 app.post('/createplaylist', (req, res) => {
   const headers = {
-    Authorization: `Bearer ${req.session.token}`,
+    Authorization: `Bearer ${req.session.token}`
   };
   let userID;
   let playlistID;
@@ -232,17 +216,17 @@ app.post('/createplaylist', (req, res) => {
     })
     .then(() => {
       res.json({ playlistID, userID });
-  });
+    });
 });
 
 // add tracks to Spotify playlist
 app.post('/addtracks', (req, res) => {
   const headers = {
-    'Authorization': `Bearer ${req.session.token}`,
+    Authorization: `Bearer ${req.session.token}`,
     'Content-Type': 'application/json'
-    };
+  };
   let playlistID = req.body.playlistID;
-  let addTracks = req.body.addTrack
+  let addTracks = req.body.addTrack;
   return rp(`https://api.spotify.com/v1/playlists/${playlistID}/tracks`, {
     headers,
     json: true,
@@ -267,6 +251,17 @@ app.post('/deletetracks', (req, res) =>{
       tracks: req.body.removeTracks,
     })
   })
+}),
+
+app.get('/sendtext', function(req, res) {
+  let playlistID = req.query.playlistID;
+  twilioClient.messages
+  .create({
+      from: '+12048179218',
+      body: `https://open.spotify.com/playlist/${playlistID}/`,
+      to: '+17783177270'
+      })
+  .then(message => console.log(message.sid));
 }),
 
 // checks if server is running

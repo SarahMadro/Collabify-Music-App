@@ -2,13 +2,13 @@
   background-color: rgba(255, 255, 255);
   width: 550px;
   position: absolute;
-  top: 412px;
-  left: 200px;
-  z-index: 50;
+  left: 45px;
+  z-index: 50 !important;
   height: auto;
 }
 
 .Results li {
+  z-index: 50 !important;
   cursor: pointer;
 }
 
@@ -17,23 +17,26 @@
 }
 
 .TrackItemResult {
+  z-index: 50 !important;
   border: none;
   border-bottom: 1px solid rgba(204, 204, 204, 0.42) !important;
   background: transparent;
   font-size: 18px;
   font-weight: 500;
-  padding-bottom: 5px;
+  padding-bottom: 0;
 }
 
 .ArtistNameResult {
+  z-index: 50 !important;
   color: #606060;
   opacity: 0.8;
   font-weight: 300;
   font-size: 0.8em;
-  margin-bottom: 5px;
+  margin-bottom: 0;
 }
 
 .TrackNameResult {
+  z-index: 50 !important;
   color: #454545;
-  padding-top: 10px;
+  padding-top: 00px;
 }
