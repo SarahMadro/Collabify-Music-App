@@ -1,11 +1,16 @@
 .MyCollabs {
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
   color: #404040;
   font-weight: bold;
-  width: 100%;
-  background-color: #eaeaea;
+  width: 66.4% !important;
+  background-color: #ccc;
   padding-top: 20px;
   padding-bottom: 20px;
   margin-bottom: 0;
+  position: absolute;
+  top: 0;
+  z-index: 100;
 }
 
 .list-group-item:first-child {
@@ -17,10 +22,10 @@
   border-radius: 10px;
   background-color: #fff;
   width: 70% !important;
-  margin: 0 auto;
   text-align: center;
   max-height: 450px;
   overflow-y: scroll;
+  margin: 0 auto !important;
 }
 
 .PlaylistGet {
@@ -30,6 +35,10 @@
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
+}
+
+.CollabItem:first-child {
+  margin-top: 73px;
 }
 
 .CollabItem {
