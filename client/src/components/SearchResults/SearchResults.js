@@ -1,5 +1,4 @@
 import React from 'react';
-import Spotify from '../../Spotify/Spotify';
 
 const SearchResults = (props) => {
   const options = props.results.map(song => (

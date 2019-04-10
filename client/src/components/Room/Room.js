@@ -6,7 +6,8 @@ import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
 // import SDKPlayer from '../../Spotify/Player';
 // import Widget from '../../Spotify/Playback';
-import SearchResults from '../SearchResults/SearchResults';
+
+
 
 class Room extends Component {
   constructor(props) {
@@ -23,6 +24,8 @@ class Room extends Component {
     };
   }
 
+
+  
   componentWillMount(){
     this.setState ({
       playlistID: this.getPlaylistFromUrl()
@@ -37,7 +40,6 @@ class Room extends Component {
     Spotify.getPlaylistDetails(this.state.playlistID)
     .then(response => {
       return this.setState({
-        playlistTrackIndex: response.tracks.index,
         playlistDesc: response.description,
         playlistTracks: response.tracks,
         playlistImage: response.image,
@@ -66,13 +68,19 @@ class Room extends Component {
     });
   }
 
+  reload = () => {
+    window.location.reload(false);
+  }
+
   render() {
     return (
       <div>
         <Header />
         <RoomCover playlistInfo={this.state} />
-        <SearchBar onSearch={this.search} 
-        playlistID={this.state.playlistID} />
+        <SearchBar 
+          onSearch={this.search} 
+          playlistID={this.state.playlistID}
+          reload={this.reload}/>
 
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
         {/* <SDKPlayer onPlayerCreated={player => this.setState({ */}
