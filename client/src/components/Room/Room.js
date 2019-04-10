@@ -5,8 +5,6 @@ import SearchBar from '../SearchBar/SearchBar';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
 import './Room.css';
-
-// import SDKPlayer from '../../Spotify/Player';
 import Widget from '../../Spotify/Playback';
 
 class Room extends Component {

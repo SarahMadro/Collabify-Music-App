@@ -16,7 +16,7 @@ There are two parts to it, the auth-server, and the client.
 ### 2)  Start Auth Server
 - Navigate to the auth-server directory `cd auth-server/authorization_code`
 - Install the dependencies `npm install`
-- Paste in the redirect uri, client id, and client secret you copied in step 1 to a .env file *(and make sure to include it in your .gitignore!)*
+- Paste in the redirect uri, client id, and client secret you copied in step 1 to a .env file *(and make sure to include that file in your .gitignore!)*
 - Run the Server `node app.js`
 
 
@@ -31,3 +31,5 @@ There are two parts to it, the auth-server, and the client.
 - Click 'Log in with Spotify' to log in, and Authorize 
 - Create a Playlist! New Playlists will only post to Spotify if there is a Playlist name. Descrption is option. The empty (collaborative) playlist instantly shows up on your Spotify account.
 - Add songs! Clicking on any of the playlists on the right will open them up in the window. You can `add` or `delete` songs from within there. 
+
+

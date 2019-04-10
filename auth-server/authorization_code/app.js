@@ -59,18 +59,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.get('/sendtext', function(req, res) {
-  let playlistID = req.query.playlistID;
-  twilioClient.messages
-  .create({
-      from: '+12048179218',
-      body: `https://open.spotify.com/playlist/${playlistID}/`,
-      to: '+17783177270'
-      })
-  .then(message => console.log(message.sid));
-}),
-
-
 // Requesting login information from user
 app.get('/login', function(req, res) {
   let state = generateRandomString(16);
@@ -265,6 +253,17 @@ app.post('/deletetracks', (req, res) =>{
       tracks: req.body.removeTracks,
     })
   })
+}),
+
+app.get('/sendtext', function(req, res) {
+  let playlistID = req.query.playlistID;
+  twilioClient.messages
+  .create({
+      from: '+12048179218',
+      body: `https://open.spotify.com/playlist/${playlistID}/`,
+      to: '+17783177270'
+      })
+  .then(message => console.log(message.sid));
 }),
 
 // checks if server is running
