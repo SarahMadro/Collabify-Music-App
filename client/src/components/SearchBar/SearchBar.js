@@ -47,12 +47,11 @@ class SearchBar extends Component {
   }
 
   addSong = (playlistID, uri) => {
-    console.log("WOAH!", playlistID)
-    console.log("HUH?", uri)
-    Spotify.addTrack(playlistID, uri)
-    let target = document.getElementById('SearchInput')
-    target.value = ''
+    Spotify.addTrack(playlistID, uri);
+    let target = document.getElementById('SearchInput');
+    target.value = '';
     this.setState({ searchResults: [] });
+    this.props.reload()
   }
 
   render() {
