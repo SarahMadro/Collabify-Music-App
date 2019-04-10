@@ -107,23 +107,30 @@ app.get('/callback', function(req, res) {
           json: true
         };
 
-        req.session.token = access_token;
-        // we can also pass the token to the browser to make requests from there
-        res.redirect('http://localhost:3000/#') +
-        querystring.String({
-          access_token: access_token
-        })
-      } else {
-        res.redirect(
-          '/#' +
-            querystring.stringify({
-              error: 'invalid_token'
-            })
-        );
-      }
+    // IMPORTANT!!!!! ********************************************************************************************
+    // use the access token to access the Spotify Web API
+    request.get(options, function (error, response, body) {
+      // Add something here
     });
-  }
-});
+    // IMPORTANT!!!!! ********************************************************************************************
+
+
+
+    req.session.token = access_token;
+    // we can also pass the token to the browser to make requests from there
+    res.redirect('http://localhost:3000');
+    }
+    else {
+      res.redirect(
+        '/#' +
+        querystring.stringify({
+          error: 'invalid_token'
+        })
+      );
+    }
+    });
+    }
+    });
 
 // get current user's info
 app.get('/userinfo', (req, res) => {
