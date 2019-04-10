@@ -23,20 +23,18 @@ class Room extends Component {
     };
   }
 
-  componentWillMount(){
-    this.setState ({
+  componentWillMount() {
+    this.setState({
       playlistID: this.getPlaylistFromUrl()
-    })
+    });
   }
 
-  componentDidMount(){
-    this.getPlaylistDetails()
+  componentDidMount() {
+    this.getPlaylistDetails();
   }
-
 
   getPlaylistDetails = () => {
-    Spotify.getPlaylistDetails(this.state.playlistID)
-    .then(response => {
+    Spotify.getPlaylistDetails(this.state.playlistID).then(response => {
       return this.setState({
         playlistTrackIndex: response.tracks.index,
         playlistDesc: response.description,
@@ -45,13 +43,13 @@ class Room extends Component {
         playlistName: response.name
       });
     });
-  }
+  };
 
   getPlaylistFromUrl = () => {
     let query = window.location.href;
     let vars = query.split('=');
     return vars[1];
-  }
+  };
 
   // addTrack = track => {
   //   let tracks = this.state.playlistTracks;
@@ -66,16 +64,15 @@ class Room extends Component {
   removeTracks = trackURIToGo => {
     let newTracks = this.state.playlistTracks;
     this.setState({ tracksToRemove: [...this.state.tracksToRemove, trackURIToGo] }, () => {
-      this.setState({ playlistTracks: newTracks.filter(trackIndex => trackIndex.track.uri !== trackURIToGo)}
-        )
-    })
-  }
+      this.setState({ playlistTracks: newTracks.filter(trackIndex => trackIndex.track.uri !== trackURIToGo) });
+    });
+  };
 
   search = searchTerm => {
     Spotify.search(searchTerm).then(results => {
       this.setState({ searchResults: results });
     });
-  }
+  };
 
   render() {
     return (
@@ -85,15 +82,13 @@ class Room extends Component {
         <SearchBar onSearch={this.search} />
 
         {/* <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack} /> */}
-        <SDKPlayer onPlayerCreated={player => this.setState({
-          player})}/>
-        <Widget playlistID={this.state.playlistID} />
-        <br /><br /><br />
-        <SearchResults
-          results={this.state.searchResults}
-          addTrack={this.addTrack}
-          playlistID={this.state.playlistID}
-          />
+        {/* <SDKPlayer onPlayerCreated={player => this.setState({
+          player})}/> */}
+        {/* <Widget playlistID={this.state.playlistID} /> */}
+        <br />
+        <br />
+        <br />
+        <SearchResults results={this.state.searchResults} addTrack={this.addTrack} playlistID={this.state.playlistID} />
         <TrackList
           playlistID={this.state.playlistID}
           playlistTracks={this.state.playlistTracks}
