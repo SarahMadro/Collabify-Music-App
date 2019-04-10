@@ -11,7 +11,7 @@ node_modules/
 /build
 
 # misc
-/auth-server/authorization_code/.env
+auth-server/authorization_code/.env
 .DS_Store
 .env.local
 .env.development.local
