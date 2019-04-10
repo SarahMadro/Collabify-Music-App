@@ -1,6 +1,6 @@
 # Collabify (Spotify Clone)
-This Repo is for a Spotify Clone called Collabify.
-It's a simple app that allows users create collaborative playlists, add and remove songs and play their playlists.
+This repo is for a Spotify Playlist Creator and Manager called Collabify.
+It's a simple app that allows users create collaborative playlists, add and remove songs and listen their playlists.
 There are two parts to it, the auth-server, and the client.
 
 ## Getting Statrted
@@ -26,10 +26,20 @@ There are two parts to it, the auth-server, and the client.
 - Run the Server `npm run start-poll`
 
 ### 4)  Use the App
-- Make sure you have a song playing (or paused) on a Spotify app
 - Visit http://localhost:8080
 - Click 'Log in with Spotify' to log in, and Authorize 
-- Create a Playlist! New Playlists will only post to Spotify if there is a Playlist name. Descrption is option. The empty (collaborative) playlist instantly shows up on your Spotify account.
+
+*NOTE: All users must have an account with Spotify to use this app*
+
+- Create a Playlist! New Playlists will only post to Spotify if there is a Playlist name. Descrption is optional. The empty (collaborative) playlist instantly shows up on your Spotify account.
 - Add songs! Clicking on any of the playlists on the right will open them up in the window. You can `add` or `delete` songs from within there. 
+- Share with friends! Enter the phone number of a friend you want to share your playlist with! They'll receive a link which opens the playlist in their Spotify mobile app, where they can add songs.
 
 
+![Landing page: Clicking this button will send you to Spotify's authorization page. Giving this app permission to read your profile information (such as name, number of followers, etc) and create and edit playlists.](https://github.com/SarahMadro/Collabify-Music-App/blob/flowCheck/docs/Home%20Screen.png?raw=true)
+
+![Landing page: Clicking this button will send you to Spotify's authorization page. Giving this app permission to read your profile information (such as name, number of followers, etc) and create and edit playlists.](https://github.com/SarahMadro/Collabify-Music-App/blob/flowCheck/docs/Spotify%20Authorization.png?raw=true)
+
+![Main Dashboard: Create a collaborative playlist from here. Playlists made here will be collaborative by default. The component on the right is a filtered list of all your Collaborative Playlists.](https://github.com/SarahMadro/Collabify-Music-App/blob/flowCheck/docs/Main%20Dashboard.png?raw=true)
+
+![Playlist Room: In here the user can add or delete songs. Search will return the top five results. Click on any one of them will add them to your playlist instantly.](https://github.com/SarahMadro/Collabify-Music-App/blob/flowCheck/docs/Playlist%20Details.png?raw=true)
