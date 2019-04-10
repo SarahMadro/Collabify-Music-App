@@ -10,10 +10,16 @@ class SearchBar extends Component {
     super(props);
     this.state = {
       searchTerm: '',
-      searchResults: []
+      searchResults: [],
+      playlistID: ''
     };
   }
 
+  componentWillMount(){
+    this.setState ({
+      playlistID: this.props.playlistID
+    })
+  }
   componentDidUpdate (prevProps, prevState) {
     if (prevState.searchTerm !== this.state.searchTerm) {
       this.search();
@@ -40,13 +46,13 @@ class SearchBar extends Component {
     })
   }
 
-  addSong = (uri) => {
-    console.log("WE HERE")
-    Spotify.addTrack(this.props.playlistID, uri)
-      let target = document.getElementById('SearchInput')
-      target.value = ''
-      this.setState({ searchResults: [] });
-      // this.search(this.state.searchTerm)
+  addSong = (playlistID, uri) => {
+    console.log("WOAH!", playlistID)
+    console.log("HUH?", uri)
+    Spotify.addTrack(playlistID, uri)
+    let target = document.getElementById('SearchInput')
+    target.value = ''
+    this.setState({ searchResults: [] });
   }
 
   render() {
@@ -67,6 +73,7 @@ class SearchBar extends Component {
           <br />
         </div>
         <SearchResults 
+          playlistID = {this.props.playlistID}
           addSong = {this.addSong}
           results={this.state.searchResults} 
           />
