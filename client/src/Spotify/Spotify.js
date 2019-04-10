@@ -19,7 +19,6 @@ const Spotify = {
     });
   },
 
-
   savePlaylist(playlistName, playlistDesc, trackURIs) {
     return axios
       .post('/createplaylist', { playlistName, playlistDesc })
@@ -32,6 +31,12 @@ const Spotify = {
         }
         return responseData
       })
+  },
+
+  addTrack(playlistID, trackURI){
+    const addTrack = [];
+    addTrack.push(trackURI);
+    return axios.post('/addtracks', { playlistID, addTrack })
   },
 
   deleteTracks(playlistID, trackURIs){

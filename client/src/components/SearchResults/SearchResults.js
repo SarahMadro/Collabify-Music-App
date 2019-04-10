@@ -1,18 +1,22 @@
 import React from 'react';
-import TrackList from '../TrackList/TrackList';
+import Spotify from '../../Spotify/Spotify';
 
-class SearchResults extends React.Component {
-  render() {
-    return (
-      <div className='col' align='center'>
-        <div className='SearchResults'>
-          <h2>Results</h2>
-          <TrackList tracks={this.props.searchResults} onAdd={this.props.onAdd} isRemoval={false} />
-          {/* <TrackList tracks={this.props.playlistTracks} onRemove={this.props.onRemove} isRemoval={true} /> */}
-        </div>
+
+const SearchResults = (props) => {
+  console.log(props.results)
+  const options = props.results.map(song => (
+    <li key={song.id} className='list-group-item TrackItem'>
+    <div className='media'>
+      {/* <img src={song.album.images[0].url} className='mr-3 TrackImg' alt='album-cover' /> */}
+      <div className='media-body'>
+        <h5 className='mt-0 TrackName'>{song.name}</h5>
+        <p className='ArtistName'>{song.artist}</p>
+      <button onClick={() => {Spotify.addTrack(props.playlistID, song.uri)}}>ADD SONG</button>
       </div>
-    );
-  }
+      </div>
+      </li>
+  ))
+  return <ul>{options}</ul>
 }
 
-export default SearchResults;
+export default SearchResults
