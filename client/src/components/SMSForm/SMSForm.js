@@ -52,7 +52,7 @@ class SMSForm extends Component {
             placeholder='Enter phone number'
           />
           <button className='TextButton btn btn-success' onClick={this.sendText}>
-            Sent Text
+            Send Text
           </button>
         </form>
         {this.state.textSent ? <p className='message'>Your friend has been texted, keep sharing!</p> : ''}
