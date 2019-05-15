@@ -1,15 +1,11 @@
 import React, { Component } from 'react';
+import Widget from '../../Spotify/Playback';
 import Header from '../Header/Header';
 import TrackList from '../TrackList/TrackList';
 import SearchBar from '../SearchBar/SearchBar';
 import RoomCover from '../RoomCover/RoomCover';
 import Spotify from '../../Spotify/Spotify';
-<<<<<<< HEAD
-import './Room.css';;
-=======
 import './Room.css';
->>>>>>> f23bc4879349f6face64f0eba6fb4b71fa3d99b9
-import Widget from '../../Spotify/Playback';
 
 class Room extends Component {
   constructor(props) {
