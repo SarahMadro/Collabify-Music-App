@@ -13,6 +13,7 @@ class Widget extends Component {
         height='200'
         frameborder='0'
         allowtransparency='true'
+        allow='encrypted-media'
       />
     );
   }
